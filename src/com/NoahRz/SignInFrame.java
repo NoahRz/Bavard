@@ -22,7 +22,7 @@ public class SignInFrame extends JFrame {
         JLabel titleLabel = new JLabel("EPapotage", SwingConstants.CENTER);
         JTextField loginField = new JTextField("Login");
         JPasswordField passwordField = new JPasswordField("Password");
-        JButton signInButton = new JButton("Sign in");
+        SignInButton signInButton = new SignInButton();
 
         connexionPanel.add(titleLabel);
         connexionPanel.add(loginField);
@@ -57,7 +57,10 @@ public class SignInFrame extends JFrame {
         pane.add(borderFramePanelE, BorderLayout.EAST);
 
         /*Listeners*/
-        //signInButton.addActionListener(new SignInButtonListener(concierge, this));
+        loginField.addActionListener(signInButton);
+        passwordField.addActionListener(signInButton);
+
+        signInButton.addActionListener(new SignInButtonListener(concierge,this));
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

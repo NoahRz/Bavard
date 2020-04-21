@@ -3,14 +3,14 @@ package com.NoahRz;
 import java.util.ArrayList;
 
 public class Bavard implements PapotageListener {
-    private  String name;
+    private  String login;
     private PapotageListener concierge;
     private String password;
 
-    public Bavard(String name, String password, PapotageListener concierge){
-        this.name=name;
+    public Bavard(String login, String password, PapotageListener concierge){
+        this.login = login;
         this.concierge = concierge;
-        this.password=password;
+        this.password = password;
     }
 
     public Message createMessage(String subject, String body, ArrayList<String> addressees){
@@ -42,14 +42,14 @@ public class Bavard implements PapotageListener {
         /**
          * receive the message
          * @Param pe: PapotageEvent with message*/
-        System.out.println(this.name);
+        System.out.println(this.login);
         System.out.println(pe.getSource());
         System.out.println(pe.getMessages().getSubject());
     }
 
     @Override
-    public String getName(){
-        return name;
+    public String getLogin(){
+        return login;
     }
 
     public void addPapotageListener(PapotageListener pl){

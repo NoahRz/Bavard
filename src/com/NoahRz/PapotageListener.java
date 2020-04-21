@@ -5,7 +5,7 @@ import java.util.EventListener;
 public interface PapotageListener extends EventListener {
     public void receiveMessages(PapotageEvent pe);
 
-    public String getName();
+    public String getLogin();
 
     public void sendMessages(Message messageCreated);
 
