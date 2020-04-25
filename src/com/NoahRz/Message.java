@@ -22,6 +22,10 @@ public class Message {
     public ArrayList<String> getAddressees() {
         return addressees;
     }
+
+    public String getBody() {
+        return body;
+    }
 }
 
 

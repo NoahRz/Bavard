@@ -1,16 +1,18 @@
 package com.NoahRz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Concierge implements PapotageListener {
-    private String login;
-    private String password;
     /**
      * this class will listen to messages sent by Bavards and send them to the reveicers (Bavards)
      * */
 
+    private String login;
+    private String password;
     private ArrayList<PapotageListener> papotageListeners;
     private int cpt; // number of bavard
+    private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
 
     public Concierge(String login, String password){
         this.login = login;
@@ -19,28 +21,13 @@ public class Concierge implements PapotageListener {
         this.cpt=0;
     }
 
-    @Override
-    public void receiveMessages(PapotageEvent pe) {
-        /**
-         * receives the message sent and then send it to the addressees
-         * @param pe: the PapotageEvent received*/
-        System.out.println(this.login);
-        System.out.println(pe.getSource());
-        System.out.println(pe.getMessages().getSubject());
-        for (String addressee : pe.getMessages().getAddressees()){
-            PapotageListener pl = this.getPapotageListener(addressee);
-            pl.receiveMessages(pe);
-        }
-    }
+    /********************************************************************
+     Getter
+     ********************************************************************/
 
     @Override
     public String getLogin() {
         return this.login;
-    }
-
-    @Override
-    public void sendMessages(Message messageCreated) {
-
     }
 
     @Override
@@ -58,6 +45,32 @@ public class Concierge implements PapotageListener {
             }
         }
         return null;
+    }
+
+    public HashMap<PapotageListener, ArrayList<PapotageEvent>> getRecentDiscussion() {
+        return recentDiscussion;
+    }
+
+    /********************************************************************
+     Methods
+     ********************************************************************/
+
+    @Override
+    public void receiveMessages(PapotageEvent pe) {
+        /**
+         * receives the message sent and then send it to the addressees
+         * @param pe: the PapotageEvent received*/
+        System.out.println(this.login);
+        System.out.println(pe.getSource());
+        System.out.println(pe.getMessages().getSubject());
+        for (String addressee : pe.getMessages().getAddressees()){
+            PapotageListener pl = this.getPapotageListener(addressee);
+            pl.receiveMessages(pe);
+        }
+    }
+
+    @Override
+    public void sendMessages(Message messageCreated) {
     }
 
     public void createBavard(String login){

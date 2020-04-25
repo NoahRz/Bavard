@@ -1,18 +1,41 @@
 package com.NoahRz;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Bavard implements PapotageListener {
     private  String login;
     private PapotageListener concierge;
     private String password;
+    private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
 
     public Bavard(String login, String password, PapotageListener concierge){
         this.login = login;
         this.concierge = concierge;
         this.password = password;
+        this.recentDiscussion= new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
     }
 
+    /********************************************************************
+     Getter
+     ********************************************************************/
+    @Override
+    public String getPassword() {
+        return this.password;
+    }
+
+    @Override
+    public String getLogin(){
+        return login;
+    }
+
+    public HashMap<PapotageListener, ArrayList<PapotageEvent>> getRecentDiscussion() {
+        return recentDiscussion;
+    }
+
+    /********************************************************************
+     Methods
+     ********************************************************************/
     public Message createMessage(String subject, String body, ArrayList<String> addressees){
         /**
          * return the message created by the Bavard
@@ -31,11 +54,6 @@ public class Bavard implements PapotageListener {
         concierge.receiveMessages(pe); //message sent
     }
 
-    @Override
-    public String getPassword() {
-        return this.password;
-    }
-
 
     @Override
     public void receiveMessages(PapotageEvent pe) {
@@ -47,10 +65,6 @@ public class Bavard implements PapotageListener {
         System.out.println(pe.getMessages().getSubject());
     }
 
-    @Override
-    public String getLogin(){
-        return login;
-    }
 
     public void addPapotageListener(PapotageListener pl){
         /**
