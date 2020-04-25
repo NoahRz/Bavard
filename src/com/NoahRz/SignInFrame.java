@@ -2,10 +2,19 @@ package com.NoahRz;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
-public class SignInFrame extends JFrame {
+public class SignInFrame extends JFrame implements ActionListener, KeyListener{
+    private Concierge concierge;
+    private String loginEntered;
+    private String passwordEntered;
+    private JTextArea errorMessage = new JTextArea("Login or password is \nincorrect, please try again.");
 
     public SignInFrame(String nom, Concierge concierge){
+        this.concierge = concierge;
         this.setTitle(nom);
         this.setSize(400,400);
 
@@ -16,20 +25,24 @@ public class SignInFrame extends JFrame {
 
         /*Connexion panel in Center of the Frame*/
         JPanel connexionPanel = new JPanel();
-        connexionPanel.setLayout(new GridLayout(4,1));
+        connexionPanel.setLayout(new GridLayout(5,1));
         connexionPanel.setBackground(Color.YELLOW);
 
         JLabel titleLabel = new JLabel("EPapotage", SwingConstants.CENTER);
         JTextField loginField = new JTextField("Login");
         JPasswordField passwordField = new JPasswordField("Password");
-        SignInButton signInButton = new SignInButton();
+        JButton signInButton = new JButton("Sign in");
+        errorMessage.setBackground(Color.YELLOW);
+        this.errorMessage.setVisible(false);
+        //SignInButton signInButton = new SignInButton("Sign in",concierge,this);
 
         connexionPanel.add(titleLabel);
         connexionPanel.add(loginField);
         connexionPanel.add(passwordField);
+        connexionPanel.add(errorMessage);
         connexionPanel.add(signInButton);
 
-        connexionPanel.setPreferredSize(new Dimension(pane.getWidth()/3, pane.getHeight()/3));
+        connexionPanel.setPreferredSize(new Dimension(pane.getWidth()/3, pane.getHeight()/2));
         pane.add(connexionPanel, BorderLayout.CENTER);
 
         /*Yellow panel around the connexionPanel*/
@@ -37,11 +50,11 @@ public class SignInFrame extends JFrame {
         borderFramePanelN.setBackground(Color.YELLOW);
         System.out.println(this.getWidth());
         System.out.println(this.getWidth()/3);
-        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/3));
+        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
 
         JPanel borderFramePanelS = new JPanel();
         borderFramePanelS.setBackground(Color.YELLOW);
-        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/3));
+        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
 
         JPanel borderFramePanelW = new JPanel();
         borderFramePanelW.setBackground(Color.YELLOW);
@@ -57,18 +70,73 @@ public class SignInFrame extends JFrame {
         pane.add(borderFramePanelE, BorderLayout.EAST);
 
         /*Listeners*/
-        loginField.addActionListener(signInButton);
-        passwordField.addActionListener(signInButton);
+        loginField.addKeyListener(this);
+        passwordField.addKeyListener(this);
+        signInButton.addActionListener(this);
 
-        signInButton.addActionListener(new SignInButtonListener(concierge,this));
+        //signInButton.addActionListener(new SignInButtonListener(concierge,this));
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
-
     }
 
-    public void displaySignInErrorMsg() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if(e.getSource() instanceof JButton){
+            System.out.println("login : " + this.loginEntered);
+            System.out.println("password : " + this.passwordEntered);
+            if ((this.loginEntered!= null) && (this.passwordEntered!=null)){
+                PapotageListener guestBavard = concierge.getPapotageListener(loginEntered);
+                if (loginEntered.equals(concierge.getLogin())){
+                    System.out.println("1");
+                    if (passwordEntered.equals(concierge.getPassword())){
+                        System.out.println("2");
+                        this.dispose(); /*close the signInFrame*/
+                        new EPapotageFrame(concierge);
+                    }
+                    else{
+                        System.out.println("3");
+                        this.errorMessage.setVisible(true);
+                    }
+                }
+                else if (guestBavard != null){
+                    if (passwordEntered.equals(guestBavard.getPassword())){
+                        System.out.println("4");
+                        this.dispose(); /*close the signInFrame*/
+                        new EPapotageFrame(guestBavard, concierge); /*Open a new Frame*/
+                    } else {
+                        System.out.println("5");
+                        this.errorMessage.setVisible(true);
+                    }
+                }else{
+                    System.out.println("6");
+                    this.errorMessage.setVisible(true);
+                }
+            }else{
+                this.errorMessage.setVisible(true);
+            }
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getSource() instanceof JPasswordField) { // we do this way because JPasswordField is also an instance of JTextField
+            JPasswordField pf = (JPasswordField) e.getSource();
+            this.passwordEntered = new String(pf.getPassword());
+        }
+        else if (e.getSource() instanceof JTextField) {
+            JTextField tf = (JTextField) e.getSource();
+            this.loginEntered = tf.getText();
+        }
 
     }
 }
