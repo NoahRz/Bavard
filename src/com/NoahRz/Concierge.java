@@ -11,14 +11,13 @@ public class Concierge implements PapotageListener {
     private String login;
     private String password;
     private ArrayList<PapotageListener> papotageListeners;
-    private int cpt; // number of bavard
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
 
     public Concierge(String login, String password){
         this.login = login;
         this.password = password;
         this.papotageListeners = new ArrayList<PapotageListener>();
-        this.cpt=0;
+        this.recentDiscussion = new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
     }
 
     /********************************************************************
@@ -78,7 +77,6 @@ public class Concierge implements PapotageListener {
      * create a new Bavard and add him to the list papotageListeners
      * @Param login: login of the Bavard we want to create*/
         this.addPapotageListeners(new Bavard(login, "aaa",this));
-        this.cpt++;
     }
 
     private void addPapotageListeners(PapotageListener pl) {

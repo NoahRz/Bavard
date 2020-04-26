@@ -1,38 +1,28 @@
 package com.NoahRz;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 
-public class JPanelClickable extends JPanel implements MouseListener {
+public class JPanelClickable extends JPanel{
     private Boolean isClicked;
-    public JPanelClickable (){
+    private int id;
+    public JPanelClickable (int id){
         super();
+        this.id=id;
         this.isClicked = false;
+        this.setBackground(new Color(217,217,217));
     }
 
-    @Override
-    public void mouseClicked(MouseEvent e) {
-        this.isClicked=true;
+    public Boolean isClicked(){
+        return this.isClicked;
     }
 
-    @Override
-    public void mousePressed(MouseEvent e) {
-
+    public void setIsClicked(Boolean bool){
+        this.isClicked=bool;
     }
 
-    @Override
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-
+    public void clicked(){
+        this.setBackground(new Color(140,140,140));
     }
 }
