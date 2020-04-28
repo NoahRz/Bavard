@@ -10,8 +10,7 @@ public class JPanelClickable extends JPanel{
     public JPanelClickable (int id){
         super();
         this.id=id;
-        this.isClicked = false;
-        this.setBackground(new Color(217,217,217));
+        this.setIsClicked(false);
     }
 
     public Boolean isClicked(){
@@ -19,10 +18,18 @@ public class JPanelClickable extends JPanel{
     }
 
     public void setIsClicked(Boolean bool){
+        /**
+         * set isClicked attribut to bool and set the background color corresponding to the case
+         * @param bool: boolean, is clicked or not*/
         this.isClicked=bool;
+        if (bool){
+            this.setBackground(new Color(140,140,140));} // grey
+        else{
+            this.setBackground(new Color(217,217,217)); //lighter grey
+        }
     }
 
     public void clicked(){
-        this.setBackground(new Color(140,140,140));
+
     }
 }

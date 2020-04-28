@@ -1,6 +1,7 @@
 package com.NoahRz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Concierge implements PapotageListener {
@@ -70,6 +71,20 @@ public class Concierge implements PapotageListener {
 
     @Override
     public void sendMessages(Message messageCreated) {
+        /**
+         * send the message to the addresses
+         * @Param messageCreated : the message we've just created and we want to send
+         * */
+        PapotageEvent pe = new PapotageEvent(this, messageCreated); // source it's this object
+        for (String addressee : pe.getMessages().getAddressees()){
+            PapotageListener pl = this.getPapotageListener(addressee);
+            if (this.recentDiscussion.containsKey(pl)){
+                this.recentDiscussion.get(pl).add(pe); // we add this new message to the discussion
+            }else{
+                this.recentDiscussion.put(pl,new ArrayList<>(Arrays.asList(pe))); // we add a new discussion
+            }
+            pl.receiveMessages(pe);
+        }
     }
 
     public void createBavard(String login){

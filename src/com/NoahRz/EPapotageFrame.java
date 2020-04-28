@@ -38,20 +38,28 @@ public class EPapotageFrame extends JFrame {
         /* right panel : msg Feed   */
         /* ************************ */
 
-        JPanel msgFeed = new JPanel();
-        msgFeed.setBackground(Color.BLUE);
-        msgFeed.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()));
+        JPanel msgFeedPanel = new JPanel();
+        msgFeedPanel.setBackground(Color.BLUE);
+        msgFeedPanel.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()));
         ArrayList recentContact = new ArrayList(concierge.getRecentDiscussion().keySet()); // recentContact is a list of contact we had a discussion with
-        msgFeed.setLayout(new GridLayout(recentContact.size(),1));
+        System.out.println(recentContact);
+        msgFeedPanel.setLayout(new FlowLayout()); // we could have used a GridLayout but component wouldn't be resizable
         int i=0;
         for (PapotageListener pl: concierge.getRecentDiscussion().keySet()){ // pl is a Bavard
             JPanelClickable recentDiscussionPanel = new JPanelClickable(i); // it's the container of the login and the last message sent to this bavard
+            recentDiscussionPanel.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()/10));
             recentDiscussionPanel.setLayout(new GridLayout(2,1));
             recentDiscussionPanel.addMouseListener(new MouseAdapter() {
                 @Override
                 public void mousePressed(MouseEvent e) {
                     super.mousePressed(e);
                     recentDiscussionPanel.setIsClicked(true);
+                }
+
+                @Override
+                public void mouseReleased(MouseEvent e) {
+                    super.mouseReleased(e);
+                    recentDiscussionPanel.setIsClicked(false);
                 }
             });
 
@@ -64,11 +72,12 @@ public class EPapotageFrame extends JFrame {
 
             recentDiscussionPanel.add(recentContactLabel);
             recentDiscussionPanel.add(lastMessageLabel);
+            msgFeedPanel.add(recentDiscussionPanel);
             i++;
         }
-        this.add(msgFeed,BorderLayout.WEST);
+        this.add(msgFeedPanel,BorderLayout.WEST);
 
-        // Il faudra fixer la taille des messages dans le msgFeed
+        // Il faudra fixer la taille des messages dans le msgFeedPanel
 
         /* left panel : messaging panel */
         JPanel messagingPanel = new JPanel();
