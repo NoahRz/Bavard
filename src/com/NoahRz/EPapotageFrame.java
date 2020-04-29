@@ -107,8 +107,20 @@ public class EPapotageFrame extends JFrame {
         JPanel messageFieldPanel = new JPanel();
         messageFieldPanel.setBackground(Color.GREEN);
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
-        messageFieldPanel.setLayout(new GridLayout(1,2));
-        messagingPanel.add(messageFieldPanel,BorderLayout.SOUTH);
+        messageFieldPanel.setLayout(new FlowLayout());
+        JTextArea messagingTextArea = new JTextArea("write your message ... "); //area where the user can write message
+        messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/4));
+
+        JButton sendMessageButton = new JButton("Envoyer");
+        sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
+
+
+        messageFieldPanel.add(messagingTextArea);
+        messageFieldPanel.add(sendMessageButton);
+
+
+        messagingPanel.add(messageFieldPanel);
+
 
         this.add(messagingPanel, BorderLayout.CENTER);
 
