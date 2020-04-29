@@ -28,8 +28,4 @@ public class JPanelClickable extends JPanel{
             this.setBackground(new Color(217,217,217)); //lighter grey
         }
     }
-
-    public void clicked(){
-
-    }
 }

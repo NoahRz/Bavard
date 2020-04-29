@@ -34,7 +34,6 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         JButton signInButton = new JButton("Sign in");
         errorMessage.setBackground(Color.YELLOW);
         this.errorMessage.setVisible(false);
-        //SignInButton signInButton = new SignInButton("Sign in",concierge,this);
 
         connexionPanel.add(titleLabel);
         connexionPanel.add(loginField);
