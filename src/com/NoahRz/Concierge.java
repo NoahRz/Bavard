@@ -12,13 +12,13 @@ public class Concierge implements PapotageListener {
     private String login;
     private String password;
     private ArrayList<PapotageListener> papotageListeners;
-    private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
+    //private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
 
     public Concierge(String login, String password){
         this.login = login;
         this.password = password;
         this.papotageListeners = new ArrayList<PapotageListener>();
-        this.recentDiscussion = new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
+        //this.recentDiscussion = new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
     }
 
     /********************************************************************
@@ -47,9 +47,9 @@ public class Concierge implements PapotageListener {
         return null;
     }
 
-    public HashMap<PapotageListener, ArrayList<PapotageEvent>> getRecentDiscussion() {
-        return recentDiscussion;
-    }
+//    public HashMap<PapotageListener, ArrayList<PapotageEvent>> getRecentDiscussion() {
+//        return recentDiscussion;
+//    }
 
     /********************************************************************
      Methods
@@ -78,20 +78,20 @@ public class Concierge implements PapotageListener {
         PapotageEvent pe = new PapotageEvent(this, messageCreated); // source it's this object
         for (String addressee : pe.getMessages().getAddressees()){
             PapotageListener pl = this.getPapotageListener(addressee);
-            if (this.recentDiscussion.containsKey(pl)){
-                this.recentDiscussion.get(pl).add(pe); // we add this new message to the discussion
-            }else{
-                this.recentDiscussion.put(pl,new ArrayList<>(Arrays.asList(pe))); // we add a new discussion
-            }
+//            if (this.recentDiscussion.containsKey(pl)){
+//                this.recentDiscussion.get(pl).add(pe); // we add this new message to the discussion
+//            }else{
+//                this.recentDiscussion.put(pl,new ArrayList<>(Arrays.asList(pe))); // we add a new discussion
+//            }
             pl.receiveMessages(pe);
         }
     }
 
-    public void createBavard(String login){
+    public void createBavard(String login, String password){
      /**
      * create a new Bavard and add him to the list papotageListeners
      * @Param login: login of the Bavard we want to create*/
-        this.addPapotageListeners(new Bavard(login, "aaa",this));
+        this.addPapotageListeners(new Bavard(login, password,this));
     }
 
     private void addPapotageListeners(PapotageListener pl) {

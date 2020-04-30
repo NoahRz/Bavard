@@ -9,14 +9,14 @@ public class EPapotage {
     public static void main(String[] args) {
         Concierge concierge = new Concierge("Le concierge", "123"); /*default concierge*/
 
-        concierge.createBavard("bob");
-        concierge.createBavard("tom");
-        concierge.createBavard("baba");
+        concierge.createBavard("bob", "aaa");
+        concierge.createBavard("tom", "aaa");
+        concierge.createBavard("baba", "aaa");
 
-        Message message = new Message("a", "b", new ArrayList<>(Arrays.asList("tom", "bob")));
+        Message message = new Message("a", "b", new ArrayList<>(Arrays.asList("tom", "baba")));
         concierge.getPapotageListener("bob").sendMessages(message);
-        concierge.sendMessages(message);
-        System.out.println(concierge.getRecentDiscussion());
+        //concierge.sendMessages(message);
+        //System.out.println(concierge.getRecentDiscussion());
 
         new SignInFrame("Connexion", concierge);
 

@@ -7,6 +7,8 @@ import java.awt.event.MouseEvent;
 public class JPanelClickable extends JPanel{
     private Boolean isClicked;
     private int id;
+    private PapotageListener addressee;
+
     public JPanelClickable (int id){
         super();
         this.id=id;
@@ -27,5 +29,13 @@ public class JPanelClickable extends JPanel{
         else{
             this.setBackground(new Color(217,217,217)); //lighter grey
         }
+    }
+
+    public void setAddressee(PapotageListener pl) {
+        this.addressee=pl;
+    }
+
+    public PapotageListener getAddressee() {
+        return this.addressee;
     }
 }

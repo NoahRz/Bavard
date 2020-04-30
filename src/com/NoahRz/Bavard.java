@@ -1,6 +1,7 @@
 package com.NoahRz;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Bavard implements PapotageListener {
@@ -61,8 +62,15 @@ public class Bavard implements PapotageListener {
          * receive the message
          * @Param pe: PapotageEvent with message*/
         System.out.println(this.login);
-        System.out.println(pe.getSource());
+        System.out.println("sender :"+ pe.getSource().toString() );
+        PapotageListener sender = (PapotageListener) pe.getSource();
+        //System.out.println(pe.getSource());
         System.out.println(pe.getMessages().getSubject());
+        if (this.recentDiscussion.containsKey(sender)){
+            this.recentDiscussion.get(sender).add(pe); // we add this new message to the discussion
+        }else{
+            this.recentDiscussion.put(sender,new ArrayList<>(Arrays.asList(pe))); // we add a new discussion
+        }
     }
 
 
