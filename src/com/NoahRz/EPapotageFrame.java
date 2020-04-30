@@ -15,17 +15,16 @@ public class EPapotageFrame extends JFrame {
     private Bavard bavardLogged;
     private Concierge concierge;
     private JPanel messagingPanel; /* right panel :  where we display messages of the discussion selected and the area to send messages */
-    private JPanel messageViewPanel; /* right panel :  where we display messages of the discussion selected */
+    private JPanel messageViewPanel; /* right panel :  where we display messages of the discussion selected (inside messagingPanel) */
 
     public EPapotageFrame(Concierge concierge){
         this.concierge = concierge;
-        this.setTitle("Bavard page");
+        this.setTitle("Concierge page");
         this.setSize(new Dimension(1000,1000));
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
     }
-
 
     public EPapotageFrame(PapotageListener papotageListenerLogged, Concierge concierge) {
         this.bavardLogged = (Bavard)papotageListenerLogged;
@@ -39,19 +38,23 @@ public class EPapotageFrame extends JFrame {
 
         EPapotageFrame frame = this;
 
-        /* ****************************** */
-        /* right panel :  messaging panel  */
-        /* ****************************** */
+        /* *********************************************************************************** */
+        /* ************************** right panel :  messaging panel ************************* */
+        /*  where we display messages of the discussion selected and the area to send messages */
+        /* *********************************************************************************** */
 
         this.messagingPanel = new JPanel();
         messagingPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()));
         messagingPanel.setLayout(new BorderLayout());
 
-        /*Area where the user can see previous message sent*/
+        /*---- Area where the user can see previous message sent ----***/
         messageViewPanel = new JPanel();
+        // the content of this panel will change depending the discussion selected, the content is by default blank
         messageViewPanel.setBackground(Color.YELLOW);
         messageViewPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()*3/4));
         messageViewPanel.setLayout(new FlowLayout());
+
+        messagingPanel.add(messageViewPanel, BorderLayout.NORTH);
 
         //we display the discussion of the discussion selected
 
@@ -75,44 +78,43 @@ public class EPapotageFrame extends JFrame {
 //            messageViewPanel.add(oneMessagePanel);
 //        }
 
-        messagingPanel.add(messageViewPanel, BorderLayout.NORTH);
-        // m is the number of messages in the conversation between the current user and the current addressee
 
-        /* area where the user can write messages and send them*/
+
+        /*---- area where the user can write messages and send them ----*/
         JPanel messageFieldPanel = new JPanel();
         messageFieldPanel.setBackground(Color.GREEN);
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new FlowLayout());
+
         JTextArea messagingTextArea = new JTextArea("write your message ... "); //area where the user can write message
         messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/4));
 
         JButton sendMessageButton = new JButton("Envoyer");
         sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
 
-
         messageFieldPanel.add(messagingTextArea);
         messageFieldPanel.add(sendMessageButton);
 
-
         messagingPanel.add(messageFieldPanel);
-
 
         this.add(messagingPanel, BorderLayout.CENTER);
 
-        /* ************************ */
-        /* left panel : msg Feed    */
-        /* ************************ */
+        /* ********************************************************************************************************** */
+        /* ************************************ left panel : msg Feed *********************************************** */
+        /* we display all the recent discussion the bavard have had
+        /* ********************************************************************************************************** */
 
         JPanel msgFeedPanel = new JPanel();
         msgFeedPanel.setBackground(Color.BLUE);
         msgFeedPanel.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()));
-        ArrayList recentContact = new ArrayList(this.bavardLogged.getRecentDiscussion().keySet()); // recentContact is a list of contact we had a discussion with
+        ArrayList recentContact = new ArrayList(this.bavardLogged.getRecentDiscussion().keySet());
+        // recentContact is a list of contact we have had a discussion with
         System.out.println(recentContact);
         msgFeedPanel.setLayout(new FlowLayout()); // we could have used a GridLayout but component wouldn't be resizable
-        int i=0;
+
         ArrayList<JPanelClickable> recentDiscussionList = new ArrayList<JPanelClickable>();
         for (PapotageListener pl: this.bavardLogged.getRecentDiscussion().keySet()) { // pl is a Bavard
-            JPanelClickable recentDiscussionPanel = new JPanelClickable(i); // it's the container of the login and the last message sent to this bavard
+            JPanelClickable recentDiscussionPanel = new JPanelClickable(); // it's the container of the login and the last message sent to this bavard
             recentDiscussionPanel.setPreferredSize(new Dimension(this.getWidth() / 4, this.getHeight() / 10));
             recentDiscussionPanel.setLayout(new GridLayout(2, 1));
             // the login of the current bavard
@@ -178,8 +180,9 @@ public class EPapotageFrame extends JFrame {
 
                                 messageViewPanel.add(oneMessagePanel);
                             }
+                            break;
                         }
-                        break;
+
                     }
                     messagingPanel.add(messageViewPanel, BorderLayout.NORTH);
 
@@ -190,7 +193,6 @@ public class EPapotageFrame extends JFrame {
             recentDiscussionList.add(recentDiscussionPanel);
 
             msgFeedPanel.add(recentDiscussionPanel);
-            i++;
         }
         this.add(msgFeedPanel,BorderLayout.WEST);
 

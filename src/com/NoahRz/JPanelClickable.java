@@ -6,12 +6,10 @@ import java.awt.event.MouseEvent;
 
 public class JPanelClickable extends JPanel{
     private Boolean isClicked;
-    private int id;
     private PapotageListener addressee;
 
-    public JPanelClickable (int id){
+    public JPanelClickable (){
         super();
-        this.id=id;
         this.setIsClicked(false);
     }
 

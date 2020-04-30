@@ -13,8 +13,10 @@ public class EPapotage {
         concierge.createBavard("tom", "aaa");
         concierge.createBavard("baba", "aaa");
 
-        Message message = new Message("a", "b", new ArrayList<>(Arrays.asList("tom", "baba")));
+        Message message = new Message("a", "b", new ArrayList<>(Arrays.asList("tom")));
         concierge.getPapotageListener("bob").sendMessages(message);
+        //concierge.getPapotageListener("bob").sendMessages(message);
+        concierge.getPapotageListener("baba").sendMessages(message);
         //concierge.sendMessages(message);
         //System.out.println(concierge.getRecentDiscussion());
 
