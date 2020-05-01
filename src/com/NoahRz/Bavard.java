@@ -37,13 +37,13 @@ public class Bavard implements PapotageListener {
     /********************************************************************
      Methods
      ********************************************************************/
-    public Message createMessage(String subject, String body, ArrayList<String> addressees){
+    public Message createMessage(String subject, String body){
         /**
          * return the message created by the Bavard
          * @Param subject: the subject of the message
          * @Param body : the body of the message
          * @Param addresses : ArrayList of addressees*/
-        return new Message(subject, body, addressees);
+        return new Message(subject, body);
     }
 
     public void sendMessages(Message messageCreated){
@@ -61,16 +61,18 @@ public class Bavard implements PapotageListener {
         /**
          * receive the message
          * @Param pe: PapotageEvent with message*/
-        System.out.println(this.login);
-        System.out.println("sender :"+ pe.getSource().toString() );
-        PapotageListener sender = (PapotageListener) pe.getSource();
+        System.out.println(this.login + " a recu le message");
+        Bavard sender = (Bavard)pe.getSource();
+        System.out.println("envoyé par :"+ sender.getLogin() );
+        //PapotageListener sender = (PapotageListener) pe.getSource();
         //System.out.println(pe.getSource());
-        System.out.println(pe.getMessages().getSubject());
-        if (this.recentDiscussion.containsKey(sender)){
+        System.out.println("dont le sujet est : " + pe.getMessages().getSubject());
+        System.out.println("et le contenu est  : " + pe.getMessages().getBody());
+        /*if (this.recentDiscussion.containsKey(sender)){
             this.recentDiscussion.get(sender).add(pe); // we add this new message to the discussion
         }else{
             this.recentDiscussion.put(sender,new ArrayList<>(Arrays.asList(pe))); // we add a new discussion
-        }
+        }*/
     }
 
 

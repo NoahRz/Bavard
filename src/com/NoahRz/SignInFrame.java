@@ -81,8 +81,8 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
     }
 
     @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() instanceof JButton){
+   public void actionPerformed(ActionEvent e) {
+        /*if(e.getSource() instanceof JButton){
             System.out.println("login : " + this.loginEntered);
             System.out.println("password : " + this.passwordEntered);
             if ((this.loginEntered!= null) && (this.passwordEntered!=null)){
@@ -91,7 +91,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                     System.out.println("1");
                     if (passwordEntered.equals(concierge.getPassword())){
                         System.out.println("2");
-                        this.dispose(); /*close the signInFrame*/
+                        this.dispose(); *//*close the signInFrame*//*
                         new EPapotageFrame(concierge);
                     }
                     else{
@@ -102,8 +102,8 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                 else if (guestBavard != null){
                     if (passwordEntered.equals(guestBavard.getPassword())){
                         System.out.println("4");
-                        this.dispose(); /*close the signInFrame*/
-                        new EPapotageFrame(guestBavard, concierge); /*Open a new Frame*/
+                        this.dispose(); *//*close the signInFrame*//*
+                        new EPapotageFrame(guestBavard, concierge); *//*Open a new Frame*//*
                     } else {
                         System.out.println("5");
                         this.errorMessage.setVisible(true);
@@ -115,7 +115,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
             }else{
                 this.errorMessage.setVisible(true);
             }
-        }
+        }*/
     }
 
     @Override

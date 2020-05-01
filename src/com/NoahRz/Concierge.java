@@ -11,14 +11,15 @@ public class Concierge implements PapotageListener {
 
     private String login;
     private String password;
-    private ArrayList<PapotageListener> papotageListeners;
-    //private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
+    //private ArrayList<PapotageListener> papotageListeners;
+    private HashMap<Bavard, ArrayList<Bavard>> BavardsListenToBavardMap;
+    // keys are bavards and the value is an array of all the bavard who listens to each bavard
 
     public Concierge(String login, String password){
         this.login = login;
         this.password = password;
-        this.papotageListeners = new ArrayList<PapotageListener>();
-        //this.recentDiscussion = new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
+        //this.papotageListeners = new ArrayList<PapotageListener>();
+        this.BavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
     }
 
     /********************************************************************
@@ -35,56 +36,54 @@ public class Concierge implements PapotageListener {
         return this.password;
     }
 
-    public PapotageListener getPapotageListener(String addressee) {
-        /**
+/*    public PapotageListener getPapotageListener(String addressee) {
+        *//**
          * return the PapotageListener having the login addressee
-         * @Param addressee : login of the Papotage we are looking for*/
+         * @Param addressee : login of the Papotage we are looking for*//*
         for(PapotageListener pl : this.papotageListeners){
             if(pl.getLogin().equals(addressee)){
                 return pl;
             }
         }
         return null;
-    }
+    }*/
 
-//    public HashMap<PapotageListener, ArrayList<PapotageEvent>> getRecentDiscussion() {
-//        return recentDiscussion;
-//    }
+    public HashMap<Bavard, ArrayList<Bavard>> getBavardsListenToBavardMap() {
+        return BavardsListenToBavardMap;
+    }
 
     /********************************************************************
      Methods
      ********************************************************************/
+
+    public void BavardListenToBavard(Bavard bavardListened, Bavard bavardListener){
+        /**
+         * add to bavardListened a new listener "bavardListener" in the hashmap BavardsListenToBavardMap
+         * @param bavardListened : bavard Listened by bavardListener
+         * @param bavardListener : the bavard who wants to listen to bavardListened*/
+
+        if (this.BavardsListenToBavardMap.containsKey(bavardListened)){ // check is the bavard is already present in the hashmap
+            this.BavardsListenToBavardMap.get(bavardListened).add(bavardListener);
+        }
+        else{ // if not create a new place in it
+            this.BavardsListenToBavardMap.put(bavardListened, new ArrayList<Bavard>(Arrays.asList(bavardListener)));
+        }
+    }
 
     @Override
     public void receiveMessages(PapotageEvent pe) {
         /**
          * receives the message sent and then send it to the addressees
          * @param pe: the PapotageEvent received*/
-        System.out.println(this.login);
-        System.out.println(pe.getSource());
-        System.out.println(pe.getMessages().getSubject());
-        for (String addressee : pe.getMessages().getAddressees()){
-            PapotageListener pl = this.getPapotageListener(addressee);
-            pl.receiveMessages(pe);
+        Bavard bavardSender = (Bavard)pe.getSource();
+        if(this.BavardsListenToBavardMap.containsKey(bavardSender)){
+            for (Bavard bavardListener : this.BavardsListenToBavardMap.get(bavardSender)){
+                bavardListener.receiveMessages(pe);
+            }
+        }else{
+            System.out.println("there is no bavardListener for this bavard");
         }
-    }
 
-    @Override
-    public void sendMessages(Message messageCreated) {
-        /**
-         * send the message to the addresses
-         * @Param messageCreated : the message we've just created and we want to send
-         * */
-        PapotageEvent pe = new PapotageEvent(this, messageCreated); // source it's this object
-        for (String addressee : pe.getMessages().getAddressees()){
-            PapotageListener pl = this.getPapotageListener(addressee);
-//            if (this.recentDiscussion.containsKey(pl)){
-//                this.recentDiscussion.get(pl).add(pe); // we add this new message to the discussion
-//            }else{
-//                this.recentDiscussion.put(pl,new ArrayList<>(Arrays.asList(pe))); // we add a new discussion
-//            }
-            pl.receiveMessages(pe);
-        }
     }
 
     public void createBavard(String login, String password){
@@ -98,7 +97,7 @@ public class Concierge implements PapotageListener {
         /**
          * add a PapotageListeners to the list papotageListeners
          * @Param pl : PapotageListener we ant to add*/
-        this.papotageListeners.add(pl);
+        //this.papotageListeners.add(pl);
     }
 }
 

@@ -10,7 +10,7 @@ public interface PapotageListener extends EventListener {
 
     public String getLogin();
 
-    public void sendMessages(Message messageCreated);
+    //public void sendMessages(Message messageCreated);
 
     public String getPassword();
 
