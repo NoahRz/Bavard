@@ -9,6 +9,7 @@ public class Bavard implements PapotageListener {
     private PapotageListener concierge;
     private String password;
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
+    private MessageViewPanel myMessageViewPanel;
 
     public Bavard(String login, String password, PapotageListener concierge){
         this.login = login;
@@ -68,11 +69,8 @@ public class Bavard implements PapotageListener {
         //System.out.println(pe.getSource());
         System.out.println("dont le sujet est : " + pe.getMessages().getSubject());
         System.out.println("et le contenu est  : " + pe.getMessages().getBody());
-        /*if (this.recentDiscussion.containsKey(sender)){
-            this.recentDiscussion.get(sender).add(pe); // we add this new message to the discussion
-        }else{
-            this.recentDiscussion.put(sender,new ArrayList<>(Arrays.asList(pe))); // we add a new discussion
-        }*/
+
+        this.myMessageViewPanel.receiveMessages(pe);
     }
 
 
@@ -81,6 +79,14 @@ public class Bavard implements PapotageListener {
          * add a PapotageListener
          * @param pl : the PapotageListener*/
         this.concierge = pl;
+    }
+
+    public void setMessageViewPanel(MessageViewPanel myMessageViewPanel) {
+        this.myMessageViewPanel = myMessageViewPanel;
+    }
+
+    public MessageViewPanel getMessageViewPanel() {
+        return myMessageViewPanel;
     }
 }
 

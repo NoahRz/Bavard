@@ -3,19 +3,19 @@ package com.NoahRz;
 import javax.swing.*;
 import javax.swing.border.Border;
 import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 import java.lang.management.BufferPoolMXBean;
 import java.util.ArrayList;
 import java.util.Set;
 
-public class EPapotageFrame extends JFrame {
+public class EPapotageFrame extends JFrame implements ActionListener, KeyListener {
     /**
      * This class is the frame where the Bavard can send, receive message and the concierge can create Bavard and send and receive message*/
     private Bavard bavardLogged;
     private Concierge concierge;
     private JPanel messagingPanel; /* right panel :  where we display messages of the discussion selected and the area to send messages */
     private JPanel messageViewPanel; /* right panel :  where we display messages of the discussion selected (inside messagingPanel) */
+    private String objectMessage;
 
     public EPapotageFrame(Concierge concierge){
         this.concierge = concierge;
@@ -31,7 +31,7 @@ public class EPapotageFrame extends JFrame {
         this.concierge=concierge;
         this.setTitle("Bavard page");
         this.setLocationRelativeTo(null);
-        this.setSize(new Dimension(1000,1000));
+        this.setSize(new Dimension(600,600));
         JPanel pane = new JPanel();
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
@@ -48,37 +48,11 @@ public class EPapotageFrame extends JFrame {
         messagingPanel.setLayout(new BorderLayout());
 
         /*---- Area where the user can see previous message sent ----***/
-        messageViewPanel = new JPanel();
-        // the content of this panel will change depending the discussion selected, the content is by default blank
-        messageViewPanel.setBackground(Color.YELLOW);
-        messageViewPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()*3/4));
-        messageViewPanel.setLayout(new FlowLayout());
+        MessageViewPanel myMessageViewPanel = new MessageViewPanel(this);
+        bavardLogged.setMessageViewPanel(myMessageViewPanel);
+        System.out.println(bavardLogged.getMessageViewPanel());
 
-        messagingPanel.add(messageViewPanel, BorderLayout.NORTH);
-
-        //we display the discussion of the discussion selected
-
-//        for (int j=0; j<=1; j++){
-//            JPanel oneMessagePanel = new JPanel();
-//            oneMessagePanel.setLayout(new BorderLayout());
-//
-//            JTextPane messageTextPane = new JTextPane();
-//            messageTextPane.setText("voici un message");
-//            Dimension d = messageTextPane.getPreferredSize(); // we do that to only modify one dimension
-//            d.width = this.getWidth()*2/10;
-//            messageTextPane.setPreferredSize(d);
-//            oneMessagePanel.add(messageTextPane, BorderLayout.WEST);
-//
-//            JPanel blankPanel = new JPanel();
-//            blankPanel.setBackground(Color.BLUE);
-//            blankPanel.setPreferredSize(new Dimension(this.getWidth()/2, 10));
-//            //blankPanel.setPreferredSize(new Dimension(this.getWidth()/2, messageTextPane.getHeight()));
-//            oneMessagePanel.add(blankPanel, BorderLayout.CENTER);
-//
-//            messageViewPanel.add(oneMessagePanel);
-//        }
-
-
+        messagingPanel.add(myMessageViewPanel, BorderLayout.NORTH);
 
         /*---- area where the user can write messages and send them ----*/
         JPanel messageFieldPanel = new JPanel();
@@ -88,9 +62,11 @@ public class EPapotageFrame extends JFrame {
 
         JTextArea messagingTextArea = new JTextArea("write your message ... "); //area where the user can write message
         messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/4));
+        messagingTextArea.addKeyListener(this);
 
         JButton sendMessageButton = new JButton("Envoyer");
         sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
+        sendMessageButton.addActionListener(this);
 
         messageFieldPanel.add(messagingTextArea);
         messageFieldPanel.add(sendMessageButton);
@@ -104,7 +80,7 @@ public class EPapotageFrame extends JFrame {
         /* we display all the recent discussion the bavard have had
         /* ********************************************************************************************************** */
 
-        JPanel msgFeedPanel = new JPanel();
+        /*JPanel msgFeedPanel = new JPanel();
         msgFeedPanel.setBackground(Color.BLUE);
         msgFeedPanel.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()));
         ArrayList recentContact = new ArrayList(this.bavardLogged.getRecentDiscussion().keySet());
@@ -143,7 +119,7 @@ public class EPapotageFrame extends JFrame {
                 }
 
                 public void displayDiscussionMessage() {
-                    /*Area where the user can see previous message sent*/
+                    *//*Area where the user can see previous message sent*//*
                     messageViewPanel.removeAll();
                     messageViewPanel.revalidate();
                     messageViewPanel.repaint();
@@ -194,7 +170,7 @@ public class EPapotageFrame extends JFrame {
 
             msgFeedPanel.add(recentDiscussionPanel);
         }
-        this.add(msgFeedPanel,BorderLayout.WEST);
+        this.add(msgFeedPanel,BorderLayout.WEST);*/
 
         // Il faudra fixer la taille des messages dans le msgFeedPanel
 
@@ -204,6 +180,29 @@ public class EPapotageFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setVisible(true);
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() instanceof JButton){
+            this.bavardLogged.sendMessages(new Message("un sujet", this.objectMessage));
+        }
+    }
+
+    @Override
+    public void keyTyped(KeyEvent e) {
+    }
+
+    @Override
+    public void keyPressed(KeyEvent e) {
+    }
+
+    @Override
+    public void keyReleased(KeyEvent e) {
+        if (e.getSource() instanceof JTextArea) { // we do this way because JPasswordField is also an instance of JTextField
+            JTextArea pf = (JTextArea) e.getSource();
+            this.objectMessage = new String(pf.getText());
+        }
     }
 
 //    public void displayDiscussionMessage(){

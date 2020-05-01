@@ -12,14 +12,14 @@ public class Concierge implements PapotageListener {
     private String login;
     private String password;
     //private ArrayList<PapotageListener> papotageListeners;
-    private HashMap<Bavard, ArrayList<Bavard>> BavardsListenToBavardMap;
+    private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap;
     // keys are bavards and the value is an array of all the bavard who listens to each bavard
 
     public Concierge(String login, String password){
         this.login = login;
         this.password = password;
         //this.papotageListeners = new ArrayList<PapotageListener>();
-        this.BavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
+        this.bavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
     }
 
     /********************************************************************
@@ -49,7 +49,20 @@ public class Concierge implements PapotageListener {
     }*/
 
     public HashMap<Bavard, ArrayList<Bavard>> getBavardsListenToBavardMap() {
-        return BavardsListenToBavardMap;
+        return bavardsListenToBavardMap;
+    }
+
+    public Bavard getBavard(String login){
+        /**
+         * return the bavard who has the same login
+         * @param login : String, login of the bavard we want to return */
+        for (Bavard bavard : this.bavardsListenToBavardMap.keySet()){
+            // we go through the keys the bavardsListenToBavardMap which are bavards and check if thers is one who has the same login as the login in parameters
+            if(bavard.getLogin().equals(login)){
+                return bavard;
+            }
+        }return null;
+
     }
 
     /********************************************************************
@@ -62,12 +75,8 @@ public class Concierge implements PapotageListener {
          * @param bavardListened : bavard Listened by bavardListener
          * @param bavardListener : the bavard who wants to listen to bavardListened*/
 
-        if (this.BavardsListenToBavardMap.containsKey(bavardListened)){ // check is the bavard is already present in the hashmap
-            this.BavardsListenToBavardMap.get(bavardListened).add(bavardListener);
-        }
-        else{ // if not create a new place in it
-            this.BavardsListenToBavardMap.put(bavardListened, new ArrayList<Bavard>(Arrays.asList(bavardListener)));
-        }
+        this.bavardsListenToBavardMap.get(bavardListened).add(bavardListener);
+
     }
 
     @Override
@@ -76,8 +85,8 @@ public class Concierge implements PapotageListener {
          * receives the message sent and then send it to the addressees
          * @param pe: the PapotageEvent received*/
         Bavard bavardSender = (Bavard)pe.getSource();
-        if(this.BavardsListenToBavardMap.containsKey(bavardSender)){
-            for (Bavard bavardListener : this.BavardsListenToBavardMap.get(bavardSender)){
+        if(this.bavardsListenToBavardMap.containsKey(bavardSender)){
+            for (Bavard bavardListener : this.bavardsListenToBavardMap.get(bavardSender)){
                 bavardListener.receiveMessages(pe);
             }
         }else{
@@ -86,11 +95,20 @@ public class Concierge implements PapotageListener {
 
     }
 
-    public void createBavard(String login, String password){
+    public boolean createBavard(String login, String password){
      /**
-     * create a new Bavard and add him to the list papotageListeners
-     * @Param login: login of the Bavard we want to create*/
-        this.addPapotageListeners(new Bavard(login, password,this));
+     * create a new Bavard and add him to the list papotageListeners,
+      *  we have to check that the login is not already used
+     * @Param login: login of the Bavard we want to create
+      * @return : true if the bavard has succesfully been created else return false */
+        for (Bavard bavard : this.bavardsListenToBavardMap.keySet()){
+            // we go through the keys the bavardsListenToBavardMap which are bavards and check if thers is one who has the same login as the login in parameters
+            if(bavard.getLogin().equals(login)){
+                return false;
+            }
+        }
+        this.bavardsListenToBavardMap.put(new Bavard(login, password, this), new ArrayList<Bavard>());
+        return true;
     }
 
     private void addPapotageListeners(PapotageListener pl) {
