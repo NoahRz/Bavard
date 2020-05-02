@@ -54,6 +54,7 @@ public class Bavard implements PapotageListener {
          * */
         PapotageEvent pe = new PapotageEvent(this, messageCreated); // source it's this object
         concierge.receiveMessages(pe); //message sent
+        this.myMessageViewPanel.sendMessages(pe);
     }
 
 

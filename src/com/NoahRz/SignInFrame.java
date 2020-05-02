@@ -47,8 +47,6 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         /*Yellow panel around the connexionPanel*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
-        System.out.println(this.getWidth());
-        System.out.println(this.getWidth()/3);
         borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
 
         JPanel borderFramePanelS = new JPanel();
