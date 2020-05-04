@@ -36,9 +36,11 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             JPanel oneMessagePanel = new JPanel();
             oneMessagePanel.setLayout(new BorderLayout());
 
+            JTextPane messageTextPane = new JTextPane();
+            JPanel blankPanel = new JPanel();
             String usernameSender;
-            if(pe.getSource() == this){
-                usernameSender = "vous";
+            if(pe.getSource() == bavardLogged){
+                usernameSender = "Vous";
             }
             else{
                 Bavard userSender = (Bavard)pe.getSource();
@@ -46,14 +48,12 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             }
 
 
-            JTextPane messageTextPane = new JTextPane();
-            messageTextPane.setText(usernameSender +"\n" + message.getMessages().getBody()); //à quoi sert le sujet du message
+            messageTextPane.setText(usernameSender +":\nSujet: "+message.getMessages().getSubject()+"\nCorps: " + message.getMessages().getBody()); //à quoi sert le sujet du message
             Dimension d = messageTextPane.getPreferredSize(); // we do that to only modify one dimension
-            d.width = frame.getWidth() * 2 / 10;
+            d.width = frame.getWidth() * 3 / 10;
             messageTextPane.setPreferredSize(d);
-            oneMessagePanel.add(messageTextPane, BorderLayout.WEST);
+            oneMessagePanel.add(messageTextPane, BorderLayout.WEST); //messages we receive are on the left
 
-            JPanel blankPanel = new JPanel();
             blankPanel.setBackground(Color.BLUE);
             blankPanel.setPreferredSize(new Dimension(frame.getWidth() / 2, 10));
             oneMessagePanel.add(blankPanel, BorderLayout.CENTER);

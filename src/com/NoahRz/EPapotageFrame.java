@@ -15,7 +15,8 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
     private Concierge concierge;
     private JPanel messagingPanel; /* right panel :  where we display messages of the discussion selected and the area to send messages */
     private JPanel messageViewPanel; /* right panel :  where we display messages of the discussion selected (inside messagingPanel) */
-    private String objectMessage;
+    private String bodyMessage;
+    private String subjectMessage;
 
     public EPapotageFrame(Concierge concierge){
         this.concierge = concierge;
@@ -74,30 +75,44 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
         messagingPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()));
         messagingPanel.setLayout(new BorderLayout());
 
+
         /*---- Area where the user can see previous message sent ----***/
         MessageViewPanel myMessageViewPanel = new MessageViewPanel(this, bavardLogged);
         bavardLogged.setMessageViewPanel(myMessageViewPanel);
         System.out.println(bavardLogged.getMessageViewPanel());
 
-        messagingPanel.add(myMessageViewPanel, BorderLayout.NORTH);
+        messagingPanel.add(new JScrollPane(myMessageViewPanel), BorderLayout.NORTH);
 
         /*---- area where the user can write messages and send them ----*/
         JPanel messageFieldPanel = new JPanel();
         messageFieldPanel.setBackground(Color.GREEN);
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
-        messageFieldPanel.setLayout(new FlowLayout());
+        messageFieldPanel.setLayout(new BorderLayout());
 
-        JTextArea messagingTextArea = new JTextArea("write your message ... "); //area where the user can write message
-        messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/4));
+        JTextField messagesubjectTextField = new JTextField("tapez votre sujet ...");
+        Dimension d = messagesubjectTextField.getPreferredSize(); // we do that to only modify one dimension
+        d.width = this.getWidth() * 6 / 10;
+        messagesubjectTextField.setPreferredSize(d);
+        messagesubjectTextField.addKeyListener(this);
+
+        JTextArea messagingTextArea = new JTextArea("tapez votre message... "); //area where the user can write message
+        messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/5));
         messagingTextArea.addKeyListener(this);
 
         JButton sendMessageButton = new JButton("Envoyer");
         sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
         sendMessageButton.addActionListener(this);
 
-        messageFieldPanel.add(messagingTextArea);
-        messageFieldPanel.add(sendMessageButton);
+        //messageFieldPanel.add(messagesubjectTextField, BorderLayout.NORTH);
+        //messageFieldPanel.add(messagingTextArea, BorderLayout.CENTER);
+        messageFieldPanel.add(sendMessageButton, BorderLayout.EAST);
 
+        JPanel inputMessagePanel = new JPanel();
+        inputMessagePanel.setLayout(new FlowLayout());
+        inputMessagePanel.add(messagesubjectTextField);
+        inputMessagePanel.add(messagingTextArea);
+
+        messageFieldPanel.add(inputMessagePanel, BorderLayout.CENTER);
         messagingPanel.add(messageFieldPanel);
 
         this.add(messagingPanel, BorderLayout.CENTER);
@@ -212,7 +227,7 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() instanceof JButton){
-            this.bavardLogged.sendMessages(new Message("un sujet", this.objectMessage));
+            this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
         }
     }
 
@@ -227,8 +242,12 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
     @Override
     public void keyReleased(KeyEvent e) {
         if (e.getSource() instanceof JTextArea) { // we do this way because JPasswordField is also an instance of JTextField
-            JTextArea pf = (JTextArea) e.getSource();
-            this.objectMessage = new String(pf.getText());
+            JTextArea ta = (JTextArea) e.getSource();
+            this.bodyMessage = ta.getText();
+        }
+        if(e.getSource() instanceof JTextField){
+            JTextField tf = (JTextField) e.getSource();
+            this.subjectMessage = tf.getText();
         }
     }
 
