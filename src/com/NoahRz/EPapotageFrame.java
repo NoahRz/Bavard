@@ -81,7 +81,12 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
         bavardLogged.setMessageViewPanel(myMessageViewPanel);
         System.out.println(bavardLogged.getMessageViewPanel());
 
-        messagingPanel.add(new JScrollPane(myMessageViewPanel), BorderLayout.NORTH);
+        JScrollPane scrollPane = new JScrollPane(myMessageViewPanel);
+        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
+        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+        scrollPane.setBounds(50, 30, 300, 50);
+
+        messagingPanel.add(scrollPane, BorderLayout.NORTH);
 
         /*---- area where the user can write messages and send them ----*/
         JPanel messageFieldPanel = new JPanel();
