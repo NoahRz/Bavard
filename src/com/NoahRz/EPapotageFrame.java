@@ -18,42 +18,6 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
     private String bodyMessage;
     private String subjectMessage;
 
-    public EPapotageFrame(Concierge concierge){
-        this.concierge = concierge;
-        this.setTitle("Concierge page");
-        this.setSize(new Dimension(600 ,600));
-        JPanel pane = new JPanel();
-        this.setContentPane(pane);
-        this.setLayout( new BorderLayout());
-
-        /*Yellow panel around the connexionPanel*/
-        JPanel borderFramePanelN = new JPanel();
-        borderFramePanelN.setBackground(Color.YELLOW);
-        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
-
-        JPanel borderFramePanelS = new JPanel();
-        borderFramePanelS.setBackground(Color.YELLOW);
-        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
-
-        JPanel borderFramePanelW = new JPanel();
-        borderFramePanelW.setBackground(Color.YELLOW);
-        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/3, this.getWidth()/3));
-
-        JPanel borderFramePanelE = new JPanel();
-        borderFramePanelE.setBackground(Color.YELLOW);
-        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getWidth()/3));
-
-        pane.add(borderFramePanelN, BorderLayout.NORTH);
-        pane.add(borderFramePanelS, BorderLayout.SOUTH);
-        pane.add(borderFramePanelW, BorderLayout.WEST);
-        pane.add(borderFramePanelE, BorderLayout.EAST);
-
-
-        this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setVisible(true);
-    }
-
     public EPapotageFrame(PapotageListener papotageListenerLogged, Concierge concierge) {
         this.bavardLogged = (Bavard)papotageListenerLogged;
         this.concierge=concierge;
@@ -225,7 +189,7 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
 
 
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // close the frame without closing the program
         this.setVisible(true);
     }
 

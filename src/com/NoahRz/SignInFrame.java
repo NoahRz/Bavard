@@ -87,7 +87,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                     System.out.println("1");
                     if (passwordEntered.equals(concierge.getPassword())){
                         System.out.println("2");
-                        new EPapotageFrame(concierge);
+                        new ConciergeFrame(concierge);
                     }
                     else{
                         System.out.println("3");

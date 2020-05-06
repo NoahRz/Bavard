@@ -13,7 +13,7 @@ public class Concierge implements PapotageListener {
     private String password;
     //private ArrayList<PapotageListener> papotageListeners;
     private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap;
-    // keys are bavards and the value is an array of all the bavard who listens to each bavard
+    // keys are bavards and the value is an array of all the bavard who listens to each bavard in keys
 
     public Concierge(String login, String password){
         this.login = login;
@@ -63,6 +63,15 @@ public class Concierge implements PapotageListener {
             }
         }return null;
 
+    }
+
+    public ArrayList<Bavard> getBavardListenersOfBavard(Bavard bavard){
+        /**
+         * return an ArrayList of Bavard who listens bavard
+         * @param bavard : Bavard
+         * @return ArrayList<Bavard>*/
+
+        return this.bavardsListenToBavardMap.get(bavard);
     }
 
     /********************************************************************
