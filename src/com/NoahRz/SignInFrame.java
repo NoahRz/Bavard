@@ -83,7 +83,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                 Bavard guestBavard = concierge.getBavard(loginEntered);
                 if (loginEntered.equals(concierge.getLogin())){
                     if (passwordEntered.equals(concierge.getPassword())){
-                        new CreateBavardFrame(concierge); /*Open a new Frame, the ConciergeFrame*/
+                        new ConciergeFrame(concierge); /*Open a new Frame, the ConciergeFrame*/
                     }
                     else{
                         this.errorMessage.setVisible(true);

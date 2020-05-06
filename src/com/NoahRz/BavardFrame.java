@@ -73,7 +73,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         messageFieldPanel.add(inputMessagePanel, BorderLayout.CENTER);
         messagingPanel.add(messageFieldPanel);
 
-        this.add(messagingPanel, BorderLayout.CENTER);
+        pane.add(messagingPanel, BorderLayout.CENTER);
 
         /* ********************************************************************************************************** */
         /* ************************************ left panel : msg Feed *********************************************** */

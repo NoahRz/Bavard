@@ -49,7 +49,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         bavardListenedConfirmButton.addActionListener(this);
         bavardListenedPanel.add(bavardListenedConfirmButton);
 
-        this.add(bavardListenedPanel,BorderLayout.CENTER);
+        pane.add(bavardListenedPanel,BorderLayout.CENTER);
 
         /*Right Panel*/
         bavardListenersPanel = new JPanel();
@@ -79,7 +79,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         //this.bavardListenersPanel.add(blankPanelSouth, BorderLayout.SOUTH);
 
 
-        this.add(bavardListenersPanel, BorderLayout.EAST);
+        pane.add(bavardListenersPanel, BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -26,7 +26,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         creationBavardPanel.setLayout(new GridLayout(5,1));
         creationBavardPanel.setBackground(Color.YELLOW);
 
-        JLabel creationBavardTitlePanel = new JLabel("Create a new Bavard");
+        JLabel creationBavardTitlePanel = new JLabel("Create a new Bavard", JLabel.CENTER);
         JTextField bavardNameTextField = new JTextField("Login");
         JPasswordField bavardPasswordField = new JPasswordField("Password");
         JButton creationBavardButton = new JButton("Create");
@@ -64,12 +64,6 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         borderFramePanelE.setBackground(Color.YELLOW);
         borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getWidth()/3));
 
-        /**Test**/
-        JButton bouton = new JButton("adjust bavardListener");
-        bouton.addActionListener(this);
-        borderFramePanelE.add(bouton);
-        /***/
-
         pane.add(borderFramePanelN, BorderLayout.NORTH);
         pane.add(borderFramePanelS, BorderLayout.SOUTH);
         pane.add(borderFramePanelW, BorderLayout.WEST);
@@ -90,9 +84,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
                 concierge.createBavard(this.loginEntered, this.passwordEntered);
                 this.creationMessageTextArea.setText("Error: the login is already taken,\nplease chose another one.");
             }
-        }else{
-                new AdjustBavardListenerFrame(concierge);
-            }
+        }
     }
 
     @Override
