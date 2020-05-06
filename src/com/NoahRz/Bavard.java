@@ -62,23 +62,18 @@ public class Bavard implements PapotageListener {
     public void receiveMessages(PapotageEvent pe) {
         /**
          * receive the message
-         * @Param pe: PapotageEvent with message*/
-        System.out.println(this.login + " a recu le message");
-        Bavard sender = (Bavard)pe.getSource();
-        System.out.println("envoyé par :"+ sender.getLogin() );
-        //PapotageListener sender = (PapotageListener) pe.getSource();
-        //System.out.println(pe.getSource());
-        System.out.println("dont le sujet est : " + pe.getMessages().getSubject());
-        System.out.println("et le contenu est  : " + pe.getMessages().getBody());
-
+         * @Param pe: PapotageEvent with message
+         * */
         this.myMessageViewPanel.receiveMessages(pe);
+        // when the bavard receive the message we display it on his messageViewPanel
     }
 
 
     public void addPapotageListener(PapotageListener pl){
         /**
          * add a PapotageListener
-         * @param pl : the PapotageListener*/
+         * @param pl : the PapotageListener
+         * */
         this.concierge = pl;
     }
 

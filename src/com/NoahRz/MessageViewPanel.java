@@ -5,10 +5,10 @@ import java.awt.*;
 import java.util.ArrayList;
 
 public class MessageViewPanel extends JPanel implements PapotageListener {
-    private EPapotageFrame frame; // the frame where this panel is
+    private BavardFrame frame; // the frame where this panel is
     private ArrayList<PapotageEvent> messagesReceivedList ;
     private Bavard bavardLogged;
-    public MessageViewPanel(EPapotageFrame frame, Bavard bavardLogged){
+    public MessageViewPanel(BavardFrame frame, Bavard bavardLogged){
         super();
         this.frame = frame;
         this.setBackground(Color.YELLOW);
@@ -29,9 +29,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
 
         this.messagesReceivedList.add(pe);
 
-        System.out.println("dans message view panel :" + pe.getMessages().getBody());
-
-        // we display the messages in messagesReceivedList
+        // we display the messages which are in messagesReceivedList
         for(PapotageEvent message : this.messagesReceivedList) {
             JPanel oneMessagePanel = new JPanel();
             oneMessagePanel.setLayout(new BorderLayout());
@@ -54,7 +52,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             messageTextPane.setPreferredSize(d);
             oneMessagePanel.add(messageTextPane, BorderLayout.WEST); //messages we receive are on the left
 
-            blankPanel.setBackground(Color.BLUE);
+            blankPanel.setBackground(Color.YELLOW);
             blankPanel.setPreferredSize(new Dimension(frame.getWidth() / 2, 10));
             oneMessagePanel.add(blankPanel, BorderLayout.CENTER);
 
@@ -64,7 +62,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
 
     public void sendMessages(PapotageEvent pe){
         /**
-         * we display the message we have just sent, it's like if we receive a message send by us
+         * we display the message we have just sent, it's like if we receive a message sent by us
          * @param pe : PapotageEvent, the message we have sent*/
         this.receiveMessages(pe);
     }

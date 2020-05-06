@@ -19,7 +19,6 @@ public class EPapotage {
 
         Bavard a = concierge.getBavard("paul");
         Bavard b = concierge.getBavard("noah");
-        Bavard c = concierge.getBavard("baba");
 
         concierge.BavardListenToBavard(a,b);
         //concierge.BavardListenToBavard(a,c);

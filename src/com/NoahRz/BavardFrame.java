@@ -1,26 +1,19 @@
 package com.NoahRz;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.*;
-import java.lang.management.BufferPoolMXBean;
-import java.util.ArrayList;
-import java.util.Set;
 
-public class EPapotageFrame extends JFrame implements ActionListener, KeyListener {
+public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     /**
      * This class is the frame where the Bavard can send, receive message and the concierge can create Bavard and send and receive message*/
     private Bavard bavardLogged;
-    private Concierge concierge;
     private JPanel messagingPanel; /* right panel :  where we display messages of the discussion selected and the area to send messages */
-    private JPanel messageViewPanel; /* right panel :  where we display messages of the discussion selected (inside messagingPanel) */
     private String bodyMessage;
     private String subjectMessage;
 
-    public EPapotageFrame(PapotageListener papotageListenerLogged, Concierge concierge) {
+    public BavardFrame(PapotageListener papotageListenerLogged) {
         this.bavardLogged = (Bavard)papotageListenerLogged;
-        this.concierge=concierge;
         this.setTitle("Bavard page");
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(600,600));
@@ -28,7 +21,7 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
-        EPapotageFrame frame = this;
+        BavardFrame frame = this;
 
         /* *********************************************************************************** */
         /* ************************** right panel :  messaging panel ************************* */
@@ -40,10 +33,9 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
         messagingPanel.setLayout(new BorderLayout());
 
 
-        /*---- Area where the user can see previous message sent ----***/
+        /*---- Area where the bavard can see messages he received and messages he receives----***/
         MessageViewPanel myMessageViewPanel = new MessageViewPanel(this, bavardLogged);
         bavardLogged.setMessageViewPanel(myMessageViewPanel);
-        System.out.println(bavardLogged.getMessageViewPanel());
 
         JScrollPane scrollPane = new JScrollPane(myMessageViewPanel);
         scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
@@ -52,28 +44,25 @@ public class EPapotageFrame extends JFrame implements ActionListener, KeyListene
 
         messagingPanel.add(scrollPane, BorderLayout.NORTH);
 
-        /*---- area where the user can write messages and send them ----*/
+        /*---- Area where the user can write messages and send them ----*/
         JPanel messageFieldPanel = new JPanel();
         messageFieldPanel.setBackground(Color.GREEN);
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new BorderLayout());
 
-        JTextField messagesubjectTextField = new JTextField("tapez votre sujet ...");
+        JTextField messagesubjectTextField = new JTextField("Write the message subject ...");
         Dimension d = messagesubjectTextField.getPreferredSize(); // we do that to only modify one dimension
         d.width = this.getWidth() * 6 / 10;
         messagesubjectTextField.setPreferredSize(d);
         messagesubjectTextField.addKeyListener(this);
 
-        JTextArea messagingTextArea = new JTextArea("tapez votre message... "); //area where the user can write message
+        JTextArea messagingTextArea = new JTextArea("Write the message body ... "); //area where the user can write message
         messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/5));
         messagingTextArea.addKeyListener(this);
 
-        JButton sendMessageButton = new JButton("Envoyer");
+        JButton sendMessageButton = new JButton("send");
         sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
         sendMessageButton.addActionListener(this);
-
-        //messageFieldPanel.add(messagesubjectTextField, BorderLayout.NORTH);
-        //messageFieldPanel.add(messagingTextArea, BorderLayout.CENTER);
         messageFieldPanel.add(sendMessageButton, BorderLayout.EAST);
 
         JPanel inputMessagePanel = new JPanel();
