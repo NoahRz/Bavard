@@ -18,6 +18,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
     private ButtonGroup bavardListenedButtonGroup;
     private JPanel bavardListenersPanel;
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
+    private Bavard bavardSelected;
 
     public AdjustBavardListenerFrame(Concierge concierge){
         this.concierge = concierge;
@@ -91,8 +92,8 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         /* for the bavard selected we pre-check checkboxes corresponding to bavard who listens to the bavard selected */
 
         if (e.getActionCommand().equals("Confirm listened")) {
-            String bavardListenerSelected = bavardListenedButtonGroup.getSelection().getActionCommand();
-            Bavard bavardSelected = concierge.getBavard(bavardListenerSelected);
+            String bavardListenedSelected = bavardListenedButtonGroup.getSelection().getActionCommand();
+            bavardSelected = concierge.getBavard(bavardListenedSelected);
             ArrayList<Bavard> bavardListenersOfBavardSelected = concierge.getBavardListenersOfBavard(bavardSelected);
             for (JCheckBox checkBox : this.checkBoxes) {
                 Bavard bavard = concierge.getBavard(checkBox.getActionCommand());
@@ -103,15 +104,18 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                 }
             }
         }
-        else {
-            for (JCheckBox checkBox : this.checkBoxes) {
-                if (checkBox.isSelected()){
-                    System.out.println("true");
+        else { /*if we have pressed the button "Confirm listeners*/
+            if(this.bavardSelected != null){
+                ArrayList<Bavard> newBavardListeners = new ArrayList<Bavard>();
+                for (JCheckBox checkBox : this.checkBoxes) {
+                    if (checkBox.isSelected()){
+                        newBavardListeners.add(concierge.getBavard(checkBox.getActionCommand())); // we add to the list the bavard related to the checkbox selected.
+                        System.out.println("true");
+                    }
                 }
-                else{
-                    System.out.println("false");
-                }
+                concierge.getBavardsListenToBavardMap().replace(bavardSelected, newBavardListeners);
             }
+
         }
     }
     }
