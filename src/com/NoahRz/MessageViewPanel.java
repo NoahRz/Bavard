@@ -2,6 +2,8 @@ package com.NoahRz;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
 public class MessageViewPanel extends JPanel implements PapotageListener {
@@ -34,25 +36,45 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             JPanel oneMessagePanel = new JPanel();
             oneMessagePanel.setLayout(new BorderLayout());
 
+            JPanel messageContentPanel = new JPanel();
+            messageContentPanel.setLayout(new BorderLayout());
+
             JTextPane messageTextPane = new JTextPane();
+            JLabel messageBodyLabel = new JLabel();
             JPanel blankPanel = new JPanel();
             String usernameSender;
             if (message instanceof OnlineOfflineBavardEvent){
-                messageTextPane.setText(message.getMessages().getBody());
+                messageBodyLabel.setText(message.getMessages().getBody());
             }else {
                 if (pe.getSource() == bavardLogged) {
-                    usernameSender = "Vous";
+                    usernameSender = "You";
                 } else {
                     Bavard userSender = (Bavard) pe.getSource();
                     usernameSender = userSender.getLogin();
                 }
-                messageTextPane.setText(usernameSender +":\nSujet: "+message.getMessages().getSubject()+"\nCorps:\n" + message.getMessages().getBody()); //à quoi sert le sujet du message
+                messageTextPane.setText("From :" + usernameSender +":\nSubject: "+message.getMessages().getSubject());
+                Dimension d = messageTextPane.getPreferredSize(); // we do that to only modify one dimension
+                d.width = frame.getWidth() * 3 / 10;
+                messageTextPane.setPreferredSize(d);
+                messageContentPanel.add(messageTextPane, BorderLayout.NORTH); //messages we receive are on the left
+
+                messageBodyLabel.setText("Body :" +message.getMessages().getBody());
             }
 
-            Dimension d = messageTextPane.getPreferredSize(); // we do that to only modify one dimension
+            Dimension d = messageBodyLabel.getPreferredSize();
             d.width = frame.getWidth() * 3 / 10;
-            messageTextPane.setPreferredSize(d);
-            oneMessagePanel.add(messageTextPane, BorderLayout.WEST); //messages we receive are on the left
+            messageBodyLabel.setPreferredSize(d);
+            messageContentPanel.add(messageBodyLabel, BorderLayout.CENTER);
+
+            messageContentPanel.addMouseListener(new MouseAdapter() {
+                @Override
+                public void mousePressed(MouseEvent e) {
+                    super.mousePressed(e);
+                    new MessageFrame(message);
+                }
+            });
+
+            oneMessagePanel.add(messageContentPanel, BorderLayout.WEST); //messages we receive are on the left
 
             blankPanel.setBackground(Color.YELLOW);
             blankPanel.setPreferredSize(new Dimension(frame.getWidth() / 2, 10));
