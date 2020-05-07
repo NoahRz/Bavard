@@ -120,6 +120,19 @@ public class Concierge implements PapotageListener {
         return true;
     }
 
+    public void alerteBavardConneced(OnlineBavardEvent bavardConnectedEvent){
+
+        Bavard bavardConnected = (Bavard) bavardConnectedEvent.getSource();
+        System.out.println("bavardConnected :" +bavardConnected.getLogin());
+        for (Bavard bavard : this.bavardsListenToBavardMap.keySet()){
+            System.out.println("bavard :" + bavard.getLogin());
+            if(bavard != bavardConnected){
+                bavard.receiveMessages(bavardConnectedEvent);
+            }
+        }
+
+    }
+
     private void addPapotageListeners(PapotageListener pl) {
         /**
          * add a PapotageListeners to the list papotageListeners

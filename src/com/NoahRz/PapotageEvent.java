@@ -20,7 +20,7 @@ public class PapotageEvent extends EventObject {
     }
 
 
-    public Message getMessages() {
+    protected Message getMessages() {
         return message;
     }
 }

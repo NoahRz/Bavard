@@ -6,12 +6,12 @@ import java.util.HashMap;
 
 public class Bavard implements PapotageListener {
     private  String login;
-    private PapotageListener concierge;
+    private Concierge concierge;
     private String password;
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
     private MessageViewPanel myMessageViewPanel;
 
-    public Bavard(String login, String password, PapotageListener concierge){
+    public Bavard(String login, String password, Concierge concierge){
         this.login = login;
         this.concierge = concierge;
         this.password = password;
@@ -64,21 +64,23 @@ public class Bavard implements PapotageListener {
          * receive the message
          * @Param pe: PapotageEvent with message
          * */
-        this.myMessageViewPanel.receiveMessages(pe);
+        if(this.myMessageViewPanel != null) {
+            this.myMessageViewPanel.receiveMessages(pe);
+        }
         // when the bavard receive the message we display it on his messageViewPanel
     }
 
 
-    public void addPapotageListener(PapotageListener pl){
-        /**
-         * add a PapotageListener
-         * @param pl : the PapotageListener
-         * */
-        this.concierge = pl;
-    }
-
     public void setMessageViewPanel(MessageViewPanel myMessageViewPanel) {
         this.myMessageViewPanel = myMessageViewPanel;
+    }
+
+  public void alerteIsConnected(){
+        /**
+        send message to the concierge to alerte other bavard that this one is connected */
+        Message message = new Message("",(this.getLogin() + " is connected"));
+        OnlineBavardEvent bavardConnectedEvent = new OnlineBavardEvent(this, message);
+        this.concierge.alerteBavardConneced(bavardConnectedEvent);
     }
 
     public MessageViewPanel getMessageViewPanel() {

@@ -1,14 +1,10 @@
 package com.NoahRz;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
 import java.util.ArrayList;
-import java.util.Enumeration;
 
 public class AdjustBavardListenerFrame extends JFrame implements ActionListener {
     /**
@@ -28,10 +24,15 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
+        int nbRowsForGridLayout = this.concierge.getBavardsListenToBavardMap().keySet().size() + 2;
+        //number of bavard + 2 (2 corresponds to the label and the button)
+
         /*Left panel */
         JPanel bavardListenedPanel = new JPanel();
         bavardListenedPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
-        bavardListenedPanel.setLayout(new GridLayout(5,1));
+        bavardListenedPanel.setLayout(new GridLayout(nbRowsForGridLayout,1));
+        bavardListenedPanel.setBackground(Color.YELLOW);
+
 
         JLabel bavardListenedTitleLabel = new JLabel("Bavard Listened");
         bavardListenedPanel.add(bavardListenedTitleLabel);
@@ -49,37 +50,35 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         bavardListenedConfirmButton.addActionListener(this);
         bavardListenedPanel.add(bavardListenedConfirmButton);
 
-        pane.add(bavardListenedPanel,BorderLayout.CENTER);
+        JScrollPane bavardListenedScrollPane = new JScrollPane(bavardListenedPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        pane.add(bavardListenedScrollPane,BorderLayout.CENTER);
 
         /*Right Panel*/
         bavardListenersPanel = new JPanel();
         bavardListenersPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
-        bavardListenersPanel.setLayout(new BorderLayout());
+        bavardListenersPanel.setLayout(new GridLayout(nbRowsForGridLayout,1));
+        bavardListenersPanel.setBackground(Color.YELLOW);
+
 
         JLabel bavardListenersTitleLabel= new JLabel("Bavard Listener");
-        bavardListenersPanel.add(bavardListenersTitleLabel,BorderLayout.NORTH );
+        bavardListenersPanel.add(bavardListenersTitleLabel);
 
-        JPanel checkBoxPanel = new JPanel();
-        checkBoxPanel.setLayout(new GridLayout(4,1));
+
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){
             JCheckBox checkBox = new JCheckBox(bavard.getLogin());
             checkBox.setActionCommand(bavard.getLogin());
             this.checkBoxes.add(checkBox);
-            checkBoxPanel.add(checkBox);
+            bavardListenersPanel.add(checkBox);
         }
         JButton confirmListenersButton = new JButton("Confirm listeners");
         confirmListenersButton.setActionCommand("Confirm listeners");
         confirmListenersButton.addActionListener(this);
-        checkBoxPanel.add(confirmListenersButton);
+        bavardListenersPanel.add(confirmListenersButton);
 
-        bavardListenersPanel.add(checkBoxPanel, BorderLayout.CENTER);
+        JScrollPane bavardListenersScrollPane = new JScrollPane(bavardListenersPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        pane.add(bavardListenersScrollPane,BorderLayout.EAST);
 
-        //JPanel blankPanelSouth = new JPanel();
-
-        //this.bavardListenersPanel.add(blankPanelSouth, BorderLayout.SOUTH);
-
-
-        pane.add(bavardListenersPanel, BorderLayout.EAST);
+        //pane.add(bavardListenersPanel, BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

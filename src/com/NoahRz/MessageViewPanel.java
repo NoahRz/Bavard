@@ -37,16 +37,18 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             JTextPane messageTextPane = new JTextPane();
             JPanel blankPanel = new JPanel();
             String usernameSender;
-            if(pe.getSource() == bavardLogged){
-                usernameSender = "Vous";
-            }
-            else{
-                Bavard userSender = (Bavard)pe.getSource();
-                usernameSender = userSender.getLogin();
+            if (message instanceof OnlineBavardEvent){
+                messageTextPane.setText(message.getMessages().getBody());
+            }else {
+                if (pe.getSource() == bavardLogged) {
+                    usernameSender = "Vous";
+                } else {
+                    Bavard userSender = (Bavard) pe.getSource();
+                    usernameSender = userSender.getLogin();
+                }
+                messageTextPane.setText(usernameSender +":\nSujet: "+message.getMessages().getSubject()+"\nCorps: " + message.getMessages().getBody()); //à quoi sert le sujet du message
             }
 
-
-            messageTextPane.setText(usernameSender +":\nSujet: "+message.getMessages().getSubject()+"\nCorps: " + message.getMessages().getBody()); //à quoi sert le sujet du message
             Dimension d = messageTextPane.getPreferredSize(); // we do that to only modify one dimension
             d.width = frame.getWidth() * 3 / 10;
             messageTextPane.setPreferredSize(d);
