@@ -101,7 +101,6 @@ public class Concierge implements PapotageListener {
         }else{
             System.out.println("there is no bavardListener for this bavard");
         }
-
     }
 
     public boolean createBavard(String login, String password){
@@ -128,7 +127,6 @@ public class Concierge implements PapotageListener {
                 bavard.receiveMessages(bavardConnectedDiscconnectedEvent);
             }
         }
-
     }
 }
 

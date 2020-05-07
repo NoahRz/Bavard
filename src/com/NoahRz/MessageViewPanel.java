@@ -37,7 +37,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             JTextPane messageTextPane = new JTextPane();
             JPanel blankPanel = new JPanel();
             String usernameSender;
-            if (message instanceof OnlineBavardEvent || message instanceof OfflineBavardEvent){
+            if (message instanceof OnlineOfflineBavardEvent){
                 messageTextPane.setText(message.getMessages().getBody());
             }else {
                 if (pe.getSource() == bavardLogged) {
@@ -46,7 +46,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
                     Bavard userSender = (Bavard) pe.getSource();
                     usernameSender = userSender.getLogin();
                 }
-                messageTextPane.setText(usernameSender +":\nSujet: "+message.getMessages().getSubject()+"\nCorps: " + message.getMessages().getBody()); //à quoi sert le sujet du message
+                messageTextPane.setText(usernameSender +":\nSujet: "+message.getMessages().getSubject()+"\nCorps:\n" + message.getMessages().getBody()); //à quoi sert le sujet du message
             }
 
             Dimension d = messageTextPane.getPreferredSize(); // we do that to only modify one dimension
