@@ -39,7 +39,6 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             JPanel messageContentPanel = new JPanel();
             messageContentPanel.setLayout(new BorderLayout());
 
-            JTextPane messageTextPane = new JTextPane();
             JLabel messageBodyLabel = new JLabel();
             JPanel blankPanel = new JPanel();
             String usernameSender;
@@ -52,19 +51,21 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
                     Bavard userSender = (Bavard) pe.getSource();
                     usernameSender = userSender.getLogin();
                 }
-                messageTextPane.setText("From :" + usernameSender +":\nSubject: "+message.getMessages().getSubject());
-                Dimension d = messageTextPane.getPreferredSize(); // we do that to only modify one dimension
-                d.width = frame.getWidth() * 3 / 10;
-                messageTextPane.setPreferredSize(d);
-                messageContentPanel.add(messageTextPane, BorderLayout.NORTH); //messages we receive are on the left
+                JLabel senderLabel = new JLabel("From:" + usernameSender);
+                JLabel subjectLabel = new JLabel("Subject: "+message.getMessages().getSubject());
 
+                messageContentPanel.add(senderLabel, BorderLayout.NORTH);
+                messageContentPanel.add(subjectLabel, BorderLayout.CENTER);
                 messageBodyLabel.setText("Body :" +message.getMessages().getBody());
             }
 
             Dimension d = messageBodyLabel.getPreferredSize();
             d.width = frame.getWidth() * 3 / 10;
             messageBodyLabel.setPreferredSize(d);
-            messageContentPanel.add(messageBodyLabel, BorderLayout.CENTER);
+
+
+
+            messageContentPanel.add(messageBodyLabel, BorderLayout.SOUTH);
 
             messageContentPanel.addMouseListener(new MouseAdapter() {
                 @Override
@@ -79,6 +80,8 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             blankPanel.setBackground(Color.YELLOW);
             blankPanel.setPreferredSize(new Dimension(frame.getWidth() / 2, 10));
             oneMessagePanel.add(blankPanel, BorderLayout.CENTER);
+
+
 
             this.add(oneMessagePanel);
         }
