@@ -37,7 +37,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             JTextPane messageTextPane = new JTextPane();
             JPanel blankPanel = new JPanel();
             String usernameSender;
-            if (message instanceof OnlineBavardEvent){
+            if (message instanceof OnlineBavardEvent || message instanceof OfflineBavardEvent){
                 messageTextPane.setText(message.getMessages().getBody());
             }else {
                 if (pe.getSource() == bavardLogged) {

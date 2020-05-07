@@ -61,6 +61,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         messagingTextArea.addKeyListener(this);
 
         JButton sendMessageButton = new JButton("send");
+        sendMessageButton.setActionCommand("send");
         sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
         sendMessageButton.addActionListener(this);
         messageFieldPanel.add(sendMessageButton, BorderLayout.EAST);
@@ -74,6 +75,15 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         messagingPanel.add(messageFieldPanel);
 
         pane.add(messagingPanel, BorderLayout.CENTER);
+        /*---- Area where the user can disconnect and see a list of bavard to listen to  ----*/
+
+        JButton disconnectButton = new JButton("Sign out");
+        disconnectButton.setActionCommand("sign out");
+        disconnectButton.addActionListener(this);
+
+        pane.add(disconnectButton, BorderLayout.EAST);
+
+
 
         /* ********************************************************************************************************** */
         /* ************************************ left panel : msg Feed *********************************************** */
@@ -184,8 +194,12 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JButton){
+        if (e.getActionCommand().equals("send")){
             this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
+        }
+        else{ // disconnect button
+            this.bavardLogged.alerteIsDisconnected();
+            this.dispose();
         }
     }
 
