@@ -1,6 +1,7 @@
 package com.NoahRz;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -40,6 +41,11 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
             messageContentPanel.setLayout(new BorderLayout());
 
             JLabel messageBodyLabel = new JLabel();
+
+            LineBorder line = new LineBorder(Color.blue, 5, true);
+
+            oneMessagePanel.setBorder(line);
+
             JPanel blankPanel = new JPanel();
             String usernameSender;
             if (message instanceof OnlineOfflineBavardEvent){

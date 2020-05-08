@@ -1,5 +1,6 @@
 package com.NoahRz;
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -10,12 +11,17 @@ public class Bavard implements PapotageListener {
     private String password;
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
     private MessageViewPanel myMessageViewPanel;
+    private BavardFrame1 myFrame;
 
     public Bavard(String login, String password, Concierge concierge){
         this.login = login;
         this.concierge = concierge;
         this.password = password;
         this.recentDiscussion= new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
+    }
+
+    public void setFrame(BavardFrame1 myFrame){
+        this.myFrame = myFrame;
     }
 
     /********************************************************************
@@ -54,7 +60,7 @@ public class Bavard implements PapotageListener {
          * */
         PapotageEvent pe = new PapotageEvent(this, messageCreated); // source it's this object
         concierge.receiveMessages(pe); //message sent
-        this.myMessageViewPanel.sendMessages(pe);
+        this.myFrame.receiveMessages(pe);
     }
 
 
@@ -64,8 +70,8 @@ public class Bavard implements PapotageListener {
          * receive the message
          * @Param pe: PapotageEvent with message
          * */
-        if(this.myMessageViewPanel != null) {
-            this.myMessageViewPanel.receiveMessages(pe);
+        if(this.myFrame != null) {
+            this.myFrame.receiveMessages(pe);
         }
         // when the bavard receive the message we display it on his messageViewPanel
     }

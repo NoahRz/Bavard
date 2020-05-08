@@ -37,12 +37,9 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         MessageViewPanel myMessageViewPanel = new MessageViewPanel(this, bavardLogged);
         bavardLogged.setMessageViewPanel(myMessageViewPanel);
 
-        JScrollPane scrollPane = new JScrollPane(myMessageViewPanel);
-        scrollPane.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_ALWAYS);
-        scrollPane.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-        scrollPane.setBounds(50, 30, 300, 50);
+        JScrollPane scrollPane = new JScrollPane(myMessageViewPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
-        messagingPanel.add(scrollPane, BorderLayout.NORTH);
+        messagingPanel.add(scrollPane, BorderLayout.CENTER);
 
         /*---- Area where the user can write messages and send them ----*/
         JPanel messageFieldPanel = new JPanel();
@@ -72,7 +69,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         inputMessagePanel.add(messagingTextArea);
 
         messageFieldPanel.add(inputMessagePanel, BorderLayout.CENTER);
-        messagingPanel.add(messageFieldPanel);
+        messagingPanel.add(messageFieldPanel,BorderLayout.SOUTH);
 
         pane.add(messagingPanel, BorderLayout.CENTER);
         /*---- Area where the user can disconnect and see a list of bavard to listen to  ----*/
