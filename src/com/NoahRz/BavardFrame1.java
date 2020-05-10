@@ -13,10 +13,14 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     private String bodyMessage;
     private String subjectMessage;
     private JPanel myMessageViewPanel;
+    private Concierge concierge;
+    private JPanel bavardConnectedListPanel;
+    private JPopupMenu popupmenu;
 
-    public BavardFrame1(PapotageListener papotageListenerLogged) {
+    public BavardFrame1(PapotageListener papotageListenerLogged, Concierge concierge) {
         this.bavardLogged = (Bavard)papotageListenerLogged;
         this.bavardLogged.setFrame(this);
+        this.concierge=concierge;
         this.setTitle("Bavard page");
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(600,600));
@@ -26,8 +30,26 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         BavardFrame1 frame = this;
 
+        /*--Menu--*/
+        JMenuBar menubar= new JMenuBar();
+        JMenu bavardMenu=new JMenu(bavardLogged.getLogin());
+        JMenu optionMenu = new JMenu("Option");
+        JMenuItem adjustlisteningMenuItem = new JMenuItem("adjust listening");
+        JMenuItem signOutMenuItem = new JMenuItem("Sign out");
+
+        adjustlisteningMenuItem.setActionCommand("adjust listening");
+        adjustlisteningMenuItem.addActionListener(this);
+
+        signOutMenuItem.setActionCommand("Sign out");
+        signOutMenuItem.addActionListener(this);
+
+        optionMenu.add(adjustlisteningMenuItem); optionMenu.add(signOutMenuItem);
+        menubar.add(bavardMenu);
+        menubar.add(optionMenu);
+        this.setJMenuBar(menubar);
+
         /* *********************************************************************************** */
-        /* ************************** right panel :  messaging panel ************************* */
+        /* ************************** Left panel :  messaging panel ************************* */
         /*  where we display messages of the discussion selected and the area to send messages */
         /* *********************************************************************************** */
 
@@ -79,14 +101,42 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         messagingPanel.add(messageFieldPanel,BorderLayout.SOUTH);
 
         pane.add(messagingPanel, BorderLayout.CENTER);
-        /*---- Area where the user can disconnect and see a list of bavard to listen to  ----*/
 
-        JButton disconnectButton = new JButton("Sign out");
-        disconnectButton.setActionCommand("sign out");
-        disconnectButton.addActionListener(this);
+        /*----- RIGHT PANEL ----*/
+        /*---- Area where the user can see a list of connected bavard ----*/
 
-        pane.add(disconnectButton, BorderLayout.EAST);
+        bavardConnectedListPanel = new JPanel();
+        bavardConnectedListPanel.setLayout(new BoxLayout(bavardConnectedListPanel, BoxLayout.Y_AXIS)); // display bavard vertivally
 
+        LineBorder line1 = new LineBorder(new Color(128, 128, 128), 2, true);
+
+        popupmenu = new JPopupMenu("Edit");
+        JMenuItem listen_toMenuItem = new JMenuItem("Listen to");
+        JMenuItem un_listen_toMenuItem = new JMenuItem("un Listen to");
+        JMenuItem dmMenuItem = new JMenuItem("DM");
+        popupmenu.add(listen_toMenuItem); popupmenu.add(un_listen_toMenuItem); popupmenu.add(dmMenuItem);
+
+        for (Bavard bavard : this.concierge.getBavardsListenToBavardMap().keySet()){
+            if(bavard.isConnected()){
+                JLabel bavardLabel = new JLabel(bavard.getLogin(), SwingConstants.CENTER);
+                bavardLabel.setBorder(line1);
+                bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+                bavardLabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        super.mouseClicked(e);
+                        popupmenu.show(bavardConnectedListPanel , e.getX(), e.getY());
+                    }
+                });
+
+                bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
+                bavardConnectedListPanel.add(bavardLabel);
+            }
+        }
+
+
+        //pane.add(disconnectButton, BorderLayout.EAST);
+        pane.add(bavardConnectedListPanel, BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // close the frame without closing the program
@@ -98,9 +148,12 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         if (e.getActionCommand().equals("send")){
             this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
         }
-        else{ // disconnect button
+        if (e.getActionCommand().equals("Sign out")){
             this.bavardLogged.alerteIsDisconnected();
             this.dispose();
+        }
+        if (e.getActionCommand().equals("adjust listening")){
+            new BavardAdjustItsListeningFrame(this.bavardLogged, this.concierge);
         }
     }
 
@@ -133,11 +186,17 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         JLabel messageBodyLabel = new JLabel();
 
-        LineBorder line = new LineBorder(Color.blue, 2, true);
+        LineBorder line = new LineBorder(new Color(128, 128, 128), 2, true);
 
         String usernameSender;
         if (pe instanceof OnlineOfflineBavardEvent){
             messageBodyLabel.setText(pe.getMessages().getBody());
+            if(pe instanceof OnlineBavardEvent){
+                System.out.println("oui");
+                this.addConnectedBavard(pe);
+                this.bavardConnectedListPanel.revalidate();
+                this.bavardConnectedListPanel.repaint();
+            }
         }else {
             if (pe.getSource() == bavardLogged) {
                 usernameSender = "You";
@@ -160,7 +219,6 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         messageContentPanel.setBorder(line);
 
-
         messageContentPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
@@ -171,8 +229,6 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         oneMessagePanel.add(messageContentPanel, BorderLayout.WEST); //messages we receive are on the left
 
-        System.out.println(messageContentPanel.getPreferredSize().height);
-        System.out.println(messageContentPanel.getHeight());
         oneMessagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, messageContentPanel.getPreferredSize().height+5));
         oneMessagePanel.setBackground(Color.YELLOW);
 
@@ -180,5 +236,28 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         this.myMessageViewPanel.add(oneMessagePanel);
         this.myMessageViewPanel.revalidate();
         this.myMessageViewPanel.repaint();
+    }
+
+    public void addConnectedBavard(PapotageEvent pe){
+
+        Bavard ConnectedBavard = (Bavard)pe.getSource();
+        JLabel bavardLabel = new JLabel(ConnectedBavard.getLogin(), SwingConstants.CENTER);
+        LineBorder line1 = new LineBorder(new Color(128, 128, 128), 2, true);
+        bavardLabel.setBorder(line1);
+        bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+
+        bavardLabel.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                popupmenu.show(bavardConnectedListPanel , e.getX(), e.getY());
+            }
+        });
+
+        this.bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
+        this.bavardConnectedListPanel.add(bavardLabel);
+        this.bavardConnectedListPanel.revalidate();
+        this.bavardConnectedListPanel.repaint();
+
     }
 }

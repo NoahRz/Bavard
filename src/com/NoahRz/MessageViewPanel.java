@@ -7,7 +7,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-public class MessageViewPanel extends JPanel implements PapotageListener {
+public class MessageViewPanel extends JPanel implements PapotageListener { //ne sert à rien
     private BavardFrame frame; // the frame where this panel is
     private ArrayList<PapotageEvent> messagesReceivedList ;
     private Bavard bavardLogged;
@@ -19,6 +19,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener {
         this.setLayout(new FlowLayout());
         this.messagesReceivedList = new ArrayList<PapotageEvent>();
         this.bavardLogged = bavardLogged;
+        System.out.println("créé");
     }
     @Override
     public void receiveMessages(PapotageEvent pe) {

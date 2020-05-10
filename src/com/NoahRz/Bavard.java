@@ -9,15 +9,17 @@ public class Bavard implements PapotageListener {
     private  String login;
     private Concierge concierge;
     private String password;
-    private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion;
+    private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion; //pas besoin
     private MessageViewPanel myMessageViewPanel;
     private BavardFrame1 myFrame;
+    private boolean isConnected;
 
     public Bavard(String login, String password, Concierge concierge){
         this.login = login;
         this.concierge = concierge;
         this.password = password;
         this.recentDiscussion= new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
+        this.isConnected=false;
     }
 
     public void setFrame(BavardFrame1 myFrame){
@@ -39,6 +41,14 @@ public class Bavard implements PapotageListener {
 
     public HashMap<PapotageListener, ArrayList<PapotageEvent>> getRecentDiscussion() {
         return recentDiscussion;
+    }
+
+    public BavardFrame1 getMyFrame() {
+        return myFrame;
+    }
+
+    public boolean isConnected() {
+        return isConnected;
     }
 
     /********************************************************************
@@ -87,6 +97,7 @@ public class Bavard implements PapotageListener {
         Message message = new Message("",(this.getLogin() + " is connected"));
         OnlineBavardEvent bavardConnectedEvent = new OnlineBavardEvent(this, message);
         this.concierge.alerteBavardConnecedDisconnected(bavardConnectedEvent);
+        this.isConnected = true;
     }
 
     public MessageViewPanel getMessageViewPanel() {
