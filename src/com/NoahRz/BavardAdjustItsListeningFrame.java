@@ -7,12 +7,14 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class BavardAdjustItsListeningFrame extends JFrame implements ActionListener {
+    private Concierge concierge;
     private Bavard bavardLogged;
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
 
     public BavardAdjustItsListeningFrame(Bavard bavardLogged, Concierge concierge){
         this.bavardLogged=bavardLogged;
+        this.concierge=concierge;
         this.setTitle("Adjust listening page");
         this.setSize(new Dimension(300 ,230));
         JPanel pane = new JPanel();
@@ -49,7 +51,7 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
         confirmListenersButton.setActionCommand("Confirm listeners");
         confirmListenersButton.addActionListener(this);
         pane.add(confirmListenersButton, BorderLayout.SOUTH);
-        
+
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
@@ -58,12 +60,21 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        System.out.println("ok1");
         if(e.getActionCommand().equals("Confirm listeners")){
-            System.out.println("ok");
             for(JCheckBox cb : this.checkBoxes){
+                Bavard bavardListened = this.concierge.getBavard(cb.getActionCommand());
                 if (cb.isSelected()){
-                    System.out.println(cb.getActionCommand());
+                    if(!concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
+                        // we check if the logged bavard is not already listening to the bavard corresponding to the checkbox. True:we can add it
+                        RequestEvent request = new RequestEvent(bavardLogged, "add", bavardListened);
+                        concierge.receiveRequest(request);
+                    }
+                }else{
+                    if(concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
+                        // we check if the logged bavard is listening to the bavard corresponding to the checkbox. True : we can remove it
+                        RequestEvent request = new RequestEvent(bavardLogged, "remove", bavardListened);
+                        concierge.receiveRequest(request);
+                    }
                 }
             }
         }

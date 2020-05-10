@@ -13,12 +13,14 @@ public class Concierge implements PapotageListener {
     //private ArrayList<PapotageListener> papotageListeners;
     private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap;
     // keys are bavards and the value is an array of all the bavard who listens to each bavard in keys
+    private ArrayList<RequestEvent> requestEventArrayList;
 
     public Concierge(String login, String password){
         this.login = login;
         this.password = password;
         //this.papotageListeners = new ArrayList<PapotageListener>();
         this.bavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
+        this.requestEventArrayList = new ArrayList<RequestEvent>();
     }
 
     /********************************************************************
@@ -71,6 +73,10 @@ public class Concierge implements PapotageListener {
          * @return ArrayList<Bavard>*/
 
         return this.bavardsListenToBavardMap.get(bavard);
+    }
+
+    public ArrayList<RequestEvent> getRequestEventArrayList() {
+        return requestEventArrayList;
     }
 
     /********************************************************************
@@ -126,6 +132,11 @@ public class Concierge implements PapotageListener {
                 bavard.receiveMessages(bavardConnectedDiscconnectedEvent);
             }
         }
+    }
+
+    public void receiveRequest(RequestEvent request){
+        /*add the request he have just received to the arrayList requestEventArrayList */
+        this.requestEventArrayList.add(request);
     }
 }
 
