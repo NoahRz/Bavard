@@ -77,6 +77,7 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
                     }
                 }
             }
+            this.dispose();
         }
     }
 }

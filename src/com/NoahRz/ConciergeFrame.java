@@ -54,13 +54,50 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         }
         else{
             for (RequestEvent re : concierge.getRequestEventArrayList()){
+                JPanel oneRequestPanel = new JPanel();
+                oneRequestPanel.setLayout(new BorderLayout());
                 Bavard bavardRequester = (Bavard) re.getSource();
                 JLabel requestLabel = new JLabel(bavardRequester.getLogin() + " wants to " + re.getRequest() + " " + re.getBavardSubject().getLogin());
-                requestPanel.add(requestLabel);
+                JButton approveButton = new JButton("Approve");
+                JButton dismissButton = new JButton("Dismiss");
+
+                oneRequestPanel.add(requestLabel, BorderLayout.WEST);
+                oneRequestPanel.add(approveButton, BorderLayout.CENTER);
+                oneRequestPanel.add(dismissButton, BorderLayout.EAST);
+
+                approveButton.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) { //we approve the request
+                        if(re.getRequest().equals("add")){
+                            concierge.getBavardListenersOfBavard(re.getBavardSubject()).add(bavardRequester);
+                            requestPanel.remove(oneRequestPanel);
+                            requestPanel.revalidate();
+                            requestPanel.repaint();
+                        }
+                        if(re.getRequest().equals("remove")){
+                            concierge.getBavardListenersOfBavard(re.getBavardSubject()).remove(bavardRequester);
+                            requestPanel.remove(oneRequestPanel);
+                            requestPanel.revalidate();
+                            requestPanel.repaint();
+                        }
+                    }
+                });
+
+                dismissButton.addActionListener(new ActionListener() { // we dismiss the request
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        requestPanel.remove(oneRequestPanel);
+                        requestPanel.revalidate();
+                        requestPanel.repaint();
+                    }
+                });
+
+
+                requestPanel.add(oneRequestPanel);
             }
         }
-
-        pane.add(requestPanel);
+        JScrollPane scrollPane = new JScrollPane(requestPanel);
+        pane.add(scrollPane);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
