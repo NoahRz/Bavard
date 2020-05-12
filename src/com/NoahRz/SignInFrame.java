@@ -91,9 +91,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                 }
                 else if (guestBavard != null){
                     if (passwordEntered.equals(guestBavard.getPassword())){
-                        new BavardFrame1(guestBavard, this.concierge); /*Open a new Frame*/
-                        guestBavard.alerteIsConnected();
-
+                        new BavardFrame1(guestBavard, this.concierge); //Open a new Frame
                     } else {
                         this.errorMessage.setVisible(true);
                     }

@@ -17,10 +17,12 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     private JPanel bavardConnectedListPanel;
     private JPopupMenu popupmenu;
 
-    public BavardFrame1(PapotageListener papotageListenerLogged, Concierge concierge) {
+    public BavardFrame1(PapotageListener papotageListenerLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
         this.bavardLogged = (Bavard)papotageListenerLogged;
         this.bavardLogged.setFrame(this);
         this.concierge=concierge;
+        this.bavardLogged.alerteIsConnected();
+
         this.setTitle("Bavard page");
         this.setLocationRelativeTo(null);
         this.setSize(new Dimension(600,600));
@@ -134,8 +136,6 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
             }
         }
 
-
-        //pane.add(disconnectButton, BorderLayout.EAST);
         pane.add(bavardConnectedListPanel, BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
@@ -191,12 +191,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         String usernameSender;
         if (pe instanceof OnlineOfflineBavardEvent){
             messageBodyLabel.setText(pe.getMessages().getBody());
-            if(pe instanceof OnlineBavardEvent){
-                System.out.println("oui");
-                this.addConnectedBavard(pe);
-                this.bavardConnectedListPanel.revalidate();
-                this.bavardConnectedListPanel.repaint();
-            }
+            this.refreshConnectedBavardList();
         }else {
             if (pe.getSource() == bavardLogged) {
                 usernameSender = "You";
@@ -238,26 +233,33 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         this.myMessageViewPanel.repaint();
     }
 
-    public void addConnectedBavard(PapotageEvent pe){
-
-        Bavard ConnectedBavard = (Bavard)pe.getSource();
-        JLabel bavardLabel = new JLabel(ConnectedBavard.getLogin(), SwingConstants.CENTER);
-        LineBorder line1 = new LineBorder(new Color(128, 128, 128), 2, true);
-        bavardLabel.setBorder(line1);
-        bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
-
-        bavardLabel.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                super.mouseClicked(e);
-                popupmenu.show(bavardConnectedListPanel , e.getX(), e.getY());
-            }
-        });
-
-        this.bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
-        this.bavardConnectedListPanel.add(bavardLabel);
+    public void refreshConnectedBavardList(){ // je fais comme ca car dans tous les cas, les bavards connectés sont stockés.
+        /**
+         * Refresh the connected bavard list
+         * */
+        this.bavardConnectedListPanel.removeAll();
         this.bavardConnectedListPanel.revalidate();
         this.bavardConnectedListPanel.repaint();
+
+        for (Bavard bavard:this.concierge.getBavardsListenToBavardMap().keySet()){
+            if(bavard.isConnected()) {
+                JLabel bavardLabel = new JLabel(bavard.getLogin(), SwingConstants.CENTER);
+                LineBorder line1 = new LineBorder(new Color(128, 128, 128), 2, true);
+                bavardLabel.setBorder(line1);
+                bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+
+                bavardLabel.addMouseListener(new MouseAdapter() {
+                    @Override
+                    public void mouseClicked(MouseEvent e) {
+                        super.mouseClicked(e);
+                        popupmenu.show(bavardConnectedListPanel, e.getX(), e.getY());
+                    }
+                });
+
+                this.bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
+                this.bavardConnectedListPanel.add(bavardLabel);
+            }
+        }
 
     }
 }
