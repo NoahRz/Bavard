@@ -16,14 +16,13 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
     public SignInFrame(String nom, Concierge concierge){
         this.concierge = concierge;
         this.setTitle(nom);
-        this.setSize(400,400);
-
+        this.setSize(500,450);
         JPanel pane = new JPanel();
         pane.setBackground(Color.YELLOW);
         this.setContentPane(pane);
         this.setLayout(new BorderLayout());
 
-        /*Connexion panel in Center of the Frame*/
+        /*-- Connexion panel in Center of the Frame --*/
         JPanel connexionPanel = new JPanel();
         connexionPanel.setLayout(new GridLayout(5,1));
         connexionPanel.setBackground(Color.YELLOW);
@@ -33,6 +32,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         JPasswordField passwordField = new JPasswordField("Password");
         JButton signInButton = new JButton("Sign in");
         errorMessage.setBackground(Color.YELLOW);
+        errorMessage.setForeground(Color.RED); // set the text color to red
         this.errorMessage.setVisible(false);
 
         connexionPanel.add(titleLabel);
@@ -44,7 +44,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         connexionPanel.setPreferredSize(new Dimension(pane.getWidth()/3, pane.getHeight()/2));
         pane.add(connexionPanel, BorderLayout.CENTER);
 
-        /*Yellow panel around the connexionPanel*/
+        /*-- Yellow panel around the connexionPanel --*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
         borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
@@ -66,7 +66,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         pane.add(borderFramePanelW, BorderLayout.WEST);
         pane.add(borderFramePanelE, BorderLayout.EAST);
 
-        /*Listeners*/
+        /*-- Listeners --*/
         loginField.addKeyListener(this);
         passwordField.addKeyListener(this);
         signInButton.addActionListener(this);
@@ -82,16 +82,16 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
             if ((this.loginEntered!= null) && (this.passwordEntered!=null)){
                 Bavard guestBavard = concierge.getBavard(loginEntered);
                 if (loginEntered.equals(concierge.getLogin())){
-                    if (passwordEntered.equals(concierge.getPassword())){
-                        new ConciergeFrame(concierge); /*Open a new Frame, the ConciergeFrame*/
+                    if (passwordEntered.equals(concierge.getPassword())){ // check if the login and password entered by the user correspond to the concierge's
+                        new ConciergeFrame(concierge); // Open a new Frame, the ConciergeFrame
                     }
                     else{
                         this.errorMessage.setVisible(true);
                     }
                 }
                 else if (guestBavard != null){
-                    if (passwordEntered.equals(guestBavard.getPassword())){
-                        new BavardFrame1(guestBavard, this.concierge); //Open a new Frame
+                    if (passwordEntered.equals(guestBavard.getPassword())){ // check if the login and password entered by the user correspond to a bavard's
+                        new BavardFrame1(guestBavard, this.concierge); // Open a new Frame, the BavardFrame
                     } else {
                         this.errorMessage.setVisible(true);
                     }
@@ -114,7 +114,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getSource() instanceof JPasswordField) { // we do this way because JPasswordField is also an instance of JTextField
+        if (e.getSource() instanceof JPasswordField) { // I do this way because JPasswordField is also an instance of JTextField
             JPasswordField pf = (JPasswordField) e.getSource();
             this.passwordEntered = new String(pf.getPassword());
         }

@@ -7,9 +7,11 @@ import java.awt.event.*;
 
 public class BavardFrame1 extends JFrame implements ActionListener, KeyListener {
     /**
-     * This class is the frame where the Bavard can send, receive message and the concierge can create Bavard and send and receive message*/
+     * This class is the frame where the Bavard can send, receive message and the concierge can create Bavard and send and receive message
+     * */
+
     private Bavard bavardLogged;
-    private JPanel messagingPanel; /* right panel :  where we display messages of the discussion selected and the area to send messages */
+    private JPanel messagingPanel;
     private String bodyMessage;
     private String subjectMessage;
     private JPanel myMessageViewPanel;
@@ -30,9 +32,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
-        BavardFrame1 frame = this;
-
-        /*--Menu--*/
+        /*-- Menu --*/
         JMenuBar menubar= new JMenuBar();
         JMenu bavardMenu=new JMenu(bavardLogged.getLogin());
         JMenu optionMenu = new JMenu("Option");
@@ -50,39 +50,35 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         menubar.add(optionMenu);
         this.setJMenuBar(menubar);
 
-        /* *********************************************************************************** */
-        /* ************************** Left panel :  messaging panel ************************* */
-        /*  where we display messages of the discussion selected and the area to send messages */
-        /* *********************************************************************************** */
+        /* ************************************************************************************* */
+        /* ************************** messaging panel ****************************************** */
+        /* Area where we display messages we received and send  and  area Where we send messages */
+        /* ************************************************************************************* */
 
         this.messagingPanel = new JPanel();
         messagingPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()));
         messagingPanel.setLayout(new BorderLayout());
 
 
-        /*---- Area where the bavard can see messages he received and messages he receives----***/
+        /*-- Area where we can see messages we received and messages we sent --*/
         myMessageViewPanel = new JPanel();
         myMessageViewPanel.setBackground(Color.YELLOW);
-        //myMessageViewPanel.setPreferredSize(new Dimension(frame.getWidth()*3/4, frame.getHeight()*3/4));
         myMessageViewPanel.setLayout(new BoxLayout(myMessageViewPanel, BoxLayout.Y_AXIS));
-        //myMessageViewPanel.setLayout(new FlowLayout());
 
-        //JScrollPane scrollPane = new JScrollPane(myMessageViewPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         JScrollPane scrollPane = new JScrollPane(myMessageViewPanel);
-
         messagingPanel.add(scrollPane, BorderLayout.CENTER);
 
-        /*---- Area where the user can write messages and send them ----*/
+        /*-- Area where the user can write messages and send them --*/
         JPanel messageFieldPanel = new JPanel();
         messageFieldPanel.setBackground(Color.GREEN);
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new BorderLayout());
 
-        JTextField messagesubjectTextField = new JTextField("Write the message subject ...");
-        Dimension d = messagesubjectTextField.getPreferredSize(); // we do that to only modify one dimension
+        JTextField messageSubjectTextField = new JTextField("Write the message subject ...");
+        Dimension d = messageSubjectTextField.getPreferredSize(); // we do that to only modify one dimension
         d.width = this.getWidth() * 6 / 10;
-        messagesubjectTextField.setPreferredSize(d);
-        messagesubjectTextField.addKeyListener(this);
+        messageSubjectTextField.setPreferredSize(d);
+        messageSubjectTextField.addKeyListener(this);
 
         JTextArea messagingTextArea = new JTextArea("Write the message body ... "); //area where the user can write message
         messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/5));
@@ -96,7 +92,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         JPanel inputMessagePanel = new JPanel();
         inputMessagePanel.setLayout(new FlowLayout());
-        inputMessagePanel.add(messagesubjectTextField);
+        inputMessagePanel.add(messageSubjectTextField);
         inputMessagePanel.add(messagingTextArea);
 
         messageFieldPanel.add(inputMessagePanel, BorderLayout.CENTER);
@@ -104,24 +100,33 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         pane.add(messagingPanel, BorderLayout.CENTER);
 
-        /*----- RIGHT PANEL ----*/
-        /*---- Area where the user can see a list of connected bavard ----*/
+        /* ************************************************************************************* */
+        /* ************************** bavardConnectedListPanel ********************************* */
+        /* ************ Area where the user can see a list of connected bavard ***************** */
+        /* ************************************************************************************* */
 
         bavardConnectedListPanel = new JPanel();
-        bavardConnectedListPanel.setLayout(new BoxLayout(bavardConnectedListPanel, BoxLayout.Y_AXIS)); // display bavard vertivally
+        bavardConnectedListPanel.setLayout(new BoxLayout(bavardConnectedListPanel, BoxLayout.Y_AXIS)); // display bavard vertically
 
-        LineBorder line1 = new LineBorder(new Color(128, 128, 128), 2, true);
-
-        popupmenu = new JPopupMenu("Edit");
+        popupmenu = new JPopupMenu("Edit"); // popupmenu when we click on a connected bavard
         JMenuItem listen_toMenuItem = new JMenuItem("Listen to");
         JMenuItem un_listen_toMenuItem = new JMenuItem("un Listen to");
         JMenuItem dmMenuItem = new JMenuItem("DM");
-        popupmenu.add(listen_toMenuItem); popupmenu.add(un_listen_toMenuItem); popupmenu.add(dmMenuItem);
+        popupmenu.add(listen_toMenuItem);
+        popupmenu.add(un_listen_toMenuItem);
+        popupmenu.add(dmMenuItem);
 
+        JLabel connectedBavardTitleLabel = new JLabel("Connected bavards");
+        bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
+        bavardConnectedListPanel.add(connectedBavardTitleLabel);
+
+        LineBorder lineBorder = new LineBorder(new Color(128, 128, 128), 2, true);
+
+        //we look through the bavard and add those connected
         for (Bavard bavard : this.concierge.getBavardsListenToBavardMap().keySet()){
             if(bavard.isConnected()){
                 JLabel bavardLabel = new JLabel(bavard.getLogin(), SwingConstants.CENTER);
-                bavardLabel.setBorder(line1);
+                bavardLabel.setBorder(lineBorder);
                 bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
                 bavardLabel.addMouseListener(new MouseAdapter() {
                     @Override
@@ -145,14 +150,14 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getActionCommand().equals("send")){
+        if (e.getActionCommand().equals("send")){ //if we click on the send button
             this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
         }
-        if (e.getActionCommand().equals("Sign out")){
+        if (e.getActionCommand().equals("Sign out")){ // if we click on "sign out"
             this.bavardLogged.alerteIsDisconnected();
             this.dispose();
         }
-        if (e.getActionCommand().equals("adjust listening")){
+        if (e.getActionCommand().equals("adjust listening")){ //if we click on "adjust listening"
             new BavardAdjustItsListeningFrame(this.bavardLogged, this.concierge);
         }
     }
@@ -167,7 +172,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getSource() instanceof JTextArea) { // we do this way because JPasswordField is also an instance of JTextField
+        if (e.getSource() instanceof JTextArea) {
             JTextArea ta = (JTextArea) e.getSource();
             this.bodyMessage = ta.getText();
         }
@@ -178,28 +183,41 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     }
 
     public void receiveMessages(PapotageEvent pe){
-        JPanel oneMessagePanel = new JPanel();
+        /**
+         * we add the message we have juste received to the myMessageViewPanel
+         * @param pe:PapotageEvent, event which handles the message
+         * */
+
+        JPanel oneMessagePanel = new JPanel(); // panel which contains the messageContentPanel
         oneMessagePanel.setLayout(new BorderLayout());
 
-        JPanel messageContentPanel = new JPanel();
+        JPanel messageContentPanel = new JPanel(); // panel which gathers the sender, the message subject and the body subject (small part)
         messageContentPanel.setLayout(new BorderLayout());
 
         JLabel messageBodyLabel = new JLabel();
-
-        LineBorder line = new LineBorder(new Color(128, 128, 128), 2, true);
+        LineBorder lineBorder = new LineBorder(new Color(128, 128, 128), 2, true);
 
         String usernameSender;
+
+        String messageContentPosition;
         if (pe instanceof OnlineOfflineBavardEvent){
             messageBodyLabel.setText(pe.getMessages().getBody());
+            messageBodyLabel.setForeground(new Color(255, 128, 0));
+            Font newLabelFont=new Font(messageBodyLabel.getFont().getName(),Font.ITALIC,messageBodyLabel.getFont().getSize());
+            messageBodyLabel.setFont(newLabelFont);
+            messageContentPosition = BorderLayout.WEST;
             this.refreshConnectedBavardList();
-        }else {
-            if (pe.getSource() == bavardLogged) {
+
+        }else { // it's a simple message
+            if (pe.getSource() == bavardLogged) { // message we sent
                 usernameSender = "You";
-            } else {
+                messageContentPosition = BorderLayout.EAST;
+            } else { // message we received
                 Bavard userSender = (Bavard) pe.getSource();
                 usernameSender = userSender.getLogin();
+                messageContentPosition = BorderLayout.WEST;
             }
-            JLabel senderLabel = new JLabel("From:" + usernameSender);
+            JLabel senderLabel = new JLabel("From: " + usernameSender);
             JLabel subjectLabel = new JLabel("Subject: "+pe.getMessages().getSubject());
 
             messageContentPanel.add(senderLabel, BorderLayout.NORTH);
@@ -212,17 +230,16 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         d.width=this.getWidth()/3;
         messageContentPanel.setPreferredSize(d);
 
-        messageContentPanel.setBorder(line);
-
+        messageContentPanel.setBorder(lineBorder);
         messageContentPanel.addMouseListener(new MouseAdapter() {
             @Override
-            public void mousePressed(MouseEvent e) {
+            public void mousePressed(MouseEvent e) { // if we click on the message, we open a new frame to show the whole message
                 super.mousePressed(e);
                 new MessageFrame(pe);
             }
         });
 
-        oneMessagePanel.add(messageContentPanel, BorderLayout.WEST); //messages we receive are on the left
+        oneMessagePanel.add(messageContentPanel, messageContentPosition); //messages we receive are on the left
 
         oneMessagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, messageContentPanel.getPreferredSize().height+5));
         oneMessagePanel.setBackground(Color.YELLOW);
@@ -233,7 +250,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         this.myMessageViewPanel.repaint();
     }
 
-    public void refreshConnectedBavardList(){ // je fais comme ca car dans tous les cas, les bavards connectés sont stockés.
+    public void refreshConnectedBavardList(){ // I did this way because it guarantees a good synchronization
         /**
          * Refresh the connected bavard list
          * */
@@ -241,11 +258,17 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         this.bavardConnectedListPanel.revalidate();
         this.bavardConnectedListPanel.repaint();
 
+        JLabel connectedBavardTitleLabel = new JLabel("Connected bavards");
+        bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
+        bavardConnectedListPanel.add(connectedBavardTitleLabel);
+
+        LineBorder lineBorder = new LineBorder(new Color(128, 128, 128), 2, true);
+
+        //we look through the bavard and add those connected
         for (Bavard bavard:this.concierge.getBavardsListenToBavardMap().keySet()){
             if(bavard.isConnected()) {
                 JLabel bavardLabel = new JLabel(bavard.getLogin(), SwingConstants.CENTER);
-                LineBorder line1 = new LineBorder(new Color(128, 128, 128), 2, true);
-                bavardLabel.setBorder(line1);
+                bavardLabel.setBorder(lineBorder);
                 bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
 
                 bavardLabel.addMouseListener(new MouseAdapter() {
