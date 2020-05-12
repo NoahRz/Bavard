@@ -38,7 +38,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
 
         /*-- Left panel : bavardListenedPanel, panel where we select the bavard we want to adjust his listeners --*/
 
-        JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton(in a panel) and a confirm button
+        JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton(in another panel) and a confirm button
         bavardListenedPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         bavardListenedPanel.setLayout(new BorderLayout());
         bavardListenedPanel.setBackground(Color.YELLOW);
@@ -68,7 +68,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
 
         /*Right Panel : bavardListenersPanel, panel where we adjust the listeners of the bavard selected*/
 
-        JPanel bavardListenersPanel = new JPanel(); // panel which gathers title label, list of bavard checkbox (in a panel) and a confirm button
+        JPanel bavardListenersPanel = new JPanel(); // panel which gathers title label, list of bavard checkbox (in another panel) and a confirm button
         bavardListenersPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         bavardListenersPanel.setLayout(new BorderLayout());
         bavardListenersPanel.setBackground(Color.YELLOW);
