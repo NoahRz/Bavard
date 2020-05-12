@@ -51,6 +51,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
 
         /*-- Panel where we display request the concierge receives --*/
         JPanel requestPanel = new JPanel();
+        requestPanel.setBackground(Color.YELLOW);
         requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.Y_AXIS)); //panel where who gathers all the request the concierge receives
 
         if(concierge.getRequestEventArrayList().size() == 0){ // if there is no request

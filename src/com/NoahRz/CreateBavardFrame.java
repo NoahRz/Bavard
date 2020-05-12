@@ -43,7 +43,10 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         creationBavardPanel.setLayout(new GridLayout(5,1));
         creationBavardPanel.setBackground(Color.YELLOW);
 
-        JLabel creationBavardTitlePanel = new JLabel("Create a new Bavard", JLabel.CENTER);
+        JLabel creationBavardTitleLabel = new JLabel("Create a new Bavard", JLabel.CENTER);
+        Font fontForCreationBavardTitlePanel =new Font(creationBavardTitleLabel.getFont().getName(),Font.BOLD,creationBavardTitleLabel.getFont().getSize()); //make the creationBavardTitleLabel bold
+        creationBavardTitleLabel.setFont(fontForCreationBavardTitlePanel);
+
         JTextField bavardNameTextField = new JTextField("Login");
         JPasswordField bavardPasswordField = new JPasswordField("Password");
         JButton creationBavardButton = new JButton("Create");
@@ -56,7 +59,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         bavardPasswordField.addKeyListener(this);
         creationBavardButton.addActionListener(this);
 
-        creationBavardPanel.add(creationBavardTitlePanel);
+        creationBavardPanel.add(creationBavardTitleLabel);
         creationBavardPanel.add(bavardNameTextField);
         creationBavardPanel.add(bavardPasswordField);
         creationBavardPanel.add(creationBavardButton);

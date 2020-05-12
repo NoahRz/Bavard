@@ -32,6 +32,8 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         connexionPanel.setBackground(Color.YELLOW);
 
         JLabel titleLabel = new JLabel("EPapotage", SwingConstants.CENTER);
+        Font fontForTitleLabel =new Font(titleLabel.getFont().getName(),Font.BOLD,titleLabel.getFont().getSize());
+        titleLabel.setFont(fontForTitleLabel);
         JTextField loginField = new JTextField("Login");
         JPasswordField passwordField = new JPasswordField("Password");
         JButton signInButton = new JButton("Sign in");

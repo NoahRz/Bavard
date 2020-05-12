@@ -112,6 +112,8 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         bavardConnectedListPanel.setLayout(new BoxLayout(bavardConnectedListPanel, BoxLayout.Y_AXIS)); // display bavard vertically
 
         JLabel connectedBavardTitleLabel = new JLabel("Connected bavards");
+        Font fontForconnectedBavardTitleLabel =new Font(connectedBavardTitleLabel.getFont().getName(),Font.BOLD,connectedBavardTitleLabel.getFont().getSize()); //add Font to the label
+        connectedBavardTitleLabel.setFont(fontForconnectedBavardTitleLabel);
         bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
         bavardConnectedListPanel.add(connectedBavardTitleLabel);
 

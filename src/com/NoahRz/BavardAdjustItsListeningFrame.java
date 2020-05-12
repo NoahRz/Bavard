@@ -26,7 +26,6 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
         JPanel pane = new JPanel(); //panel which contains a title label, a list of bavard checkbox and a confirm button
         this.setContentPane(pane);
         this.setLayout(new BorderLayout());
-        this.setBackground(Color.YELLOW);
 
         JLabel TitleLabel= new JLabel("Listen to :");
         pane.add(TitleLabel, BorderLayout.NORTH);

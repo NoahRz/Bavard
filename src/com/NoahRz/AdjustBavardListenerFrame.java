@@ -41,12 +41,12 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton(in another panel) and a confirm button
         bavardListenedPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         bavardListenedPanel.setLayout(new BorderLayout());
-        bavardListenedPanel.setBackground(Color.YELLOW);
 
         JLabel bavardListenedTitleLabel = new JLabel("Bavard Listened");
         bavardListenedPanel.add(bavardListenedTitleLabel, BorderLayout.NORTH);
 
         JPanel panelForRadioButton = new JPanel(); //panel which contains radioButton
+        panelForRadioButton.setBackground(Color.YELLOW);
         panelForRadioButton.setLayout(new BoxLayout(panelForRadioButton, BoxLayout.Y_AXIS));
         bavardListenedButtonGroup = new ButtonGroup();
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){ // create all the bavard radiobutton
@@ -71,12 +71,12 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         JPanel bavardListenersPanel = new JPanel(); // panel which gathers title label, list of bavard checkbox (in another panel) and a confirm button
         bavardListenersPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         bavardListenersPanel.setLayout(new BorderLayout());
-        bavardListenersPanel.setBackground(Color.YELLOW);
 
         JLabel bavardListenersTitleLabel= new JLabel("Bavard Listener");
         bavardListenersPanel.add(bavardListenersTitleLabel, BorderLayout.NORTH);
 
         JPanel panelForCheckBox = new JPanel(); //panel which contains checkbox
+        panelForCheckBox.setBackground(Color.YELLOW);
         panelForCheckBox.setLayout(new BoxLayout(panelForCheckBox, BoxLayout.Y_AXIS));
 
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){  // create all the bavard checkBox
