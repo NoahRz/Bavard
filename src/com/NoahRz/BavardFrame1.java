@@ -71,7 +71,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         /*-- Area where the user can write messages and send them --*/
         JPanel messageFieldPanel = new JPanel();
-        messageFieldPanel.setBackground(Color.GREEN);
+        //messageFieldPanel.setBackground(Color.GREEN);
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new BorderLayout());
 
@@ -161,7 +161,11 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("send")){ //if we click on the send button
-            this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
+            if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message.
+                JOptionPane.showConfirmDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.DEFAULT_OPTION);
+            }else {
+                this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
+            }
         }
         if (e.getActionCommand().equals("Sign out")){ // if we click on "sign out"
             this.bavardLogged.alerteIsDisconnected();
@@ -202,6 +206,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         oneMessagePanel.setLayout(new BorderLayout());
 
         JPanel messageContentPanel = new JPanel(); // panel which gathers the sender, the message subject and the body subject (small part)
+        messageContentPanel.setBackground(new Color(242, 242, 242));
         messageContentPanel.setLayout(new BorderLayout());
 
         JLabel messageBodyLabel = new JLabel();
@@ -245,9 +250,17 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
             @Override
             public void mousePressed(MouseEvent e) { // if we click on the message, we open a new frame to show the whole message
                 super.mousePressed(e);
+                messageContentPanel.setBackground(new Color(128, 128, 128)); //we change the backgournd color of the panel when we press and release it
                 new MessageFrame(pe);
             }
-        });
+
+             @Override
+             public void mouseReleased(MouseEvent e) {
+                 super.mouseReleased(e);
+                 messageContentPanel.setBackground(new Color(242, 242, 242));
+             }
+         }
+        );
 
         oneMessagePanel.add(messageContentPanel, messageContentPosition); //messages we receive are on the left
 
