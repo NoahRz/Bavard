@@ -125,6 +125,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
             this.dispose();
         }
         if(e.getActionCommand().equals("Sign out")){ //if we clicked "sign out" in the menu bar
+            this.concierge.setConnected(false);
             this.dispose();
         }
     }
