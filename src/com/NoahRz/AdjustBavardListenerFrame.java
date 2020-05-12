@@ -36,58 +36,64 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         menubar.add(optionMenu);
         this.setJMenuBar(menubar);
 
-        /*-- Left panel : bavardListenedPanel, panel where we select the bavard we want to adjust its listeners --*/
+        /*-- Left panel : bavardListenedPanel, panel where we select the bavard we want to adjust his listeners --*/
 
-        int nbRowsForGridLayout = this.concierge.getBavardsListenToBavardMap().keySet().size() + 2;
-        //number of bavard + 2 (2 corresponds to the label and the button)
-
-        JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton and a confirm button
+        JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton(in a panel) and a confirm button
         bavardListenedPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
-        bavardListenedPanel.setLayout(new GridLayout(nbRowsForGridLayout,1));
+        bavardListenedPanel.setLayout(new BorderLayout());
         bavardListenedPanel.setBackground(Color.YELLOW);
 
         JLabel bavardListenedTitleLabel = new JLabel("Bavard Listened");
-        bavardListenedPanel.add(bavardListenedTitleLabel);
+        bavardListenedPanel.add(bavardListenedTitleLabel, BorderLayout.NORTH);
 
+        JPanel panelForRadioButton = new JPanel(); //panel which contains radioButton
+        panelForRadioButton.setLayout(new BoxLayout(panelForRadioButton, BoxLayout.Y_AXIS));
         bavardListenedButtonGroup = new ButtonGroup();
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){ // create all the bavard radiobutton
             JRadioButton rb = new JRadioButton(bavard.getLogin());
             rb.setActionCommand(bavard.getLogin());
             bavardListenedButtonGroup.add(rb);
-            bavardListenedPanel.add(rb);
+            panelForRadioButton.add(rb);
         }
+        JScrollPane bavardListenedScrollPane = new JScrollPane(panelForRadioButton);//we make the panelForRadioButton scrollable
+        bavardListenedPanel.add(bavardListenedScrollPane,BorderLayout.CENTER);
 
         JButton bavardListenedConfirmButton = new JButton("Confirm listened");
         bavardListenedConfirmButton.setActionCommand("Confirm listened");
         bavardListenedConfirmButton.addActionListener(this);
-        bavardListenedPanel.add(bavardListenedConfirmButton);
+        bavardListenedPanel.add(bavardListenedConfirmButton, BorderLayout.SOUTH);
 
-        JScrollPane bavardListenedScrollPane = new JScrollPane(bavardListenedPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        pane.add(bavardListenedScrollPane,BorderLayout.CENTER);
+        pane.add(bavardListenedPanel, BorderLayout.CENTER);
+
 
         /*Right Panel : bavardListenersPanel, panel where we adjust the listeners of the bavard selected*/
-        JPanel bavardListenersPanel = new JPanel(); // panel which gathers title label, list of bavard checkbox and a confirm button
+
+        JPanel bavardListenersPanel = new JPanel(); // panel which gathers title label, list of bavard checkbox (in a panel) and a confirm button
         bavardListenersPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
-        bavardListenersPanel.setLayout(new GridLayout(nbRowsForGridLayout,1));
+        bavardListenersPanel.setLayout(new BorderLayout());
         bavardListenersPanel.setBackground(Color.YELLOW);
 
         JLabel bavardListenersTitleLabel= new JLabel("Bavard Listener");
-        bavardListenersPanel.add(bavardListenersTitleLabel);
+        bavardListenersPanel.add(bavardListenersTitleLabel, BorderLayout.NORTH);
 
+        JPanel panelForCheckBox = new JPanel(); //panel which contains checkbox
+        panelForCheckBox.setLayout(new BoxLayout(panelForCheckBox, BoxLayout.Y_AXIS));
 
-        for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){  // create all the bavard chechBox
+        for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){  // create all the bavard checkBox
             JCheckBox checkBox = new JCheckBox(bavard.getLogin());
             checkBox.setActionCommand(bavard.getLogin());
             this.checkBoxes.add(checkBox);
-            bavardListenersPanel.add(checkBox);
+            panelForCheckBox.add(checkBox);
         }
+        JScrollPane bavardListenersScrollPane = new JScrollPane(panelForCheckBox);//we make the panel For checkbox scrollable
+        bavardListenersPanel.add(bavardListenersScrollPane, BorderLayout.CENTER);
+
         JButton confirmListenersButton = new JButton("Confirm listeners");
         confirmListenersButton.setActionCommand("Confirm listeners");
         confirmListenersButton.addActionListener(this);
-        bavardListenersPanel.add(confirmListenersButton);
+        bavardListenersPanel.add(confirmListenersButton, BorderLayout.SOUTH);
 
-        JScrollPane bavardListenersScrollPane = new JScrollPane(bavardListenersPanel, JScrollPane.VERTICAL_SCROLLBAR_ALWAYS, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        pane.add(bavardListenersScrollPane,BorderLayout.EAST);
+        pane.add(bavardListenersPanel,BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
