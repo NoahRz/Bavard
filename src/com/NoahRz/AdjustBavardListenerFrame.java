@@ -24,10 +24,23 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
+        /*-- Menu --*/
+        JMenuBar menubar= new JMenuBar();
+        JMenu optionMenu = new JMenu("Option");
+        JMenuItem backMenu = new JMenuItem("Back");
+        backMenu.setActionCommand("back");
+        backMenu.addActionListener(this);
+
+        optionMenu.add(backMenu);
+
+        menubar.add(optionMenu);
+        this.setJMenuBar(menubar);
+
+        /*-- Left panel : bavardListenedPanel, panel where we select the bavard we want to adjust its listeners --*/
+
         int nbRowsForGridLayout = this.concierge.getBavardsListenToBavardMap().keySet().size() + 2;
         //number of bavard + 2 (2 corresponds to the label and the button)
 
-        /*-- Left panel : bavardListenedPanel, panel where we select the bavard we want to adjust its listeners --*/
         JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton and a confirm button
         bavardListenedPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         bavardListenedPanel.setLayout(new GridLayout(nbRowsForGridLayout,1));
@@ -84,7 +97,12 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         //for the bavard selected we pre-check checkboxes corresponding to bavard who are currently listening to the bavard selected
-        if (e.getActionCommand().equals("Confirm listened")) {
+
+        if(e.getActionCommand().equals("back")){ //if back is pressed, we go back to the concierge Frame
+            new ConciergeFrame(concierge);
+            this.dispose();
+        }
+        else if (e.getActionCommand().equals("Confirm listened")) {
             String bavardListenedSelected = bavardListenedButtonGroup.getSelection().getActionCommand();
             bavardSelected = concierge.getBavard(bavardListenedSelected);
             ArrayList<Bavard> bavardListenersOfBavardSelected = concierge.getBavardListenersOfBavard(bavardSelected);

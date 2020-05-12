@@ -25,6 +25,19 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
+        /*-- Menu --*/
+        JMenuBar menubar= new JMenuBar();
+        JMenu optionMenu = new JMenu("Option");
+        JMenuItem backMenu = new JMenuItem("Back");
+        backMenu.setActionCommand("back");
+        backMenu.addActionListener(this);
+
+        optionMenu.add(backMenu);
+
+        menubar.add(optionMenu);
+        this.setJMenuBar(menubar);
+
+
         /*-- creation bavard panel on the center of the Frame --*/
         JPanel creationBavardPanel  = new JPanel();
         creationBavardPanel.setLayout(new GridLayout(5,1));
@@ -86,6 +99,10 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
             } else {
                 this.creationMessageTextArea.setText("Error: the login is already taken,\nplease chose another one.");
             }
+        }
+        if(e.getActionCommand().equals("back")){ //if back is pressed, we go back to the concierge Frame
+            new ConciergeFrame(concierge);
+            this.dispose();
         }
     }
 
