@@ -1,4 +1,4 @@
-package com.NoahRz;
+package com.NoahRz; //ok
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,6 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class CreateBavardFrame extends JFrame implements ActionListener, KeyListener {
+    /**
+     * JFrame where the concierge can create new bavards
+     * */
     private Concierge concierge;
     private String passwordEntered;
     private String loginEntered;
@@ -15,13 +18,14 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
 
     public CreateBavardFrame(Concierge concierge){
         this.concierge = concierge;
+
         this.setTitle("Create bavard page");
         this.setSize(new Dimension(600 ,600));
         JPanel pane = new JPanel();
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
-
+        /*-- creation bavard panel on the center of the Frame --*/
         JPanel creationBavardPanel  = new JPanel();
         creationBavardPanel.setLayout(new GridLayout(5,1));
         creationBavardPanel.setBackground(Color.YELLOW);
@@ -30,13 +34,14 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         JTextField bavardNameTextField = new JTextField("Login");
         JPasswordField bavardPasswordField = new JPasswordField("Password");
         JButton creationBavardButton = new JButton("Create");
-        creationMessageTextArea = new JTextArea(); // display if the bavard has been succesfully added or not
-        creationMessageTextArea.setBackground(Color.YELLOW);
 
+        this.creationMessageTextArea = new JTextArea(); // display if the bavard has been succesfully added or not
+        this.creationMessageTextArea.setBackground(Color.YELLOW);
+
+        /*-- listeners --*/
         bavardNameTextField.addKeyListener(this);
         bavardPasswordField.addKeyListener(this);
         creationBavardButton.addActionListener(this);
-
 
         creationBavardPanel.add(creationBavardTitlePanel);
         creationBavardPanel.add(bavardNameTextField);
@@ -46,8 +51,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
 
         pane.add(creationBavardPanel, BorderLayout.CENTER);
 
-
-        /*Yellow panel around the connexionPanel*/
+        /*-- Yellow panel around the connexionPanel --*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
         borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
@@ -69,7 +73,6 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         pane.add(borderFramePanelW, BorderLayout.WEST);
         pane.add(borderFramePanelE, BorderLayout.EAST);
 
-
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
@@ -81,7 +84,6 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
             if (concierge.createBavard(this.loginEntered, this.passwordEntered)) {
                 this.creationMessageTextArea.setText("Bavard has been succesfully\ncreated !");
             } else {
-                concierge.createBavard(this.loginEntered, this.passwordEntered);
                 this.creationMessageTextArea.setText("Error: the login is already taken,\nplease chose another one.");
             }
         }
