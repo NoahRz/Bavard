@@ -71,7 +71,6 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         /*-- Area where the user can write messages and send them --*/
         JPanel messageFieldPanel = new JPanel();
-        //messageFieldPanel.setBackground(Color.GREEN);
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new BorderLayout());
 
