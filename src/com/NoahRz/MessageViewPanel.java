@@ -1,4 +1,4 @@
-package com.NoahRz;
+package com.NoahRz;// ne sert à rien
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

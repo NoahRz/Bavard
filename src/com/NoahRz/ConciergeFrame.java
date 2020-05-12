@@ -62,7 +62,13 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                 JPanel oneRequestPanel = new JPanel(); //panel which gathers the request label, an approve button and an dismiss button
                 oneRequestPanel.setLayout(new BorderLayout());
                 Bavard bavardRequester = (Bavard) re.getSource();
-                JLabel requestLabel = new JLabel(bavardRequester.getLogin() + " wants to " + re.getRequest() + " " + re.getBavardSubject().getLogin());
+                String preposition;
+                if(re.getRequest().equals("add")){
+                    preposition = " to his listening";
+                }else{
+                   preposition=" from his listening";
+                }
+                JLabel requestLabel = new JLabel(bavardRequester.getLogin() + " wants to " + re.getRequest() + " " + re.getBavardSubject().getLogin() + preposition);
 
                 /* we add an approve button and a dismiss button next to the request so that the concierge can directly answer the request
                 without going to the AdjustBavardListenerFrame where the concierge will have to do it manually */

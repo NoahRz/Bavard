@@ -1,4 +1,4 @@
-package com.NoahRz;
+package com.NoahRz; //pas besoin
 
 import javax.swing.*;
 import java.awt.*;

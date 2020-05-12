@@ -1,17 +1,11 @@
-package com.NoahRz;
-
-import java.util.ArrayList;
-import java.util.Arrays;
+package com.NoahRz; //ok
 
 public class EPapotage {
-
-    /*les messages sont d'abord envoyés au concierge et le concierge le renvoie aux destinataires*/
+    /**
+     * Main class
+     * */
     public static void main(String[] args) {
-        Concierge concierge = new Concierge("Le concierge", "123"); /*default concierge*/
-
-        /*Bavard a = new Bavard("tom", "aaa",concierge);
-        Bavard b = new Bavard("bob", "aaa",concierge);
-        Bavard c = new Bavard("baba", "aaa",concierge);*/
+        Concierge concierge = new Concierge("Le concierge", "123"); //default concierge
 
         concierge.createBavard("paul", "aaa");
         concierge.createBavard("noah", "aaa");
@@ -20,16 +14,7 @@ public class EPapotage {
         Bavard a = concierge.getBavard("paul");
         Bavard b = concierge.getBavard("noah");
 
-        concierge.BavardListenToBavard(a,b);
-        //concierge.BavardListenToBavard(a,c);
-
-        /*concierge.createBavard("bob", "aaa");
-        concierge.createBavard("tom", "aaa");
-        concierge.createBavard("baba", "aaa");*/
-
-        //Message message = new Message("un sujet", "un contenu");
-
-        //a.sendMessages(message);
+        concierge.BavardListenToBavard(a,b); // bavard b listens to bavard a
 
         new SignInFrame("Connexion", concierge);
 

@@ -1,18 +1,23 @@
-package com.NoahRz;
-
-import java.util.ArrayList;
+package com.NoahRz;//ok
 
 public class Message {
-    /*messages created by a user (Bavard our concierge */
+    /**
+     * Message sent by bavards
+     * */
     private String subject;
     private String body;
 
-
+    /********************************************************************
+     Constructor
+     ********************************************************************/
     public Message(String subject, String body){
         this.subject = subject;
         this.body =body;
     }
 
+    /********************************************************************
+     Getter
+     ********************************************************************/
     public String getSubject(){
         return subject;
     }

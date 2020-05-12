@@ -1,17 +1,17 @@
-package com.NoahRz;
+package com.NoahRz;//ok
 
 import javax.swing.*;
 import java.awt.*;
 
 public class MessageFrame extends JFrame {
     /**
-     * this class is a frame where we display the whole message, that we could'nt see entirely in the BavardFrame
+     * JFrame where we display the whole message, that we could'nt see entirely in the BavardFrame
      * */
 
     public MessageFrame(PapotageEvent message){
         this.setTitle("Message Frame");
         this.setSize(200,100);
-        JPanel pane = new JPanel();
+        JPanel pane = new JPanel(); //panel contains two labels (one to show the sender and one to show the message subject) and a textPane(to show the whole message body)
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
@@ -29,7 +29,6 @@ public class MessageFrame extends JFrame {
 
         messageBody.setEditable(false);
         messageBody.setText(message.getMessages().getBody());
-
 
         pane.add(senderLabel,BorderLayout.NORTH);
         pane.add(messageSubject,BorderLayout.CENTER);
