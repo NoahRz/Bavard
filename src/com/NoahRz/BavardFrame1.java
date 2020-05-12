@@ -7,7 +7,7 @@ import java.awt.event.*;
 
 public class BavardFrame1 extends JFrame implements ActionListener, KeyListener {
     /**
-     * This class is the frame where the Bavard can send, receive message and the concierge can create Bavard and send and receive message
+     * Jrame where the Bavard can send, receive message, see others connected bavard and ask to listen other barvard
      * */
 
     private Bavard bavardLogged;

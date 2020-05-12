@@ -8,6 +8,10 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class SignInFrame extends JFrame implements ActionListener, KeyListener{
+    /**
+     * JFrame where the user can sign in as a Bavard or as a Concierge
+     * */
+
     private Concierge concierge;
     private String loginEntered;
     private String passwordEntered;

@@ -1,16 +1,17 @@
 package com.NoahRz;
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class Bavard implements PapotageListener {
+    /**
+     * this class can send and receive messages, say that it is connected or disconnected
+     * */
     private  String login;
     private Concierge concierge;
     private String password;
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion; //pas besoin
-    private MessageViewPanel myMessageViewPanel;
+    private MessageViewPanel myMessageViewPanel; // Je crois qu'on en a pas besoin
     private BavardFrame1 myFrame;
     private boolean isConnected;
 
@@ -22,8 +23,16 @@ public class Bavard implements PapotageListener {
         this.isConnected=false;
     }
 
+    /********************************************************************
+     Setter
+     ********************************************************************/
+
     public void setFrame(BavardFrame1 myFrame){
         this.myFrame = myFrame;
+    }
+
+    public void setMessageViewPanel(MessageViewPanel myMessageViewPanel) { // Je crois qu'on en a pas besoin
+        this.myMessageViewPanel = myMessageViewPanel;
     }
 
     /********************************************************************
@@ -45,34 +54,29 @@ public class Bavard implements PapotageListener {
 
     public BavardFrame1 getMyFrame() {
         return myFrame;
-    }
+    } // je crois qu'on s'en sert pas
 
     public boolean isConnected() {
         return isConnected;
     }
 
+    public MessageViewPanel getMessageViewPanel() {
+        return myMessageViewPanel;
+    }  // je crois qu'on s'en sert pas
+
     /********************************************************************
      Methods
      ********************************************************************/
-    public Message createMessage(String subject, String body){
-        /**
-         * return the message created by the Bavard
-         * @Param subject: the subject of the message
-         * @Param body : the body of the message
-         * @Param addresses : ArrayList of addressees*/
-        return new Message(subject, body);
-    }
 
-    public void sendMessages(Message messageCreated){
+    public void sendMessages(Message message){
         /**
-         * send the message to the concierge with the addresses and then the concierge will send it to the addressees
+         * send the message to the concierge and then the concierge will send it to bavards who listens this bavard
          * @Param messageCreated : the message we've just created and we want to send
          * */
-        PapotageEvent pe = new PapotageEvent(this, messageCreated); // source it's this object
+        PapotageEvent pe = new PapotageEvent(this, message); // source it's this object
         concierge.receiveMessages(pe); //message sent
-        this.myFrame.receiveMessages(pe);
+        this.myFrame.receiveMessages(pe); // we do this to display the message we have just sent in our Frame
     }
-
 
     @Override
     public void receiveMessages(PapotageEvent pe) {
@@ -81,34 +85,29 @@ public class Bavard implements PapotageListener {
          * @Param pe: PapotageEvent with message
          * */
         if(this.myFrame != null) {
-            this.myFrame.receiveMessages(pe);
+            this.myFrame.receiveMessages(pe); // when the bavard receive the message we display it on his Frame
         }
-        // when the bavard receive the message we display it on his messageViewPanel
-    }
-
-
-    public void setMessageViewPanel(MessageViewPanel myMessageViewPanel) {
-        this.myMessageViewPanel = myMessageViewPanel;
     }
 
   public void alerteIsConnected(){
-        /**
-        send message to the concierge to alerte other bavard that this one is connected */
+      /**
+       * send message to the concierge to alerte other bavard that this one is connected
+       */
+
         Message message = new Message("",(" " + this.getLogin() + " is connected"));
         OnlineBavardEvent bavardConnectedEvent = new OnlineBavardEvent(this, message);
         this.isConnected = true;
-        this.concierge.alerteBavardConnecedDisconnected(bavardConnectedEvent);
-    }
-
-    public MessageViewPanel getMessageViewPanel() {
-        return myMessageViewPanel;
+        this.concierge.alerteBavardConnectedDisconnected(bavardConnectedEvent);
     }
 
     public void alerteIsDisconnected() {
+        /**
+         * send message to the concierge to alerte other bavard that this one is disconnected
+         */
         Message message = new Message("",(" " + this.getLogin() + " is disconnected"));
         OfflineBavardEvent bavardDisconnectedEvent = new OfflineBavardEvent(this, message);
         this.isConnected=false;
-        this.concierge.alerteBavardConnecedDisconnected(bavardDisconnectedEvent);
+        this.concierge.alerteBavardConnectedDisconnected(bavardDisconnectedEvent);
 
     }
 }
