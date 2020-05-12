@@ -10,7 +10,7 @@ public class MessageFrame extends JFrame {
 
     public MessageFrame(PapotageEvent message){
         this.setTitle("Message Frame");
-        this.setSize(200,100);
+        this.setSize(300,200);
         JPanel pane = new JPanel(); //panel contains two labels (one to show the sender and one to show the message subject) and a textPane(to show the whole message body)
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());

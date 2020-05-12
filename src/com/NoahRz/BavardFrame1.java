@@ -84,6 +84,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/5));
         messagingTextArea.addKeyListener(this);
 
+
         JButton sendMessageButton = new JButton("send");
         sendMessageButton.setActionCommand("send");
         sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
@@ -91,7 +92,8 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         messageFieldPanel.add(sendMessageButton, BorderLayout.EAST);
 
         JPanel inputMessagePanel = new JPanel();
-        inputMessagePanel.setLayout(new FlowLayout());
+        //inputMessagePanel.setLayout(new FlowLayout());
+        inputMessagePanel.setLayout(new BoxLayout(inputMessagePanel, BoxLayout.Y_AXIS));
         inputMessagePanel.add(messageSubjectTextField);
         inputMessagePanel.add(messagingTextArea);
 
