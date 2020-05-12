@@ -87,7 +87,13 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                 Bavard guestBavard = concierge.getBavard(loginEntered);
                 if (loginEntered.equals(concierge.getLogin())){
                     if (passwordEntered.equals(concierge.getPassword())){ // check if the login and password entered by the user correspond to the concierge's
-                        new ConciergeFrame(concierge); // Open a new Frame, the ConciergeFrame
+                        if(!concierge.isConnected()) { // so that we can't have more than one concierge Frame opened at the same time
+                            new ConciergeFrame(concierge); // Open a new Frame, the ConciergeFrame
+                            concierge.setConnected(true);
+                        }else{
+                            this.errorMessage.setText("You are already connected");
+                            this.errorMessage.setVisible(true);
+                        }
                     }
                     else{
                         this.errorMessage.setVisible(true);
@@ -95,7 +101,12 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                 }
                 else if (guestBavard != null){
                     if (passwordEntered.equals(guestBavard.getPassword())){ // check if the login and password entered by the user correspond to a bavard's
-                        new BavardFrame1(guestBavard, this.concierge); // Open a new Frame, the BavardFrame
+                        if(!guestBavard.isConnected()) { // so that we can't have more than one bavard Frame of a bavard opened at the same time
+                            new BavardFrame1(guestBavard, this.concierge); // Open a new Frame, the BavardFrame
+                        }else{
+                            this.errorMessage.setText("You are already connected");
+                            this.errorMessage.setVisible(true);
+                        }
                     } else {
                         this.errorMessage.setVisible(true);
                     }

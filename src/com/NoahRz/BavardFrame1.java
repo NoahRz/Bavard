@@ -124,7 +124,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         popupmenu.add(un_listen_toMenuItem);
         popupmenu.add(dmMenuItem);
         /*--------------*/
-        
+
         bavardConnectedListSubPanel = new JPanel(); //panel which contains the list of bavard label
         bavardConnectedListSubPanel.setLayout(new BoxLayout(bavardConnectedListSubPanel, BoxLayout.Y_AXIS));
 

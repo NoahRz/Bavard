@@ -98,6 +98,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
                 this.creationMessageTextArea.setText("Bavard has been succesfully\ncreated !");
             } else {
                 this.creationMessageTextArea.setText("Error: the login is already taken,\nplease chose another one.");
+                this.creationMessageTextArea.setForeground(Color.RED);
             }
         }
         if(e.getActionCommand().equals("back")){ //if back is pressed, we go back to the concierge Frame

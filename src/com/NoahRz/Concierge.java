@@ -13,6 +13,7 @@ public class Concierge implements PapotageListener {
     //private ArrayList<PapotageListener> papotageListeners;
     private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap; // keys are bavards and the value is an array of all the bavard who listens to each bavard in keys
     private ArrayList<RequestEvent> requestEventArrayList; // ArrayList which gathers all the request sent by bavard asking to listen other bavard
+    private boolean isConnected;
 
     public Concierge(String login, String password){
         this.login = login;
@@ -20,11 +21,22 @@ public class Concierge implements PapotageListener {
         //this.papotageListeners = new ArrayList<PapotageListener>();
         this.bavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
         this.requestEventArrayList = new ArrayList<RequestEvent>();
+        this.isConnected = false;
+    }
+    /********************************************************************
+     Setter
+     ********************************************************************/
+    public void setConnected(boolean bool){
+        this.isConnected=bool;
     }
 
     /********************************************************************
      Getter
      ********************************************************************/
+
+    public boolean isConnected() {
+        return isConnected;
+    }
 
     @Override
     public String getLogin() {
