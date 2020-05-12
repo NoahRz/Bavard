@@ -1,4 +1,4 @@
-package com.NoahRz;
+package com.NoahRz; //ok
 
 import javax.swing.*;
 import java.awt.*;
@@ -7,30 +7,36 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class BavardAdjustItsListeningFrame extends JFrame implements ActionListener {
+    /**
+     * JFrame where the bavard connected can adjust bavards he wants to listen (but it won't be really the case, it will
+     * just send a request to the concierge that this bavard wants to listen some one, then the concierge can approve or
+     * not.
+     * */
+
     private Concierge concierge;
     private Bavard bavardLogged;
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
-
     public BavardAdjustItsListeningFrame(Bavard bavardLogged, Concierge concierge){
         this.bavardLogged=bavardLogged;
         this.concierge=concierge;
+
         this.setTitle("Adjust listening page");
         this.setSize(new Dimension(300 ,230));
-        JPanel pane = new JPanel();
+        JPanel pane = new JPanel(); //panel which contains a title label, a list of bavard checkbox and a confirm button
         this.setContentPane(pane);
         this.setLayout(new BorderLayout());
         this.setBackground(Color.YELLOW);
 
-
         JLabel TitleLabel= new JLabel("Listen to :");
         pane.add(TitleLabel, BorderLayout.NORTH);
 
-        JPanel listenToBavardPanel = new JPanel();
+        JPanel listenToBavardPanel = new JPanel(); //panel which contains list of bavard checkbox
         listenToBavardPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         listenToBavardPanel.setLayout(new BoxLayout(listenToBavardPanel, BoxLayout.Y_AXIS));
         listenToBavardPanel.setBackground(Color.YELLOW);
 
+        //look through bavard and check those who the bavard is listening to
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){
             JCheckBox checkBox = new JCheckBox(bavard.getLogin());
             checkBox.setActionCommand(bavard.getLogin());
@@ -65,13 +71,13 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
                 Bavard bavardListened = this.concierge.getBavard(cb.getActionCommand());
                 if (cb.isSelected()){
                     if(!concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
-                        // we check if the logged bavard is not already listening to the bavard corresponding to the checkbox. True:we can add it
+                        // we check if the logged bavard is not already listening to the bavard corresponding to the checkbox. True:we can request
                         RequestEvent request = new RequestEvent(bavardLogged, "add", bavardListened);
                         concierge.receiveRequest(request);
                     }
                 }else{
                     if(concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
-                        // we check if the logged bavard is listening to the bavard corresponding to the checkbox. True : we can remove it
+                        // we check if the logged bavard is listening to the bavard corresponding to the checkbox. True : we can request
                         RequestEvent request = new RequestEvent(bavardLogged, "remove", bavardListened);
                         concierge.receiveRequest(request);
                     }

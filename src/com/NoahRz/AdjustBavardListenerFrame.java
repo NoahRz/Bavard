@@ -83,7 +83,6 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-
         //for the bavard selected we pre-check checkboxes corresponding to bavard who are currently listening to the bavard selected
         if (e.getActionCommand().equals("Confirm listened")) {
             String bavardListenedSelected = bavardListenedButtonGroup.getSelection().getActionCommand();
