@@ -163,7 +163,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("send")){ //if we click on the send button
             if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message.
-                JOptionPane.showConfirmDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.DEFAULT_OPTION);
+                JOptionPane.showMessageDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.WARNING_MESSAGE);
             }else {
                 this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
             }

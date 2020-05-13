@@ -120,6 +120,8 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                     checkBox.setSelected(false);
                 }
             }
+            JOptionPane.showMessageDialog(this,"Bavard listened has been selected");
+
         }
         else { /*if we have pressed the button "Confirm listeners"*/
             if(this.bavardSelected != null){
@@ -131,6 +133,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                 }
                 concierge.getBavardsListenToBavardMap().replace(bavardSelected, newBavardListeners);
                 // we replace the old bavard listener arrayList of the bavard selected  by this new bavard listener arrayList
+                JOptionPane.showMessageDialog(this,"Bavard listener has been selected");
             }
 
         }

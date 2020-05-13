@@ -48,7 +48,6 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
                 listenToBavardPanel.add(checkBox);
                 this.checkBoxes.add(checkBox);
             }
-
         }
 
         JScrollPane bavardListenersScrollPane = new JScrollPane(listenToBavardPanel);
