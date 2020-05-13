@@ -37,15 +37,17 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
 
         //look through bavard and check those who the bavard is listening to
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){
-            JCheckBox checkBox = new JCheckBox(bavard.getLogin());
-            checkBox.setActionCommand(bavard.getLogin());
-            if (concierge.getBavardListenersOfBavard(bavard).contains(this.bavardLogged)){
-                checkBox.setSelected(true);
-            }else{
-                checkBox.setSelected(false);
+            if(bavard != bavardLogged) { // so that this bavard cannot listen to himself
+                JCheckBox checkBox = new JCheckBox(bavard.getLogin());
+                checkBox.setActionCommand(bavard.getLogin());
+                if (concierge.getBavardListenersOfBavard(bavard).contains(this.bavardLogged)) {
+                    checkBox.setSelected(true);
+                } else {
+                    checkBox.setSelected(false);
+                }
+                listenToBavardPanel.add(checkBox);
+                this.checkBoxes.add(checkBox);
             }
-            listenToBavardPanel.add(checkBox);
-            this.checkBoxes.add(checkBox);
 
         }
 
