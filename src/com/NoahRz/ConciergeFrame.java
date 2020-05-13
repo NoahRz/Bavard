@@ -18,7 +18,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         this.concierge=concierge;
 
         this.setTitle("Concierge Frame");
-        this.setSize(300,100);
+        this.setSize(500,100);
         this.setLayout(new GridLayout(1,2));
         JPanel pane = new JPanel();
         pane.setBackground(Color.YELLOW);
