@@ -53,8 +53,8 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
         JScrollPane bavardListenersScrollPane = new JScrollPane(listenToBavardPanel);
         pane.add(bavardListenersScrollPane,BorderLayout.CENTER);
 
-        JButton confirmListenersButton = new JButton("Confirm listeners");
-        confirmListenersButton.setActionCommand("Confirm listeners");
+        JButton confirmListenersButton = new JButton("Confirm listening");
+        confirmListenersButton.setActionCommand("Confirm listening");
         confirmListenersButton.addActionListener(this);
         pane.add(confirmListenersButton, BorderLayout.SOUTH);
 
@@ -66,7 +66,7 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Confirm listeners")){
+        if(e.getActionCommand().equals("Confirm listening")){
             for(JCheckBox cb : this.checkBoxes){
                 Bavard bavardListened = this.concierge.getBavard(cb.getActionCommand());
                 if (cb.isSelected()){
