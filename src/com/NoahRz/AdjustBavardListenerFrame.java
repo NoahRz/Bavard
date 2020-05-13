@@ -42,7 +42,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         bavardListenedPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         bavardListenedPanel.setLayout(new BorderLayout());
 
-        JLabel bavardListenedTitleLabel = new JLabel("Bavard Listened");
+        JLabel bavardListenedTitleLabel = new JLabel(" Bavard Listened");
         bavardListenedPanel.add(bavardListenedTitleLabel, BorderLayout.NORTH);
 
         JPanel panelForRadioButton = new JPanel(); //panel which contains radioButton
@@ -72,7 +72,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         bavardListenersPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         bavardListenersPanel.setLayout(new BorderLayout());
 
-        JLabel bavardListenersTitleLabel= new JLabel("Bavard Listener");
+        JLabel bavardListenersTitleLabel= new JLabel(" Bavard Listener");
         bavardListenersPanel.add(bavardListenersTitleLabel, BorderLayout.NORTH);
 
         JPanel panelForCheckBox = new JPanel(); //panel which contains checkbox
