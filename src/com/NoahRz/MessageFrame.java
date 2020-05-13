@@ -17,22 +17,28 @@ public class MessageFrame extends JFrame {
 
         Bavard sender = (Bavard)message.getSource();
         JLabel senderLabel = new JLabel("From :"+sender.getLogin());
-        JLabel messageSubject = new JLabel("Subject : "+ message.getMessages().getSubject());
-        JTextPane messageBody = new JTextPane();
+        JLabel messageSubjectLabel = new JLabel("Subject : " + message.getMessages().getSubject());
+        JTextPane messageBodyTextPane = new JTextPane();
+
+        JPanel panelForsenderLabelAndmessageSubjectLabel = new JPanel();
+        panelForsenderLabelAndmessageSubjectLabel.setLayout(new BorderLayout());
+
+        JScrollPane messageBodyScrollPane = new JScrollPane(messageBodyTextPane);
 
         senderLabel.setOpaque(true); //so that we can change the background color of the label
-        messageSubject.setOpaque(true);
+        messageSubjectLabel.setOpaque(true);
 
         senderLabel.setBackground(Color.WHITE);
-        messageSubject.setBackground(Color.WHITE);
-        messageBody.setBackground(Color.WHITE);
+        messageSubjectLabel.setBackground(Color.WHITE);
+        messageBodyTextPane.setBackground(Color.WHITE);
 
-        messageBody.setEditable(false);
-        messageBody.setText(message.getMessages().getBody());
+        messageBodyTextPane.setEditable(false);
+        messageBodyTextPane.setText(message.getMessages().getBody());
 
-        pane.add(senderLabel,BorderLayout.NORTH);
-        pane.add(messageSubject,BorderLayout.CENTER);
-        pane.add(messageBody, BorderLayout.SOUTH);
+        panelForsenderLabelAndmessageSubjectLabel.add(senderLabel,BorderLayout.NORTH);
+        panelForsenderLabelAndmessageSubjectLabel.add(messageSubjectLabel,BorderLayout.CENTER);
+        pane.add(panelForsenderLabelAndmessageSubjectLabel, BorderLayout.NORTH);
+        pane.add(messageBodyScrollPane, BorderLayout.CENTER);
 
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // close the frame without closing the program
