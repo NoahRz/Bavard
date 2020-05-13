@@ -20,8 +20,8 @@ public class MessageFrame extends JFrame {
         JLabel messageSubjectLabel = new JLabel("Subject : " + message.getMessages().getSubject());
         JTextPane messageBodyTextPane = new JTextPane();
 
-        JPanel panelForsenderLabelAndmessageSubjectLabel = new JPanel();
-        panelForsenderLabelAndmessageSubjectLabel.setLayout(new BorderLayout());
+        JPanel panelForSenderLabelAndmessageSubjectLabel = new JPanel();
+        panelForSenderLabelAndmessageSubjectLabel.setLayout(new BorderLayout());
 
         JScrollPane messageBodyScrollPane = new JScrollPane(messageBodyTextPane);
 
@@ -35,9 +35,9 @@ public class MessageFrame extends JFrame {
         messageBodyTextPane.setEditable(false);
         messageBodyTextPane.setText(message.getMessages().getBody());
 
-        panelForsenderLabelAndmessageSubjectLabel.add(senderLabel,BorderLayout.NORTH);
-        panelForsenderLabelAndmessageSubjectLabel.add(messageSubjectLabel,BorderLayout.CENTER);
-        pane.add(panelForsenderLabelAndmessageSubjectLabel, BorderLayout.NORTH);
+        panelForSenderLabelAndmessageSubjectLabel.add(senderLabel,BorderLayout.NORTH);
+        panelForSenderLabelAndmessageSubjectLabel.add(messageSubjectLabel,BorderLayout.CENTER);
+        pane.add(panelForSenderLabelAndmessageSubjectLabel, BorderLayout.NORTH);
         pane.add(messageBodyScrollPane, BorderLayout.CENTER);
 
         this.setLocationRelativeTo(null);
