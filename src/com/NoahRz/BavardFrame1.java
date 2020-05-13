@@ -70,7 +70,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         messagingPanel.add(scrollPane, BorderLayout.CENTER);
 
         /*-- Area where the user can write messages and send them --*/
-        JPanel messageFieldPanel = new JPanel();
+        JPanel messageFieldPanel = new JPanel(); //panel which contains a panel (which contains a textField and text area) and a button
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new BorderLayout());
 
@@ -80,22 +80,23 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         messageSubjectTextField.setPreferredSize(d);
         messageSubjectTextField.addKeyListener(this);
 
-        JTextArea messagingTextArea = new JTextArea("Write the message body ... "); //area where the user can write message
-        messagingTextArea.setPreferredSize(new Dimension(this.getWidth()*6/10 ,this.getHeight()/5));
+
+        JTextArea messagingTextArea = new JTextArea("Write the message body ... ", 10, 10); //area where the user can write message
         messagingTextArea.addKeyListener(this);
+
+        JScrollPane messagingScrollPane = new JScrollPane(messagingTextArea); //make messagingTextArea scrollable so that it's easier to write long message
 
 
         JButton sendMessageButton = new JButton("send");
         sendMessageButton.setActionCommand("send");
         sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
         sendMessageButton.addActionListener(this);
-        messageFieldPanel.add(sendMessageButton, BorderLayout.EAST);
+        messageFieldPanel.add(sendMessageButton, BorderLayout.SOUTH);
 
         JPanel inputMessagePanel = new JPanel();
-        //inputMessagePanel.setLayout(new FlowLayout());
         inputMessagePanel.setLayout(new BoxLayout(inputMessagePanel, BoxLayout.Y_AXIS));
         inputMessagePanel.add(messageSubjectTextField);
-        inputMessagePanel.add(messagingTextArea);
+        inputMessagePanel.add(messagingScrollPane);
 
         messageFieldPanel.add(inputMessagePanel, BorderLayout.CENTER);
         messagingPanel.add(messageFieldPanel,BorderLayout.SOUTH);
@@ -159,6 +160,9 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         this.setVisible(true);
     }
 
+    /******************************************************************
+     * listener method
+     ******************************************************************/
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("send")){ //if we click on the send button

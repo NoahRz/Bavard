@@ -23,7 +23,7 @@ public class MessageFrame extends JFrame {
         JPanel panelForSenderLabelAndmessageSubjectLabel = new JPanel();
         panelForSenderLabelAndmessageSubjectLabel.setLayout(new BorderLayout());
 
-        JScrollPane messageBodyScrollPane = new JScrollPane(messageBodyTextPane);
+        JScrollPane messageBodyScrollPane = new JScrollPane(messageBodyTextPane); //we make the message body scrollable, so that it's easier to view the whole message
 
         senderLabel.setOpaque(true); //so that we can change the background color of the label
         messageSubjectLabel.setOpaque(true);
