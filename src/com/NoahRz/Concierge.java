@@ -179,6 +179,7 @@ public class Concierge implements PapotageListener {
     public  void alertRequestDismissed(RequestEvent re){
         /**
          * Alert the bavard concerned (requester) that his request has been dismissed
+         * @Param RequestEvent : re
          */
         ConciergeEvent conciergeEvent = new ConciergeEvent(this,re, false);
         Bavard bavardRequester = (Bavard)re.getSource();

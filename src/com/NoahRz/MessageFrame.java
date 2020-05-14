@@ -15,7 +15,7 @@ public class MessageFrame extends JFrame {
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
 
-        Bavard sender = (Bavard)message.getSource();
+        PapotageListener sender = (PapotageListener) message.getSource();
         JLabel senderLabel = new JLabel("From :"+sender.getLogin());
         JLabel messageSubjectLabel = new JLabel("Subject : " + message.getMessageSubject());
         JTextPane messageBodyTextPane = new JTextPane();

@@ -1,7 +1,6 @@
 package com.NoahRz; //ok
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
@@ -228,7 +227,14 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
             messageContentPosition = BorderLayout.WEST;
             this.refreshConnectedBavardList();
 
-        }else { // it's a simple message
+        }else if (pe instanceof ConciergeEvent) { //message from the concierge (request approved or rejected)
+            messageBodyLabel.setText(pe.getMessageSubject() + ": " + pe.getMessageBody());
+            messageBodyLabel.setForeground(Color.BLUE);
+            Font newLabelFont=new Font(messageBodyLabel.getFont().getName(),Font.ITALIC,messageBodyLabel.getFont().getSize());
+            messageBodyLabel.setFont(newLabelFont);
+            messageContentPosition = BorderLayout.WEST;
+
+        } else{ // it's a simple message
             if (pe.getSource() == bavardLogged) { // message we sent
                 usernameSender = "You";
                 messageContentPosition = BorderLayout.EAST;

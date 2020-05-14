@@ -4,7 +4,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ConciergeFrame extends JFrame implements ActionListener {
@@ -108,7 +107,6 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                 is  among the bavardSubject's listeners.
                 this case can occur, if the concierge receives a new request but instead of directly manage it, the concierge goes to the AdjustBavardListenerFrame and do it manually
                 */
-                    System.out.println(re.getBavardSubject().getLogin());
                     requestEventsToRemove.add(re);
                     //concierge.getRequestEventArrayList().remove(re);
                 }
@@ -144,7 +142,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                         if (re.getRequest().equals("add")) {
                             concierge.getBavardListenersOfBavard(re.getBavardSubject()).add(bavardRequester);
                             concierge.getRequestEventArrayList().remove(re); //we remove the request we have just handled
-                            //concierge.alertRequestApproved(re);
+                            concierge.alertRequestApproved(re); // concierge alerts the bavard who sent the request that is request has been approved
                             requestPanel.remove(oneRequestPanel);
                             requestPanel.revalidate();
                             requestPanel.repaint();
@@ -152,7 +150,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                         if (re.getRequest().equals("remove")) {
                             concierge.getBavardListenersOfBavard(re.getBavardSubject()).remove(bavardRequester);
                             concierge.getRequestEventArrayList().remove(re); //we remove the request we have just handled
-                            //concierge.alertRequestApproved(re);
+                            concierge.alertRequestApproved(re); // concierge alerts the bavard who sent the request that is request has been approved
                             requestPanel.remove(oneRequestPanel);
                             requestPanel.revalidate();
                             requestPanel.repaint();
@@ -164,7 +162,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                     public void actionPerformed(ActionEvent e) {
                         requestPanel.remove(oneRequestPanel);
                         concierge.getRequestEventArrayList().remove(re); //we remove the request we have just handled
-                        //concierge.alertRequestDismissed(re);
+                        concierge.alertRequestDismissed(re); // concierge alerts the bavard who sent the request that is request has been dismissed
                         requestPanel.revalidate();
                         requestPanel.repaint();
                     }

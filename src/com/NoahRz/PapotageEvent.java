@@ -11,7 +11,7 @@ public class PapotageEvent extends EventObject {
      * @throws IllegalArgumentException if source is null
      */
     //private Message message;
-    private String messageSubject;
+    protected String messageSubject; //used by ConciergeEvent
     protected String messageBody;
 
     /********************************************************************
