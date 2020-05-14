@@ -10,23 +10,34 @@ public class PapotageEvent extends EventObject {
      * @param message: message sent
      * @throws IllegalArgumentException if source is null
      */
-    private Message message;
-    //private String messageSubject;
-    //protected String messageBody;
+    //private Message message;
+    private String messageSubject;
+    protected String messageBody;
 
     /********************************************************************
      Constructor
      ********************************************************************/
-    public PapotageEvent(Object source, Message message) {
+    public PapotageEvent(Object source){
         super(source);
-        this.message=message;
+    }
+
+    public PapotageEvent(Object source, String messageSubject, String messageBody) {
+        super(source);
+        //this.message=message;
+        this.messageSubject = messageSubject;
+        this.messageBody = messageBody;
     }
 
     /********************************************************************
      Getter
      ********************************************************************/
-    protected Message getMessages() {
-        return message;
+
+    public String getMessageSubject() {
+        return messageSubject;
+    }
+
+    protected String getMessageBody() {
+        return messageBody;
     }
 }
 

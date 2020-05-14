@@ -8,7 +8,8 @@ public class OnlineBavardEvent extends PapotageEvent implements OnlineOfflineBav
     /********************************************************************
      Constructor
      ********************************************************************/
-    public OnlineBavardEvent(Object source, Message message){
-        super(source,message);
+    public OnlineBavardEvent(Object source, String messageBody) {
+        super(source);
+        this.messageBody = messageBody;
     }
 }

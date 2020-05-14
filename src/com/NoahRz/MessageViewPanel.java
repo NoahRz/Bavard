@@ -50,7 +50,7 @@ public class MessageViewPanel extends JPanel implements PapotageListener { //ne 
             JPanel blankPanel = new JPanel();
             String usernameSender;
             if (message instanceof OnlineOfflineBavardEvent){
-                messageBodyLabel.setText(message.getMessages().getBody());
+                messageBodyLabel.setText(message.getMessageBody());
             }else {
                 if (pe.getSource() == bavardLogged) {
                     usernameSender = "You";
@@ -59,11 +59,11 @@ public class MessageViewPanel extends JPanel implements PapotageListener { //ne 
                     usernameSender = userSender.getLogin();
                 }
                 JLabel senderLabel = new JLabel("From:" + usernameSender);
-                JLabel subjectLabel = new JLabel("Subject: "+message.getMessages().getSubject());
+                JLabel subjectLabel = new JLabel("Subject: "+message.getMessageSubject());
 
                 messageContentPanel.add(senderLabel, BorderLayout.NORTH);
                 messageContentPanel.add(subjectLabel, BorderLayout.CENTER);
-                messageBodyLabel.setText("Body :" +message.getMessages().getBody());
+                messageBodyLabel.setText("Body :" +message.getMessageBody());
             }
 
             Dimension d = messageBodyLabel.getPreferredSize();

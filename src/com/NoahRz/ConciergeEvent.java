@@ -12,14 +12,13 @@ public class ConciergeEvent extends PapotageEvent {
 
     private RequestEvent requestEvent;
     private Boolean approved;
-    private String message;
 
     /********************************************************************
      Constructor
      ********************************************************************/
 
     public ConciergeEvent(Object source, RequestEvent requestEvent, Boolean approved) {
-        super(source, null);
+        super(source);
         this.requestEvent=requestEvent;
         this.approved=approved;
         this.setMessage();
@@ -35,16 +34,16 @@ public class ConciergeEvent extends PapotageEvent {
          * */
         if(approved){
             if(requestEvent.getRequest().equals("add")){
-                this.message = " Request approved : You are now listening to "+ requestEvent.getBavardSubject().getLogin(); // the bavard wants to listen to another bavard and his request has been approved
+                this.messageBody = " Request approved : You are now listening to "+ requestEvent.getBavardSubject().getLogin(); // the bavard wants to listen to another bavard and his request has been approved
             }else{// it's requestEvent.getRequest().equals("remove"))
-                this.message = " Request approved : You are not listening to "+ requestEvent.getBavardSubject().getLogin() + " anymore"; // the bavard wants to stop listening to another bavard and his request has been approved
+                this.messageBody = " Request approved : You are not listening to "+ requestEvent.getBavardSubject().getLogin() + " anymore"; // the bavard wants to stop listening to another bavard and his request has been approved
             }
         }
         else{
             if(requestEvent.getRequest().equals("add")){
-                this.message = " Request rejected : You are not listening to "+ requestEvent.getBavardSubject().getLogin(); // the bavard wants to listen to another bavard but his request has been rejected
+                this.messageBody = " Request rejected : You are not listening to "+ requestEvent.getBavardSubject().getLogin(); // the bavard wants to listen to another bavard but his request has been rejected
             }else{// it's requestEvent.getRequest().equals("remove"))
-                this.message = " Request rejected : You are still listening to "+ requestEvent.getBavardSubject().getLogin(); // the bavard wants to stop listening to another bavard but his request has been rejected
+                this.messageBody = " Request rejected : You are still listening to "+ requestEvent.getBavardSubject().getLogin(); // the bavard wants to stop listening to another bavard but his request has been rejected
             }
         }
     }

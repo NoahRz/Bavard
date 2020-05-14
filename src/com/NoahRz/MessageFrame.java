@@ -17,7 +17,7 @@ public class MessageFrame extends JFrame {
 
         Bavard sender = (Bavard)message.getSource();
         JLabel senderLabel = new JLabel("From :"+sender.getLogin());
-        JLabel messageSubjectLabel = new JLabel("Subject : " + message.getMessages().getSubject());
+        JLabel messageSubjectLabel = new JLabel("Subject : " + message.getMessageSubject());
         JTextPane messageBodyTextPane = new JTextPane();
 
         JPanel panelForSenderLabelAndmessageSubjectLabel = new JPanel();
@@ -33,7 +33,7 @@ public class MessageFrame extends JFrame {
         messageBodyTextPane.setBackground(Color.WHITE);
 
         messageBodyTextPane.setEditable(false);
-        messageBodyTextPane.setText(message.getMessages().getBody());
+        messageBodyTextPane.setText(message.getMessageBody());
 
         panelForSenderLabelAndmessageSubjectLabel.add(senderLabel,BorderLayout.NORTH);
         panelForSenderLabelAndmessageSubjectLabel.add(messageSubjectLabel,BorderLayout.CENTER);

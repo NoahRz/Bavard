@@ -192,7 +192,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("send")){
-            this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
+            this.bavardLogged.sendMessages(this.subjectMessage, this.bodyMessage);
         }
         else{ // disconnect button
             this.bavardLogged.alerteIsDisconnected();

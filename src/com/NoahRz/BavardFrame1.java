@@ -169,7 +169,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
             if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message.
                 JOptionPane.showMessageDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.WARNING_MESSAGE);
             }else {
-                this.bavardLogged.sendMessages(new Message(this.subjectMessage, this.bodyMessage));
+                this.bavardLogged.sendMessages(this.subjectMessage, this.bodyMessage);
             }
         }
         if (e.getActionCommand().equals("Sign out")){ // if we click on "sign out"
@@ -221,7 +221,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         String messageContentPosition;
         if (pe instanceof OnlineOfflineBavardEvent){
-            messageBodyLabel.setText(pe.getMessages().getBody());
+            messageBodyLabel.setText(pe.getMessageBody());
             messageBodyLabel.setForeground(new Color(255, 128, 0));
             Font newLabelFont=new Font(messageBodyLabel.getFont().getName(),Font.ITALIC,messageBodyLabel.getFont().getSize());
             messageBodyLabel.setFont(newLabelFont);
@@ -238,11 +238,11 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
                 messageContentPosition = BorderLayout.WEST;
             }
             JLabel senderLabel = new JLabel("From: " + usernameSender);
-            JLabel subjectLabel = new JLabel("Subject: "+pe.getMessages().getSubject());
+            JLabel subjectLabel = new JLabel("Subject: "+pe.getMessageSubject());
 
             messageContentPanel.add(senderLabel, BorderLayout.NORTH);
             messageContentPanel.add(subjectLabel, BorderLayout.CENTER);
-            messageBodyLabel.setText("Body :" +pe.getMessages().getBody());
+            messageBodyLabel.setText("Body :" +pe.getMessageBody());
         }
 
         messageContentPanel.add(messageBodyLabel, BorderLayout.SOUTH);

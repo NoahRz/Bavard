@@ -68,12 +68,12 @@ public class Bavard implements PapotageListener {
      Methods
      ********************************************************************/
 
-    public void sendMessages(Message message){
+    public void sendMessages(String messageSubject, String messageBody){
         /**
          * send the message to the concierge and then the concierge will send it to bavards who listens this bavard
          * @Param messageCreated : the message we've just created and we want to send
          * */
-        PapotageEvent pe = new PapotageEvent(this, message); // source it's this object
+        PapotageEvent pe = new PapotageEvent(this, messageSubject, messageBody); // source it's this object
         concierge.receiveMessages(pe); //message sent
         this.myFrame.receiveMessages(pe); // we do this to display the message we have just sent in our Frame
     }
@@ -94,8 +94,8 @@ public class Bavard implements PapotageListener {
        * send message to the concierge to alerte other bavard that this one is connected
        */
 
-        Message message = new Message("",(" " + this.getLogin() + " is connected"));
-        OnlineBavardEvent bavardConnectedEvent = new OnlineBavardEvent(this, message);
+        String messageBody = (" " + this.getLogin() + " is connected");
+        OnlineBavardEvent bavardConnectedEvent = new OnlineBavardEvent(this, messageBody);
         this.isConnected = true;
         this.concierge.alertBavardConnectedDisconnected(bavardConnectedEvent);
     }
@@ -104,8 +104,8 @@ public class Bavard implements PapotageListener {
         /**
          * send message to the concierge to alerte other bavard that this one is disconnected
          */
-        Message message = new Message("",(" " + this.getLogin() + " is disconnected"));
-        OfflineBavardEvent bavardDisconnectedEvent = new OfflineBavardEvent(this, message);
+        String messageBody = (" " + this.getLogin() + " is disconnected");
+        OfflineBavardEvent bavardDisconnectedEvent = new OfflineBavardEvent(this, messageBody);
         this.isConnected=false;
         this.concierge.alertBavardConnectedDisconnected(bavardDisconnectedEvent);
 
