@@ -1,6 +1,7 @@
 package com.NoahRz; //ok
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -19,12 +20,13 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         concierge.setFrame(this);
 
         this.setTitle("Concierge Frame");
-        this.setSize(500,100);
+        this.setSize(500,150);
         this.setLayout(new GridLayout(1,2));
         JPanel pane = new JPanel();
         pane.setBackground(Color.YELLOW);
         this.setContentPane(pane);
-        this.setLayout(new GridLayout(1,2));
+        //this.setLayout(new GridLayout(1,2));
+        this.setLayout(new BorderLayout());
 
         /*-- Menu --*/
         JMenuBar menubar= new JMenuBar();
@@ -52,6 +54,27 @@ public class ConciergeFrame extends JFrame implements ActionListener {
 
         this.setJMenuBar(menubar);
 
+        /*-- Panel where we display a list of bavard registered in the system --*/
+        JPanel bavardListPanel = new JPanel();
+        bavardListPanel.setLayout(new BoxLayout(bavardListPanel, BoxLayout.X_AXIS));
+
+        JLabel bavardListTitleLabel = new JLabel("Bavard: ");
+        Font fontForBavardListTitleLabel =new Font(bavardListTitleLabel.getFont().getName(),Font.BOLD,bavardListTitleLabel.getFont().getSize()); //add some style to bavardListTitleLabel
+        bavardListTitleLabel.setFont(fontForBavardListTitleLabel);
+        bavardListPanel.add(bavardListTitleLabel);
+
+        //look through bavard registered in the system
+        for(Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){
+            JLabel bavardLoginLabel = new JLabel(bavard.getLogin());
+            bavardListPanel.add(Box.createRigidArea(new Dimension(5, 0))); // add some space between bavardLoginLabel
+            bavardListPanel.add(bavardLoginLabel);
+        }
+
+        JScrollPane bavardListScrollPane = new JScrollPane(bavardListPanel); // we make the bavardListPanel scrollable
+        bavardListScrollPane.setPreferredSize(new Dimension(this.getWidth(), 50));
+
+        pane.add(bavardListScrollPane, BorderLayout.NORTH);
+
         /*-- Panel where we display request the concierge receives --*/
         requestPanel = new JPanel();
         requestPanel.setBackground(Color.YELLOW);
@@ -59,8 +82,9 @@ public class ConciergeFrame extends JFrame implements ActionListener {
 
         this.refreshRequestList(); // we refresh the request list
 
-        JScrollPane scrollPane = new JScrollPane(requestPanel);
-        pane.add(scrollPane);
+        JScrollPane requestPanelScrollPane = new JScrollPane(requestPanel); // we make requestPanel scrollable
+        //pane.add(requestPanelScrollPane);
+        pane.add(requestPanelScrollPane, BorderLayout.CENTER);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
