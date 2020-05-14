@@ -33,4 +33,23 @@ public class RequestEvent extends EventObject {
     public Bavard getBavardSubject() {
         return bavardSubject;
     }
+    /********************************************************************
+     method
+     ********************************************************************/
+
+    public boolean equals(Object obj){
+        /**
+         * return true if this is equal to obj
+         * @param obj: Object */
+        if (obj == this) {
+            return true;
+        }
+        RequestEvent re = (RequestEvent) obj;
+        if(re.getSource()==this.getSource() && re.getRequest().equals(this.request) && re.getBavardSubject()== this.getBavardSubject()) { //compare if all attributes are similar
+            return true;
+        }else{
+            return false;
+        }
+
+    }
 }

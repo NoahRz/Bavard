@@ -73,13 +73,33 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
                     if(!concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
                         // we check if the logged bavard is not already listening to the bavard corresponding to the checkbox. True:we can request
                         RequestEvent request = new RequestEvent(bavardLogged, "add", bavardListened);
-                        concierge.receiveRequest(request);
+                        int i = 0;
+                        boolean doublon = false;
+                        while (i<concierge.getRequestEventArrayList().size() && !doublon){
+                            if(concierge.getRequestEventArrayList().get(i).equals(request)){
+                                doublon = true;
+                            }
+                            i++;
+                        }
+                        if(!doublon){ // if there is no doublon, we can send the request
+                            concierge.receiveRequest(request);
+                        }
                     }
                 }else{
                     if(concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
                         // we check if the logged bavard is listening to the bavard corresponding to the checkbox. True : we can request
                         RequestEvent request = new RequestEvent(bavardLogged, "remove", bavardListened);
-                        concierge.receiveRequest(request);
+                        int i = 0;
+                        boolean doublon = false;
+                        while (i<concierge.getRequestEventArrayList().size() && !doublon){
+                            if(concierge.getRequestEventArrayList().get(i).equals(request)){
+                                doublon = true;
+                            }
+                            i++;
+                        }
+                        if(!doublon){ // if there is no doublon, we can send the request
+                            concierge.receiveRequest(request);
+                        }
                     }
                 }
             }
