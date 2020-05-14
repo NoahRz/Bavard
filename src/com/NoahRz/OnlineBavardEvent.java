@@ -1,6 +1,6 @@
 package com.NoahRz;//ok
 
-public class OnlineBavardEvent extends OnlineOfflineBavardEvent {
+public class OnlineBavardEvent extends PapotageEvent implements OnlineOfflineBavardEvent {
     /**
      * Event trigged when a bavard sign in
      * */

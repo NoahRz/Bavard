@@ -141,9 +141,9 @@ public class Concierge implements PapotageListener {
         return true;
     }
 
-    public void alerteBavardConnectedDisconnected(OnlineOfflineBavardEvent bavardConnectedDiscconnectedEvent){
+    public void alertBavardConnectedDisconnected(PapotageEvent bavardConnectedDiscconnectedEvent){
         /**
-         * Alerte all the bavard that some one has just signed out or signed up
+         * Alerte all the bavard that someone has just signed out or signed up
          * @param bavardConnectedDiscconnectedEvent: OnlineOfflineBavardEvent
          * */
         Bavard bavardConnectedDisconnected = (Bavard) bavardConnectedDiscconnectedEvent.getSource();
@@ -164,6 +164,27 @@ public class Concierge implements PapotageListener {
             this.conciergeFrame.refreshRequestList(); // we refresh the request list in his frame
         }
     }
+
+    public void alertRequestApproved(RequestEvent re) {
+        /**
+         * Alert the bavard concerned (requester) that his request has been approved
+         * @Param RequestEvent : re
+         * */
+
+        ConciergeEvent conciergeEvent = new ConciergeEvent(this,re, true);
+        Bavard bavardRequester = (Bavard)re.getSource();
+        bavardRequester.receiveMessages(conciergeEvent);
+    }
+
+    public  void alertRequestDismissed(RequestEvent re){
+        /**
+         * Alert the bavard concerned (requester) that his request has been dismissed
+         */
+        ConciergeEvent conciergeEvent = new ConciergeEvent(this,re, false);
+        Bavard bavardRequester = (Bavard)re.getSource();
+        bavardRequester.receiveMessages(conciergeEvent);
+    }
+
 }
 
 

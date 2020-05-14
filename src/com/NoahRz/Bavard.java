@@ -97,7 +97,7 @@ public class Bavard implements PapotageListener {
         Message message = new Message("",(" " + this.getLogin() + " is connected"));
         OnlineBavardEvent bavardConnectedEvent = new OnlineBavardEvent(this, message);
         this.isConnected = true;
-        this.concierge.alerteBavardConnectedDisconnected(bavardConnectedEvent);
+        this.concierge.alertBavardConnectedDisconnected(bavardConnectedEvent);
     }
 
     public void alerteIsDisconnected() {
@@ -107,7 +107,7 @@ public class Bavard implements PapotageListener {
         Message message = new Message("",(" " + this.getLogin() + " is disconnected"));
         OfflineBavardEvent bavardDisconnectedEvent = new OfflineBavardEvent(this, message);
         this.isConnected=false;
-        this.concierge.alerteBavardConnectedDisconnected(bavardDisconnectedEvent);
+        this.concierge.alertBavardConnectedDisconnected(bavardDisconnectedEvent);
 
     }
 }

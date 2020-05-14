@@ -144,6 +144,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                         if (re.getRequest().equals("add")) {
                             concierge.getBavardListenersOfBavard(re.getBavardSubject()).add(bavardRequester);
                             concierge.getRequestEventArrayList().remove(re); //we remove the request we have just handled
+                            //concierge.alertRequestApproved(re);
                             requestPanel.remove(oneRequestPanel);
                             requestPanel.revalidate();
                             requestPanel.repaint();
@@ -151,6 +152,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                         if (re.getRequest().equals("remove")) {
                             concierge.getBavardListenersOfBavard(re.getBavardSubject()).remove(bavardRequester);
                             concierge.getRequestEventArrayList().remove(re); //we remove the request we have just handled
+                            //concierge.alertRequestApproved(re);
                             requestPanel.remove(oneRequestPanel);
                             requestPanel.revalidate();
                             requestPanel.repaint();
@@ -162,6 +164,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                     public void actionPerformed(ActionEvent e) {
                         requestPanel.remove(oneRequestPanel);
                         concierge.getRequestEventArrayList().remove(re); //we remove the request we have just handled
+                        //concierge.alertRequestDismissed(re);
                         requestPanel.revalidate();
                         requestPanel.repaint();
                     }
