@@ -126,7 +126,7 @@ public class Concierge implements PapotageListener {
          * @Param login: login of the Bavard we want to create
          * @return : true if the bavard has succesfully been created else return false
          * */
-        // we go through the keys the bavardsListenToBavardMap which are bavards and check if there is one who has the same login as the login in parameters
+        // we go through the keys of bavardsListenToBavardMap which are bavards and check if there is one who has the same login as the login in parameters
         for (Bavard bavard : this.bavardsListenToBavardMap.keySet()){
             if(bavard.getLogin().equals(login)){
                 return false;

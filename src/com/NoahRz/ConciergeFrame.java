@@ -67,9 +67,9 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                 if ((re.getRequest().equals("add") && bavardListeners.contains(bavardRequester)) || (re.getRequest().equals("remove") && !bavardListeners.contains(bavardRequester))) {
                 /*
                 we check that the request is still make sense : ex if we want to add a new bavard to the listeners of the bavardSubject, we have to make sure that the bavard is
-                not already among bavardSubject's listeners. Same thing if we want to remove a bavard from the listeners or the bavardSubject, we have to make sure that the bavard
+                not already among bavardSubject's listeners. Same thing if we want to remove a bavard from the listeners of the bavardSubject, we have to make sure that the bavard
                 is  among the bavardSubject's listeners.
-                this case can occurs, if the concierge receive a new request but instead of directly manage it, the concierge goes to the AdjustBavardListenerFrame and do it manually
+                this case can occur, if the concierge receives a new request but instead of directly manage it, the concierge goes to the AdjustBavardListenerFrame and do it manually
                 */
                     System.out.println(re.getBavardSubject().getLogin());
                     concierge.getRequestEventArrayList().remove(re);
