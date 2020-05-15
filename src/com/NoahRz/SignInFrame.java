@@ -6,6 +6,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SignInFrame extends JFrame implements ActionListener, KeyListener{
     /**
@@ -84,6 +87,8 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
 
     @Override
    public void actionPerformed(ActionEvent e) {
+        String errorLoginPasswordMessage = "Login or password is \nincorrect, please try again.";
+        String errorAlreadyConnectedMessage = "You are already connected";
         if(e.getSource() instanceof JButton){
             if ((this.loginEntered!= null) && (this.passwordEntered!=null)){
                 Bavard guestBavard = concierge.getBavard(loginEntered);
@@ -93,11 +98,12 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                             new ConciergeFrame(concierge); // Open a new Frame, the ConciergeFrame
                             concierge.setConnected(true);
                         }else{
-                            this.errorMessage.setText("You are already connected");
+                            this.errorMessage.setText(errorAlreadyConnectedMessage);
                             this.errorMessage.setVisible(true);
                         }
                     }
                     else{
+                        this.errorMessage.setText(errorLoginPasswordMessage);
                         this.errorMessage.setVisible(true);
                     }
                 }
@@ -106,16 +112,19 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                         if(!guestBavard.isConnected()) { // so that we can't have more than one bavard Frame of a bavard opened at the same time
                             new BavardFrame1(guestBavard, this.concierge); // Open a new Frame, the BavardFrame
                         }else{
-                            this.errorMessage.setText("You are already connected");
+                            this.errorMessage.setText(errorAlreadyConnectedMessage);
                             this.errorMessage.setVisible(true);
                         }
                     } else {
+                        this.errorMessage.setText(errorLoginPasswordMessage);
                         this.errorMessage.setVisible(true);
                     }
                 }else{
+                    this.errorMessage.setText(errorLoginPasswordMessage);
                     this.errorMessage.setVisible(true);
                 }
             }else{
+                this.errorMessage.setText(errorLoginPasswordMessage);
                 this.errorMessage.setVisible(true);
             }
         }

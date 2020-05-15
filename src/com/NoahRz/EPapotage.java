@@ -7,14 +7,18 @@ public class EPapotage {
     public static void main(String[] args) {
         Concierge concierge = new Concierge("Le concierge", "123"); //default concierge
 
-        concierge.createBavard("paul", "aaa");
-        concierge.createBavard("noah", "aaa");
-        concierge.createBavard("baba", "aaa");
-
-        Bavard a = concierge.getBavard("paul");
-        Bavard b = concierge.getBavard("noah");
-
-        concierge.BavardListenToBavard(a,b); // bavard b listens to bavard a
+        concierge.createBavard("Augustin", "aaa");
+        concierge.createBavard("marin", "aaa");
+        concierge.createBavard("henri", "aaa");
+        concierge.createBavard("hadrien", "aaa");
+        concierge.createBavard("Louis", "aaa");
+        concierge.createBavard("Pierre-Louis", "aaa");
+        concierge.createBavard("Michel", "aaa");
+        concierge.createBavard("Victor", "aaa");
+        concierge.createBavard("Pierre-Antoine", "aaa");
+        concierge.createBavard("Vivien", "aaa");
+        concierge.createBavard("FLorentin", "aaa");
+        
 
         new SignInFrame("Connexion", concierge);
 
