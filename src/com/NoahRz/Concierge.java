@@ -101,7 +101,7 @@ public class Concierge implements PapotageListener {
      Methods
      ********************************************************************/
 
-    public void BavardListenToBavard(Bavard bavardListened, Bavard bavardListener){
+    public void BavardListenToBavard(Bavard bavardListened, Bavard bavardListener){ //pas utilisé
         /**
          * add to bavardListened a new listener "bavardListener" in the hashmap BavardsListenToBavardMap
          * @param bavardListened : bavard Listened by bavardListener
