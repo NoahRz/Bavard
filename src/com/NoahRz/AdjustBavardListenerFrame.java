@@ -114,6 +114,9 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
             ArrayList<Bavard> bavardListenersOfBavardSelected = concierge.getBavardListenersOfBavard(bavardSelected);
             for (JCheckBox checkBox : this.checkBoxes) {
                 Bavard bavard = concierge.getBavard(checkBox.getActionCommand());
+                if(bavard == bavardSelected){ //we set Enabled the checkBox corresponding to the bavard selected so that he can't listen to himself
+                    checkBox.setEnabled(false);
+                }
                 if (bavardListenersOfBavardSelected.contains(bavard)) {
                     checkBox.setSelected(true); // if the current bavard is among the bavard listeners who listens to the bavard selected, we pre-check its checkBox
                 } else {
