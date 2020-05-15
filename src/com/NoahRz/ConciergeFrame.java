@@ -115,28 +115,29 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         requestPanel.revalidate();
         requestPanel.repaint();
 
+        ArrayList<RequestEvent> requestEventsToRemove = new ArrayList<RequestEvent>();
+        for (RequestEvent re : concierge.getRequestEventArrayList()) {
+            Bavard bavardRequester = (Bavard) re.getSource();
+            ArrayList<Bavard> bavardListeners = this.concierge.getBavardListenersOfBavard(re.getBavardSubject()); // listeners of the bavard subject of the request
+            if ((re.getRequest().equals("add") && bavardListeners.contains(bavardRequester)) || (re.getRequest().equals("remove") && !bavardListeners.contains(bavardRequester))) {
+                /*
+                we check that the request is still making sense : ex if we want to add a new bavard to the listeners of the bavardSubject, we have to make sure that the bavard is
+                not already among bavardSubject's listeners. Same thing if we want to remove a bavard from the listeners of the bavardSubject, we have to make sure that the bavard
+                is  among the bavardSubject's listeners.
+                this case can occur, if the concierge receives a new request but instead of directly managing it, the concierge goes to the AdjustBavardListenerFrame and do it manually
+                */
+                requestEventsToRemove.add(re);
+                //concierge.getRequestEventArrayList().remove(re);
+            }
+        }
+
+        concierge.getRequestEventArrayList().removeAll(requestEventsToRemove);
+
         if(concierge.getRequestEventArrayList().size() == 0){ // if there is no request
             JLabel noRequestLabel = new JLabel("There is no request.");
             requestPanel.add(noRequestLabel);
         }
         else{
-            ArrayList<RequestEvent> requestEventsToRemove = new ArrayList<RequestEvent>();
-            for (RequestEvent re : concierge.getRequestEventArrayList()) {
-                Bavard bavardRequester = (Bavard) re.getSource();
-                ArrayList<Bavard> bavardListeners = this.concierge.getBavardListenersOfBavard(re.getBavardSubject()); // listeners of the bavard subject of the request
-                if ((re.getRequest().equals("add") && bavardListeners.contains(bavardRequester)) || (re.getRequest().equals("remove") && !bavardListeners.contains(bavardRequester))) {
-                /*
-                we check that the request is still make sense : ex if we want to add a new bavard to the listeners of the bavardSubject, we have to make sure that the bavard is
-                not already among bavardSubject's listeners. Same thing if we want to remove a bavard from the listeners of the bavardSubject, we have to make sure that the bavard
-                is  among the bavardSubject's listeners.
-                this case can occur, if the concierge receives a new request but instead of directly manage it, the concierge goes to the AdjustBavardListenerFrame and do it manually
-                */
-                    requestEventsToRemove.add(re);
-                    //concierge.getRequestEventArrayList().remove(re);
-                }
-            }
-
-            concierge.getRequestEventArrayList().removeAll(requestEventsToRemove);
 
             for (RequestEvent re : concierge.getRequestEventArrayList()) { // we display the requests
                 Bavard bavardRequester = (Bavard) re.getSource();

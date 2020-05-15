@@ -18,7 +18,7 @@ public class EPapotage {
         concierge.createBavard("Pierre-Antoine", "aaa");
         concierge.createBavard("Vivien", "aaa");
         concierge.createBavard("FLorentin", "aaa");
-        
+
 
         new SignInFrame("Connexion", concierge);
 
