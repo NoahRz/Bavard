@@ -1,5 +1,6 @@
 package com.NoahRz; //ok
 
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -13,6 +14,7 @@ public class Bavard implements PapotageListener {
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion; //pas besoin
     private MessageViewPanel myMessageViewPanel; // Je crois qu'on en a pas besoin
     private BavardFrame1 myFrame;
+    private DmFrame dmFrame;
     private boolean isConnected;
 
     public Bavard(String login, String password, Concierge concierge){
@@ -33,6 +35,10 @@ public class Bavard implements PapotageListener {
 
     public void setMessageViewPanel(MessageViewPanel myMessageViewPanel) { // Je crois qu'on en a pas besoin
         this.myMessageViewPanel = myMessageViewPanel;
+    }
+
+    public void setDmFrame(DmFrame dmFrame){
+        this.dmFrame = dmFrame;
     }
 
     /********************************************************************
@@ -71,7 +77,8 @@ public class Bavard implements PapotageListener {
     public void sendMessages(String messageSubject, String messageBody){
         /**
          * send the message to the concierge and then the concierge will send it to bavards who listens this bavard
-         * @Param messageCreated : the message we've just created and we want to send
+         * @Param messageSubject : String
+         * @Param messageBody : String
          * */
         PapotageEvent pe = new PapotageEvent(this, messageSubject, messageBody); // source it's this object
         concierge.receiveMessages(pe); //message sent
@@ -110,6 +117,30 @@ public class Bavard implements PapotageListener {
         this.concierge.alertBavardConnectedDisconnected(bavardDisconnectedEvent);
 
     }
+
+    public void sendDM(String messageSubject, String messageBody, Bavard bavardAdressee) {
+        /**
+         * send DM to the bavard addressee
+         * @Param messageSubject : String
+         * @Param messageBody : String
+         * */
+
+        PapotageEvent dm = new PapotageEvent(this, messageSubject,messageBody);
+        this.dmFrame.receiveDM(dm); // display th dm he's just sent on his own dmFrame
+        bavardAdressee.receiveDM(dm);
+
+    }
+
+    public void receiveDM(PapotageEvent pe){
+        /**
+         * receive the message
+         * @Param pe: PapotageEvent with message
+         * */
+        if(this.myFrame != null) {
+            this.dmFrame.receiveDM(pe); // when the bavard receive the message we display it on his dm Frame
+        }
+    }
+
 }
 
 

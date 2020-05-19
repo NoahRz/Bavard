@@ -16,7 +16,6 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     private String subjectMessage;
     private JPanel myMessageViewPanel;
     private Concierge concierge;
-    private JPopupMenu popupmenu;
     private JPanel bavardConnectedListSubPanel;
 
     public BavardFrame1(PapotageListener papotageListenerLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
@@ -116,16 +115,6 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
         bavardConnectedListPanel.add(connectedBavardTitleLabel);
 
-        /*-- popupmenu --*/
-        popupmenu = new JPopupMenu("Edit"); // popupmenu when we click on a connected bavard
-        JMenuItem listen_toMenuItem = new JMenuItem("Listen to");
-        JMenuItem un_listen_toMenuItem = new JMenuItem("un Listen to");
-        JMenuItem dmMenuItem = new JMenuItem("DM");
-        popupmenu.add(listen_toMenuItem);
-        popupmenu.add(un_listen_toMenuItem);
-        popupmenu.add(dmMenuItem);
-        /*--------------*/
-
         bavardConnectedListSubPanel = new JPanel(); //panel which contains the list of bavard label
         bavardConnectedListSubPanel.setLayout(new BoxLayout(bavardConnectedListSubPanel, BoxLayout.Y_AXIS));
 
@@ -137,11 +126,21 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
                 JLabel bavardLabel = new JLabel(bavard.getLogin(), SwingConstants.CENTER);
                 bavardLabel.setBorder(lineBorder);
                 bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
+
+                /*-- popupmenu --*/
+                JPopupMenu popupmenu = new JPopupMenu("Edit"); // popupmenu when we click on a connected bavard
+                JMenuItem dmMenuItem = new JMenuItem("DM");
+
+                dmMenuItem.setActionCommand(bavard.getLogin());
+                dmMenuItem.addActionListener(this);
+
+                popupmenu.add(dmMenuItem);
+                /*--------------*/
                 bavardLabel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         super.mouseClicked(e);
-                        popupmenu.show(bavardConnectedListPanel , e.getX(), e.getY());
+                        popupmenu.show(bavardConnectedListPanel , bavardLabel.getX(), bavardLabel.getY());
                     }
                 });
 
@@ -177,6 +176,12 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         }
         if (e.getActionCommand().equals("adjust listening")){ //if we click on "adjust listening"
             new BavardAdjustItsListeningFrame(this.bavardLogged, this.concierge);
+        }
+
+        if(e.getSource() instanceof JMenuItem){ // we click on tht popupmenu
+            String bavardLogin = e.getActionCommand();
+            Bavard bavardAddressee = this.concierge.getBavard(bavardLogin);
+            new DmFrame(bavardLogged, bavardAddressee);
         }
     }
 
@@ -301,11 +306,21 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
                 bavardLabel.setBorder(lineBorder);
                 bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
 
+                /*-- popupmenu --*/
+                JPopupMenu popupmenu = new JPopupMenu("Edit"); // popupmenu when we click on a connected bavard
+                JMenuItem dmMenuItem = new JMenuItem("DM");
+
+                dmMenuItem.setActionCommand(bavard.getLogin());
+                dmMenuItem.addActionListener(this);
+
+                popupmenu.add(dmMenuItem);
+                /*--------------*/
+
                 bavardLabel.addMouseListener(new MouseAdapter() {
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         super.mouseClicked(e);
-                        popupmenu.show(bavardConnectedListSubPanel, e.getX(), e.getY());
+                        popupmenu.show(bavardConnectedListSubPanel, bavardLabel.getX(), bavardLabel.getY());
                     }
                 });
 
