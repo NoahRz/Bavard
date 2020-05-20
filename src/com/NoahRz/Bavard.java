@@ -2,6 +2,7 @@ package com.NoahRz; //ok
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 public class Bavard implements PapotageListener {
@@ -14,8 +15,8 @@ public class Bavard implements PapotageListener {
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion; //pas besoin
     private MessageViewPanel myMessageViewPanel; // Je crois qu'on en a pas besoin
     private BavardFrame1 myFrame;
-    private DmFrame dmFrame;
     private boolean isConnected;
+    private ArrayList<String> theme;
 
     public Bavard(String login, String password, Concierge concierge){
         this.login = login;
@@ -23,6 +24,7 @@ public class Bavard implements PapotageListener {
         this.password = password;
         this.recentDiscussion= new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
         this.isConnected=false;
+        this.theme = new ArrayList<String>();
     }
 
     /********************************************************************
@@ -37,9 +39,10 @@ public class Bavard implements PapotageListener {
         this.myMessageViewPanel = myMessageViewPanel;
     }
 
-    public void setDmFrame(DmFrame dmFrame){
-        this.dmFrame = dmFrame;
+    public void setTheme(ArrayList<String> theme){
+        this.theme = theme;
     }
+
 
     /********************************************************************
      Getter
@@ -118,29 +121,9 @@ public class Bavard implements PapotageListener {
 
     }
 
-    public void sendDM(String messageSubject, String messageBody, Bavard bavardAdressee) {
-        /**
-         * send DM to the bavard addressee
-         * @Param messageSubject : String
-         * @Param messageBody : String
-         * */
-
-        PapotageEvent dm = new PapotageEvent(this, messageSubject,messageBody);
-        this.dmFrame.receiveDM(dm); // display th dm he's just sent on his own dmFrame
-        bavardAdressee.receiveDM(dm);
-
+    public ArrayList<String> getTheme() {
+        return this.theme;
     }
-
-    public void receiveDM(PapotageEvent pe){
-        /**
-         * receive the message
-         * @Param pe: PapotageEvent with message
-         * */
-        if(this.myFrame != null) {
-            this.dmFrame.receiveDM(pe); // when the bavard receive the message we display it on his dm Frame
-        }
-    }
-
 }
 
 

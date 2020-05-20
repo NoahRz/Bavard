@@ -110,4 +110,14 @@ public class MessageViewPanel extends JPanel implements PapotageListener { //ne 
     public String getPassword() {
         return null;
     }
+
+    @Override
+    public ArrayList<String> getTheme() {
+        return null;
+    }
+
+    @Override
+    public void setTheme(ArrayList<String> theme) {
+
+    }
 }

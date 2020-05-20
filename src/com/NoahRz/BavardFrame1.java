@@ -36,15 +36,22 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         JMenu bavardMenu=new JMenu(bavardLogged.getLogin());
         JMenu optionMenu = new JMenu("Option");
         JMenuItem adjustlisteningMenuItem = new JMenuItem("adjust listening");
+        JMenuItem adjustThemeMenuItem = new JMenuItem("adjust theme");
         JMenuItem signOutMenuItem = new JMenuItem("Sign out");
 
         adjustlisteningMenuItem.setActionCommand("adjust listening");
         adjustlisteningMenuItem.addActionListener(this);
 
+        adjustThemeMenuItem.setActionCommand("adjust theme");
+        adjustThemeMenuItem.addActionListener(this);
+
         signOutMenuItem.setActionCommand("Sign out");
         signOutMenuItem.addActionListener(this);
 
-        optionMenu.add(adjustlisteningMenuItem); optionMenu.add(signOutMenuItem);
+        optionMenu.add(adjustlisteningMenuItem);
+        optionMenu.add(adjustThemeMenuItem);
+        optionMenu.add(signOutMenuItem);
+
         menubar.add(bavardMenu);
         menubar.add(optionMenu);
         this.setJMenuBar(menubar);
@@ -79,6 +86,27 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         messageSubjectTextField.addKeyListener(this);
 
 
+        /*String[] themeArray = new String[this.bavardLogged.getTheme().size()]; //convert ArrayList to array
+        themeArray = this.bavardLogged.getTheme().toArray(themeArray);
+
+        JComboBox themeComboBox=new JComboBox(themeArray); // the bavard can only send message with theme he likes
+        Dimension d1 = themeComboBox.getPreferredSize(); // we do that to only modify one dimension
+        d1.width = this.getWidth() * 6 / 10;
+        themeComboBox.setPreferredSize(d);
+        themeComboBox.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("bruh");
+                themeComboBox.revalidate();
+                themeComboBox.repaint();
+            }
+        });*/
+
+        JButton themeButton = new JButton("add theme");
+        themeButton.setActionCommand("add theme");
+        themeButton.addActionListener(this);
+
+
         JTextArea messagingTextArea = new JTextArea("Write the message body ... ", 10, 10); //area where the user can write message
         messagingTextArea.addKeyListener(this);
 
@@ -87,13 +115,14 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
 
         JButton sendMessageButton = new JButton("send");
         sendMessageButton.setActionCommand("send");
-        sendMessageButton.setPreferredSize(new Dimension(this.getWidth()/10, this.getHeight()/15));
+        sendMessageButton.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/15));
         sendMessageButton.addActionListener(this);
         messageFieldPanel.add(sendMessageButton, BorderLayout.SOUTH);
 
-        JPanel inputMessagePanel = new JPanel();
+        JPanel inputMessagePanel = new JPanel(); // panel which contains a textField (message subject field), comboBox (themes) and messaging scrollPane ( message body field)
         inputMessagePanel.setLayout(new BoxLayout(inputMessagePanel, BoxLayout.Y_AXIS));
         inputMessagePanel.add(messageSubjectTextField);
+        inputMessagePanel.add(themeButton);
         inputMessagePanel.add(messagingScrollPane);
 
         messageFieldPanel.add(inputMessagePanel, BorderLayout.CENTER);
@@ -178,10 +207,14 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
             new BavardAdjustItsListeningFrame(this.bavardLogged, this.concierge);
         }
 
+        if (e.getActionCommand().equals("adjust theme")){ //if we click on "adjust theme"
+            new BavardAdjustItsThemeFrame(this.bavardLogged, this.concierge);
+        }
+
+
         if(e.getSource() instanceof JMenuItem){ // we click on tht popupmenu
             String bavardLogin = e.getActionCommand();
             Bavard bavardAddressee = this.concierge.getBavard(bavardLogin);
-            new DmFrame(bavardLogged, bavardAddressee);
         }
     }
 

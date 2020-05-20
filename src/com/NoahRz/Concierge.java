@@ -15,6 +15,7 @@ public class Concierge implements PapotageListener {
     private ArrayList<RequestEvent> requestEventArrayList; // ArrayList which gathers all the request sent by bavard asking to listen other bavard
     private boolean isConnected;
     private ConciergeFrame conciergeFrame;
+    private ArrayList<String> theme; //arrayList of theme
 
     public Concierge(String login, String password){
         this.login = login;
@@ -23,6 +24,7 @@ public class Concierge implements PapotageListener {
         this.bavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
         this.requestEventArrayList = new ArrayList<RequestEvent>();
         this.isConnected = false;
+        this.theme = new ArrayList<String>();
     }
     /********************************************************************
      Setter
@@ -35,6 +37,9 @@ public class Concierge implements PapotageListener {
         this.conciergeFrame=conciergeFrame;
     }
 
+    public void setTheme(ArrayList<String> theme){
+        this.theme=theme;
+    }
     /********************************************************************
      Getter
      ********************************************************************/
@@ -95,6 +100,13 @@ public class Concierge implements PapotageListener {
 
     public ArrayList<RequestEvent> getRequestEventArrayList() {
         return requestEventArrayList;
+    }
+
+    public ArrayList<String> getTheme(){
+        /**
+         * return the arrayList of all the theme in the system
+         * */
+        return this.theme;
     }
 
     /********************************************************************
