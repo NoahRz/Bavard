@@ -11,7 +11,7 @@ public class Bavard implements PapotageListener {
     private Concierge concierge;
     private String password;
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion; //pas besoin
-    private BavardFrame1 myFrame;
+    private BavardFrame myFrame;
     private boolean isConnected;
     private ArrayList<String> theme;
 
@@ -28,7 +28,7 @@ public class Bavard implements PapotageListener {
      Setter
      ********************************************************************/
 
-    public void setFrame(BavardFrame1 myFrame){
+    public void setFrame(BavardFrame myFrame){
         this.myFrame = myFrame;
     }
 
@@ -55,7 +55,7 @@ public class Bavard implements PapotageListener {
         return recentDiscussion;
     }
 
-    public BavardFrame1 getMyFrame() {
+    public BavardFrame getMyFrame() {
         return myFrame;
     } // je crois qu'on s'en sert pas
 

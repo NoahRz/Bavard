@@ -72,7 +72,7 @@ public class BavardAdjustItsThemeFrame extends JFrame implements ActionListener 
             }
             this.bavardLogged.setTheme(theme); // we set a new arrayList of theme to the bavard logged
 
-            BavardFrame1 bavardLoggedFrame = this.bavardLogged.getMyFrame();
+            BavardFrame bavardLoggedFrame = this.bavardLogged.getMyFrame();
             if(bavardLoggedFrame != null){
                 bavardLoggedFrame.refreshThemes(); // we refresh the list of themes in the bavard's Frame
             }

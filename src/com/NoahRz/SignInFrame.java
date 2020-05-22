@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SignInFrame extends JFrame implements ActionListener, KeyListener{
     /**
@@ -110,7 +107,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
                 else if (guestBavard != null){
                     if (passwordEntered.equals(guestBavard.getPassword())){ // check if the login and password entered by the user correspond to a bavard's
                         if(!guestBavard.isConnected()) { // so that we can't have more than one bavard Frame of a bavard opened at the same time
-                            new BavardFrame1(guestBavard, this.concierge); // Open a new Frame, the BavardFrame
+                            new BavardFrame(guestBavard, this.concierge); // Open a new Frame, the BavardFrame
                         }else{
                             this.errorMessage.setText(errorAlreadyConnectedMessage);
                             this.errorMessage.setVisible(true);

@@ -6,7 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class BavardFrame1 extends JFrame implements ActionListener, KeyListener {
+public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     /**
      * Jrame where the Bavard can send, receive message, see others connected bavard and ask to listen other barvard
      * */
@@ -21,7 +21,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     private ArrayList<JCheckBox> themeChexboxes = new ArrayList<JCheckBox>();
     private JPanel selectThemePanel;
 
-    public BavardFrame1(PapotageListener papotageListenerLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
+    public BavardFrame(PapotageListener papotageListenerLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
         this.bavardLogged = (Bavard)papotageListenerLogged;
         this.bavardLogged.setFrame(this);
         this.concierge=concierge;
