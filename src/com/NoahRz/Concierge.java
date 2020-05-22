@@ -155,13 +155,17 @@ public class Concierge implements PapotageListener {
          * @return : true if the bavard has succesfully been created else return false
          * */
         // we go through the keys of bavardsListenToBavardMap which are bavards and check if there is one who has the same login as the login in parameters
-        for (Bavard bavard : this.bavardsListenToBavardMap.keySet()){
-            if(bavard.getLogin().equals(login)){
-                return false;
+
+        if(!login.equals("") && !password.equals("")){ // we check that login and password are not null
+            for (Bavard bavard : this.bavardsListenToBavardMap.keySet()){
+                if(bavard.getLogin().equals(login)){
+                    return false;
+                }
             }
+            this.bavardsListenToBavardMap.put(new Bavard(login, password, this), new ArrayList<Bavard>());
+            return true;
         }
-        this.bavardsListenToBavardMap.put(new Bavard(login, password, this), new ArrayList<Bavard>());
-        return true;
+        return false;
     }
 
     public void alertBavardConnectedDisconnected(PapotageEvent bavardConnectedDiscconnectedEvent){

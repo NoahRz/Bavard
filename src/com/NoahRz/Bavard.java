@@ -10,7 +10,6 @@ public class Bavard implements PapotageListener {
     private  String login;
     private Concierge concierge;
     private String password;
-    private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion; //pas besoin
     private BavardFrame myFrame;
     private boolean isConnected;
     private ArrayList<String> theme;
@@ -19,7 +18,6 @@ public class Bavard implements PapotageListener {
         this.login = login;
         this.concierge = concierge;
         this.password = password;
-        this.recentDiscussion= new HashMap<PapotageListener, ArrayList<PapotageEvent>>();
         this.isConnected=false;
         this.theme = new ArrayList<String>();
     }
@@ -51,9 +49,6 @@ public class Bavard implements PapotageListener {
         return login;
     }
 
-    public HashMap<PapotageListener, ArrayList<PapotageEvent>> getRecentDiscussion() {
-        return recentDiscussion;
-    }
 
     public BavardFrame getMyFrame() {
         return myFrame;
