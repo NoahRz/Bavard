@@ -79,20 +79,15 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
         /*-- Area where the user can write messages and send them --*/
         JPanel messageFieldPanel = new JPanel(); //panel which contains a panel (which contains a textField and text area) and a button
-        messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/5));
+        messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new BorderLayout());
 
         JTextField messageSubjectTextField = new JTextField("Write the message subject ...");
-        Dimension d = messageSubjectTextField.getPreferredSize(); // we do that to only modify one dimension
-        d.width = this.getWidth() * 6 / 10;
-        messageSubjectTextField.setPreferredSize(d);
         messageSubjectTextField.addKeyListener(this);
 
 
         /*--- Theme panel ---*/
         selectThemePanel = new JPanel();
-        selectThemePanel.setBackground(Color.GREEN);
-        selectThemePanel.setMaximumSize(new Dimension(this.getWidth(), 20));
         selectThemePanel.setLayout(new BoxLayout(selectThemePanel,BoxLayout.X_AXIS));
 
         JLabel selectThemeTitlePanel = new JLabel(" Select message theme :");
@@ -105,11 +100,11 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         }
 
         JScrollPane selectThemeScrollPane = new JScrollPane(selectThemePanel); // we make selectThemePanel scrollable
-
+        selectThemeScrollPane.setMinimumSize(new Dimension(this.getWidth(), 50));
 
 
         /*--------------------*/
-        JTextArea messagingTextArea = new JTextArea("Write the message body ... ", 10, 10); //area where the user can write message
+        JTextArea messagingTextArea = new JTextArea("Write the message body ... ", 5, 10); //area where the user can write message
         messagingTextArea.addKeyListener(this);
 
         JScrollPane messagingScrollPane = new JScrollPane(messagingTextArea); //make messagingTextArea scrollable so that it's easier to write long message
