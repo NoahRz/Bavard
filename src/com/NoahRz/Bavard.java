@@ -77,13 +77,13 @@ public class Bavard implements PapotageListener {
      Methods
      ********************************************************************/
 
-    public void sendMessages(String messageSubject, String messageBody){
+    public void sendMessages(ArrayList<String> themes, String messageSubject, String messageBody){
         /**
          * send the message to the concierge and then the concierge will send it to bavards who listens this bavard
          * @Param messageSubject : String
          * @Param messageBody : String
          * */
-        PapotageEvent pe = new PapotageEvent(this, messageSubject, messageBody); // source it's this object
+        PapotageEvent pe = new PapotageEvent(this, themes, messageSubject, messageBody); // source it's this object
         concierge.receiveMessages(pe); //message sent
         this.myFrame.receiveMessages(pe); // we do this to display the message we have just sent in our Frame
     }

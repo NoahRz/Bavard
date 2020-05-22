@@ -130,7 +130,18 @@ public class Concierge implements PapotageListener {
         Bavard bavardSender = (Bavard)pe.getSource();
         if(this.bavardsListenToBavardMap.containsKey(bavardSender)){
             for (Bavard bavardListener : this.bavardsListenToBavardMap.get(bavardSender)){
-                bavardListener.receiveMessages(pe);
+                Boolean contains = false;
+                int i= 0;
+                while (i<bavardListener.getTheme().size() && !contains){ // we check if the bavard listener likes at least one theme among the message's theme
+                    if (bavardListener.getTheme().contains(pe.getMessageThemes().get(i))){
+                        contains=true;
+                    }
+                    i++;
+                }
+                if(contains){ // if it's true we can send the message to the bavard Listener
+                    bavardListener.receiveMessages(pe);
+                }
+
             }
         }else{
             System.out.println("there is no bavardListener for this bavard");

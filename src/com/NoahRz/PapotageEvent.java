@@ -1,5 +1,6 @@
 package com.NoahRz; //ok
 
+import java.util.ArrayList;
 import java.util.EventObject;
 
 public class PapotageEvent extends EventObject {
@@ -13,6 +14,7 @@ public class PapotageEvent extends EventObject {
     //private Message message;
     protected String messageSubject; //used by ConciergeEvent
     protected String messageBody;
+    private ArrayList<String> messageThemes;
 
     /********************************************************************
      Constructor
@@ -21,9 +23,10 @@ public class PapotageEvent extends EventObject {
         super(source);
     }
 
-    public PapotageEvent(Object source, String messageSubject, String messageBody) {
+    public PapotageEvent(Object source, ArrayList<String> messageThemes,String messageSubject, String messageBody) {
         super(source);
         //this.message=message;
+        this.messageThemes=messageThemes;
         this.messageSubject = messageSubject;
         this.messageBody = messageBody;
     }
@@ -38,6 +41,10 @@ public class PapotageEvent extends EventObject {
 
     protected String getMessageBody() {
         return messageBody;
+    }
+
+    public ArrayList<String> getMessageThemes() {
+        return messageThemes;
     }
 }
 

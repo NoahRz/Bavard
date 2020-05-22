@@ -4,6 +4,7 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import java.awt.*;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 public class BavardFrame1 extends JFrame implements ActionListener, KeyListener {
     /**
@@ -17,6 +18,8 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
     private JPanel myMessageViewPanel;
     private Concierge concierge;
     private JPanel bavardConnectedListSubPanel;
+    private ArrayList<JCheckBox> themeChexboxes = new ArrayList<JCheckBox>();
+    private JPanel selectThemePanel;
 
     public BavardFrame1(PapotageListener papotageListenerLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
         this.bavardLogged = (Bavard)papotageListenerLogged;
@@ -86,27 +89,26 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         messageSubjectTextField.addKeyListener(this);
 
 
-        /*String[] themeArray = new String[this.bavardLogged.getTheme().size()]; //convert ArrayList to array
-        themeArray = this.bavardLogged.getTheme().toArray(themeArray);
+        /*--- Theme panel ---*/
+        selectThemePanel = new JPanel();
+        selectThemePanel.setBackground(Color.GREEN);
+        selectThemePanel.setMaximumSize(new Dimension(this.getWidth(), 20));
+        selectThemePanel.setLayout(new BoxLayout(selectThemePanel,BoxLayout.X_AXIS));
 
-        JComboBox themeComboBox=new JComboBox(themeArray); // the bavard can only send message with theme he likes
-        Dimension d1 = themeComboBox.getPreferredSize(); // we do that to only modify one dimension
-        d1.width = this.getWidth() * 6 / 10;
-        themeComboBox.setPreferredSize(d);
-        themeComboBox.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("bruh");
-                themeComboBox.revalidate();
-                themeComboBox.repaint();
-            }
-        });*/
+        JLabel selectThemeTitlePanel = new JLabel(" Select message theme :");
+        selectThemePanel.add(selectThemeTitlePanel);
 
-        JButton themeButton = new JButton("add theme");
-        themeButton.setActionCommand("add theme");
-        themeButton.addActionListener(this);
+        for(String theme : this.bavardLogged.getTheme()){
+            JCheckBox themeCheckBox = new JCheckBox(theme);
+            selectThemePanel.add(themeCheckBox);
+            themeChexboxes.add(themeCheckBox); // add it to the arrayList for the listener
+        }
+
+        JScrollPane selectThemeScrollPane = new JScrollPane(selectThemePanel); // we make selectThemePanel scrollable
 
 
+
+        /*--------------------*/
         JTextArea messagingTextArea = new JTextArea("Write the message body ... ", 10, 10); //area where the user can write message
         messagingTextArea.addKeyListener(this);
 
@@ -122,7 +124,7 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         JPanel inputMessagePanel = new JPanel(); // panel which contains a textField (message subject field), comboBox (themes) and messaging scrollPane ( message body field)
         inputMessagePanel.setLayout(new BoxLayout(inputMessagePanel, BoxLayout.Y_AXIS));
         inputMessagePanel.add(messageSubjectTextField);
-        inputMessagePanel.add(themeButton);
+        inputMessagePanel.add(selectThemeScrollPane);
         inputMessagePanel.add(messagingScrollPane);
 
         messageFieldPanel.add(inputMessagePanel, BorderLayout.CENTER);
@@ -196,7 +198,15 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
             if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message.
                 JOptionPane.showMessageDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.WARNING_MESSAGE);
             }else {
-                this.bavardLogged.sendMessages(this.subjectMessage, this.bodyMessage);
+                ArrayList<String> themeSelected = new ArrayList<String>(); //Array which contains the themeSelected (string)
+
+                for (JCheckBox themeChexbox : this.themeChexboxes){ // we take all theme selected
+                    if (themeChexbox.isSelected()){
+                        themeSelected.add(themeChexbox.getActionCommand());
+                    }
+                }
+
+                this.bavardLogged.sendMessages(themeSelected,this.subjectMessage, this.bodyMessage);
             }
         }
         if (e.getActionCommand().equals("Sign out")){ // if we click on "sign out"
@@ -247,9 +257,10 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
         JPanel oneMessagePanel = new JPanel(); // panel which contains the messageContentPanel
         oneMessagePanel.setLayout(new BorderLayout());
 
-        JPanel messageContentPanel = new JPanel(); // panel which gathers the sender, the message subject and the body subject (small part)
+        JPanel messageContentPanel = new JPanel(); // panel which gathers the sender name, the message subject and the body subject (small part)
         messageContentPanel.setBackground(new Color(242, 242, 242));
-        messageContentPanel.setLayout(new BorderLayout());
+        messageContentPanel.setLayout(new BoxLayout(messageContentPanel, BoxLayout.Y_AXIS));
+
 
         JLabel messageBodyLabel = new JLabel();
         LineBorder lineBorder = new LineBorder(new Color(128, 128, 128), 2, true);
@@ -282,14 +293,27 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
                 messageContentPosition = BorderLayout.WEST;
             }
             JLabel senderLabel = new JLabel("From: " + usernameSender);
+
+            JLabel themesLabel = new JLabel();
+            String themesContentLabel = "Theme : "; //the text of themesLabel
+            for (String theme : pe.getMessageThemes()){ //we add to the temes content Label all the themes of the message
+                themesContentLabel += theme + " ";
+            }
+
+            themesLabel.setText(themesContentLabel);
+
+
             JLabel subjectLabel = new JLabel("Subject: "+pe.getMessageSubject());
 
-            messageContentPanel.add(senderLabel, BorderLayout.NORTH);
-            messageContentPanel.add(subjectLabel, BorderLayout.CENTER);
+
+            messageContentPanel.add(senderLabel);
+            messageContentPanel.add(themesLabel);
+            messageContentPanel.add(subjectLabel);
             messageBodyLabel.setText("Body :" +pe.getMessageBody());
         }
 
-        messageContentPanel.add(messageBodyLabel, BorderLayout.SOUTH);
+        messageContentPanel.add(messageBodyLabel);
+
         Dimension d = messageContentPanel.getPreferredSize();
         d.width=this.getWidth()/3;
         messageContentPanel.setPreferredSize(d);
@@ -362,4 +386,25 @@ public class BavardFrame1 extends JFrame implements ActionListener, KeyListener 
             }
         }
     }
+
+    public void refreshThemes(){
+        /**
+         * Refresh the themes list
+         * */
+
+        this.selectThemePanel.removeAll();
+        this.selectThemePanel.revalidate();
+        this.selectThemePanel.repaint();
+
+        JLabel selectThemeTitlePanel = new JLabel(" Select message theme :");
+        selectThemePanel.add(selectThemeTitlePanel);
+
+        for(String theme : this.bavardLogged.getTheme()){
+            JCheckBox themeCheckBox = new JCheckBox(theme);
+            selectThemePanel.add(themeCheckBox);
+            themeChexboxes.add(themeCheckBox); // add it to the arrayList for the listener
+        }
+
+    }
+
 }

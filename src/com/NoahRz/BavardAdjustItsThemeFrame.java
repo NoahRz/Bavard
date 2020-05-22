@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class BavardAdjustItsThemeFrame extends JFrame implements ActionListener {
     /**
      * JFrame where the bavard connected can adjust theme he likes. He will only receive theme he has selected.
+     * Unlike the BavardAdjustItsListeningFrame, it won't send a request to the Concierge, it will directly change here.
      * */
 
     private Concierge concierge;
@@ -70,6 +71,12 @@ public class BavardAdjustItsThemeFrame extends JFrame implements ActionListener 
                 }
             }
             this.bavardLogged.setTheme(theme); // we set a new arrayList of theme to the bavard logged
+
+            BavardFrame1 bavardLoggedFrame = this.bavardLogged.getMyFrame();
+            if(bavardLoggedFrame != null){
+                bavardLoggedFrame.refreshThemes(); // we refresh the list of themes in the bavard's Frame
+            }
+
             JOptionPane.showMessageDialog(this,"theme selected");
             this.dispose();
         }
