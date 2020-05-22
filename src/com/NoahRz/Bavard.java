@@ -1,8 +1,6 @@
 package com.NoahRz; //ok
 
-import javax.swing.*;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 public class Bavard implements PapotageListener {
@@ -13,7 +11,6 @@ public class Bavard implements PapotageListener {
     private Concierge concierge;
     private String password;
     private HashMap<PapotageListener, ArrayList<PapotageEvent>> recentDiscussion; //pas besoin
-    private MessageViewPanel myMessageViewPanel; // Je crois qu'on en a pas besoin
     private BavardFrame1 myFrame;
     private boolean isConnected;
     private ArrayList<String> theme;
@@ -35,9 +32,6 @@ public class Bavard implements PapotageListener {
         this.myFrame = myFrame;
     }
 
-    public void setMessageViewPanel(MessageViewPanel myMessageViewPanel) { // Je crois qu'on en a pas besoin
-        this.myMessageViewPanel = myMessageViewPanel;
-    }
 
     public void setTheme(ArrayList<String> theme){
         this.theme = theme;
@@ -69,9 +63,6 @@ public class Bavard implements PapotageListener {
         return isConnected;
     }
 
-    public MessageViewPanel getMessageViewPanel() {
-        return myMessageViewPanel;
-    }  // je crois qu'on s'en sert pas
 
     /********************************************************************
      Methods
