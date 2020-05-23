@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class BavardAdjustItsListeningFrame extends JFrame implements ActionListener {
+public class BavardAdjustHisListeningFrame extends JFrame implements ActionListener {
     /**
      * JFrame where the bavard connected can adjust bavards he wants to listen (but it won't be really the case, it will
      * just send a request to the concierge that this bavard wants to listen some one, then the concierge can approve or
@@ -17,7 +17,7 @@ public class BavardAdjustItsListeningFrame extends JFrame implements ActionListe
     private Bavard bavardLogged;
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
-    public BavardAdjustItsListeningFrame(Bavard bavardLogged, Concierge concierge){
+    public BavardAdjustHisListeningFrame(Bavard bavardLogged, Concierge concierge){
         this.bavardLogged=bavardLogged;
         this.concierge=concierge;
 

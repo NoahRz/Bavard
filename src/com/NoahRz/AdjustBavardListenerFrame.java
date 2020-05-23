@@ -10,6 +10,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
     /**
      * Frame where the concierge can  adjust the listener of a bavard, (who wants to listen who ?)
      * */
+
     private Concierge concierge;
     private ButtonGroup bavardListenedButtonGroup;
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();

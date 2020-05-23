@@ -209,11 +209,11 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
             this.dispose();
         }
         if (e.getActionCommand().equals("adjust listening")){ //if we click on "adjust listening"
-            new BavardAdjustItsListeningFrame(this.bavardLogged, this.concierge);
+            new BavardAdjustHisListeningFrame(this.bavardLogged, this.concierge);
         }
 
         if (e.getActionCommand().equals("adjust theme")){ //if we click on "adjust theme"
-            new BavardAdjustItsThemeFrame(this.bavardLogged, this.concierge);
+            new BavardAdjustHisThemeFrame(this.bavardLogged, this.concierge);
         }
 
 

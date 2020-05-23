@@ -6,7 +6,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class BavardAdjustItsThemeFrame extends JFrame implements ActionListener {
+public class BavardAdjustHisThemeFrame extends JFrame implements ActionListener {
     /**
      * JFrame where the bavard connected can adjust theme he likes. He will only receive theme he has selected.
      * Unlike the BavardAdjustItsListeningFrame, it won't send a request to the Concierge, it will directly change here.
@@ -16,7 +16,7 @@ public class BavardAdjustItsThemeFrame extends JFrame implements ActionListener 
     private Bavard bavardLogged;
     private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
 
-    public BavardAdjustItsThemeFrame(Bavard bavardLogged, Concierge concierge) {
+    public BavardAdjustHisThemeFrame(Bavard bavardLogged, Concierge concierge) {
         this.bavardLogged=bavardLogged;
         this.concierge=concierge;
 
