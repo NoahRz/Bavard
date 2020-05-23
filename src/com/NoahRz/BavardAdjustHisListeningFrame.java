@@ -1,4 +1,4 @@
-package com.NoahRz; //ok
+package com.NoahRz; //ok1
 
 import javax.swing.*;
 import java.awt.*;
@@ -8,14 +8,14 @@ import java.util.ArrayList;
 
 public class BavardAdjustHisListeningFrame extends JFrame implements ActionListener {
     /**
-     * JFrame where the bavard connected can adjust bavards he wants to listen (but it won't be really the case, it will
+     * JFrame where the bavard connected can adjust bavards he wants to listen to (but it won't really be the case, it will
      * just send a request to the concierge that this bavard wants to listen some one, then the concierge can approve or
      * not.
      * */
 
     private Concierge concierge;
     private Bavard bavardLogged;
-    private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
+    private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>(); //ArrayList of other bavard checkbox (useful for ActionPerformed method)
 
     public BavardAdjustHisListeningFrame(Bavard bavardLogged, Concierge concierge){
         this.bavardLogged=bavardLogged;
@@ -31,11 +31,10 @@ public class BavardAdjustHisListeningFrame extends JFrame implements ActionListe
         pane.add(TitleLabel, BorderLayout.NORTH);
 
         JPanel listenToBavardPanel = new JPanel(); //panel which contains list of bavard checkbox
-        listenToBavardPanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         listenToBavardPanel.setLayout(new BoxLayout(listenToBavardPanel, BoxLayout.Y_AXIS));
         listenToBavardPanel.setBackground(Color.YELLOW);
 
-        //look through bavard and check those who the bavard is listening to
+        //look through bavard and create checkbox and check those which correponds to bavard already listened by this one.
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){
             if(bavard != bavardLogged) { // so that this bavard cannot listen to himself
                 JCheckBox checkBox = new JCheckBox(bavard.getLogin());
@@ -46,7 +45,7 @@ public class BavardAdjustHisListeningFrame extends JFrame implements ActionListe
                     checkBox.setSelected(false);
                 }
                 listenToBavardPanel.add(checkBox);
-                this.checkBoxes.add(checkBox);
+                this.checkBoxes.add(checkBox); // add checkBox to the arrayList of checkBox : useful for the ActionPerformed method
             }
         }
 
@@ -66,10 +65,10 @@ public class BavardAdjustHisListeningFrame extends JFrame implements ActionListe
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getActionCommand().equals("Confirm listening")){
+        if(e.getActionCommand().equals("Confirm listening")){ //when we press on the "Confirm listening" button
             for(JCheckBox cb : this.checkBoxes){
                 Bavard bavardListened = this.concierge.getBavard(cb.getActionCommand());
-                if (cb.isSelected()){
+                if (cb.isSelected()){ // if checked, it means we want to listen the bavard corresponding to this checkBox
                     if(!concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
                         // we check if the logged bavard is not already listening to the bavard corresponding to the checkbox. True:we can request
                         RequestEvent request = new RequestEvent(bavardLogged, "add", bavardListened);
@@ -81,11 +80,11 @@ public class BavardAdjustHisListeningFrame extends JFrame implements ActionListe
                             }
                             i++;
                         }
-                        if(!doublon){ // if there is no doublon, we can send the request
+                        if(!doublon){ // we make sure that we have not already sent the same request (there is no doublon),so we can send the request
                             concierge.receiveRequest(request);
                         }
                     }
-                }else{
+                }else{ // if checked, it means we don't want to listen the bavard corresponding to this checkBox
                     if(concierge.getBavardListenersOfBavard(bavardListened).contains(this.bavardLogged)){
                         // we check if the logged bavard is listening to the bavard corresponding to the checkbox. True : we can request
                         RequestEvent request = new RequestEvent(bavardLogged, "remove", bavardListened);

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AdjustBavardListenerFrame extends JFrame implements ActionListener {
     /**
-     * Frame where the concierge can  adjust the listener of a bavard, (who wants to listen who ?)
+     * JFrame where the concierge can  adjust the listener of a bavard, (who wants to listen who ?)
      * */
 
     private Concierge concierge;
