@@ -1,4 +1,4 @@
-package com.NoahRz; //ok
+package com.NoahRz; //ok1
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -15,14 +15,14 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     private JPanel messagingPanel;
     private String bodyMessage;
     private String subjectMessage;
-    private JPanel myMessageViewPanel;
+    private JPanel myMessageViewPanel; // panel where we can see messages we received and messages we sent
     private Concierge concierge;
-    private JPanel bavardConnectedListSubPanel;
-    private ArrayList<JCheckBox> themeChexboxes = new ArrayList<JCheckBox>();
+    private JPanel bavardConnectedListContentPanel;
+    private ArrayList<JCheckBox> themeChexboxes = new ArrayList<JCheckBox>(); //ArrayList of theme checkbox
     private JPanel selectThemePanel;
 
-    public BavardFrame(PapotageListener papotageListenerLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
-        this.bavardLogged = (Bavard)papotageListenerLogged;
+    public BavardFrame(Bavard bavardLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
+        this.bavardLogged = bavardLogged;
         this.bavardLogged.setFrame(this);
         this.concierge=concierge;
         this.bavardLogged.warnIsConnected();
@@ -59,17 +59,18 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         menubar.add(optionMenu);
         this.setJMenuBar(menubar);
 
-        /* ************************************************************************************* */
-        /* ************************** messaging panel ****************************************** */
-        /* Area where we display messages we received and send  and  area Where we send messages */
-        /* ************************************************************************************* */
+
+        /**************************************************************************************************************
+         messaging panel: left side
+         Area where we display messages we received and send  and  area Where we send messages
+         **************************************************************************************************************/
 
         this.messagingPanel = new JPanel();
         messagingPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()));
         messagingPanel.setLayout(new BorderLayout());
 
 
-        /*-- Area where we can see messages we received and messages we sent --*/
+        /*--- Area where we can see messages we received and messages we sent ---*/
         myMessageViewPanel = new JPanel();
         myMessageViewPanel.setBackground(Color.YELLOW);
         myMessageViewPanel.setLayout(new BoxLayout(myMessageViewPanel, BoxLayout.Y_AXIS));
@@ -77,8 +78,8 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         JScrollPane scrollPane = new JScrollPane(myMessageViewPanel);
         messagingPanel.add(scrollPane, BorderLayout.CENTER);
 
-        /*-- Area where the user can write messages and send them --*/
-        JPanel messageFieldPanel = new JPanel(); //panel which contains a panel (which contains a textField and text area) and a button
+        /*--- Area where the user can write messages and send them ---*/
+        JPanel messageFieldPanel = new JPanel(); //panel which contains a panel (which contains a textField, another panel and a text area) and a button
         messageFieldPanel.setPreferredSize(new Dimension(this.getWidth()*3/4, this.getHeight()/4));
         messageFieldPanel.setLayout(new BorderLayout());
 
@@ -93,7 +94,8 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         JLabel selectThemeTitlePanel = new JLabel(" Select message theme :");
         selectThemePanel.add(selectThemeTitlePanel);
 
-        for(String theme : this.bavardLogged.getTheme()){
+        //look through theme this bavard likes, create theme checkbox
+            for(String theme : this.bavardLogged.getTheme()){
             JCheckBox themeCheckBox = new JCheckBox(theme);
             selectThemePanel.add(themeCheckBox);
             themeChexboxes.add(themeCheckBox); // add it to the arrayList for the listener
@@ -101,9 +103,9 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
         JScrollPane selectThemeScrollPane = new JScrollPane(selectThemePanel); // we make selectThemePanel scrollable
         selectThemeScrollPane.setMinimumSize(new Dimension(this.getWidth(), 50));
-
-
         /*--------------------*/
+
+
         JTextArea messagingTextArea = new JTextArea("Write the message body ... ", 5, 10); //area where the user can write message
         messagingTextArea.addKeyListener(this);
 
@@ -116,7 +118,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         sendMessageButton.addActionListener(this);
         messageFieldPanel.add(sendMessageButton, BorderLayout.SOUTH);
 
-        JPanel inputMessagePanel = new JPanel(); // panel which contains a textField (message subject field), comboBox (themes) and messaging scrollPane ( message body field)
+        JPanel inputMessagePanel = new JPanel(); // panel which contains a textField (message subject field), checkbox (themes) and messaging scrollPane ( message body field)
         inputMessagePanel.setLayout(new BoxLayout(inputMessagePanel, BoxLayout.Y_AXIS));
         inputMessagePanel.add(messageSubjectTextField);
         inputMessagePanel.add(selectThemeScrollPane);
@@ -127,10 +129,11 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
         pane.add(messagingPanel, BorderLayout.CENTER);
 
-        /* ************************************************************************************* */
-        /* ************************** bavardConnectedListPanel :right side ********************** */
-        /* ************ Area where the user can see a list of connected bavard ***************** */
-        /* ************************************************************************************* */
+
+        /**************************************************************************************************************
+         bavardConnectedListPanel :right side
+         Area where the user can see a list of connected bavard
+         **************************************************************************************************************/
 
         JPanel bavardConnectedListPanel = new JPanel(); //panel which contains a title label and a list of connected Bavard label (the list is in another panel)
         bavardConnectedListPanel.setLayout(new BoxLayout(bavardConnectedListPanel, BoxLayout.Y_AXIS)); // display bavard vertically
@@ -141,40 +144,12 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         bavardConnectedListPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
         bavardConnectedListPanel.add(connectedBavardTitleLabel);
 
-        bavardConnectedListSubPanel = new JPanel(); //panel which contains the list of bavard label
-        bavardConnectedListSubPanel.setLayout(new BoxLayout(bavardConnectedListSubPanel, BoxLayout.Y_AXIS));
+        bavardConnectedListContentPanel = new JPanel(); //panel which contains the list of bavard label
+        bavardConnectedListContentPanel.setLayout(new BoxLayout(bavardConnectedListContentPanel, BoxLayout.Y_AXIS));
 
-        LineBorder lineBorder = new LineBorder(new Color(128, 128, 128), 2, true);
+        this.refreshConnectedBavardList(); //we display the list of bavard connected
 
-        //we look through the bavard and add those connected
-        for (Bavard bavard : this.concierge.getBavardsListenToBavardMap().keySet()){
-            if(bavard.isConnected()){
-                JLabel bavardLabel = new JLabel(bavard.getLogin(), SwingConstants.CENTER);
-                bavardLabel.setBorder(lineBorder);
-                bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
-
-                /*-- popupmenu --*/
-                JPopupMenu popupmenu = new JPopupMenu("Edit"); // popupmenu when we click on a connected bavard
-                JMenuItem dmMenuItem = new JMenuItem("DM");
-
-                dmMenuItem.setActionCommand(bavard.getLogin());
-                dmMenuItem.addActionListener(this);
-
-                popupmenu.add(dmMenuItem);
-                /*--------------*/
-                bavardLabel.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        super.mouseClicked(e);
-                        popupmenu.show(bavardConnectedListPanel , bavardLabel.getX(), bavardLabel.getY());
-                    }
-                });
-
-                bavardConnectedListSubPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
-                bavardConnectedListSubPanel.add(bavardLabel);
-            }
-        }
-        JScrollPane scrollPaneForbavardConnectedListSubPanel = new JScrollPane(bavardConnectedListSubPanel); //we make bavardConnectedListSubPanel scrollable
+        JScrollPane scrollPaneForbavardConnectedListSubPanel = new JScrollPane(bavardConnectedListContentPanel); //we make bavardConnectedListSubPanel scrollable
         bavardConnectedListPanel.add(scrollPaneForbavardConnectedListSubPanel);
 
         pane.add(bavardConnectedListPanel, BorderLayout.EAST);
@@ -193,15 +168,15 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
             if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message.
                 JOptionPane.showMessageDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.WARNING_MESSAGE);
             }else {
-                ArrayList<String> themeSelected = new ArrayList<String>(); //Array which contains the themeSelected (string)
+                ArrayList<String> themeSelectedArrayList = new ArrayList<String>(); //Array which contains the themeSelected (string)
 
-                for (JCheckBox themeChexbox : this.themeChexboxes){ // we take all theme selected
+                for (JCheckBox themeChexbox : this.themeChexboxes){ // we add all theme selected
                     if (themeChexbox.isSelected()){
-                        themeSelected.add(themeChexbox.getActionCommand());
+                        themeSelectedArrayList.add(themeChexbox.getActionCommand());
                     }
                 }
 
-                this.bavardLogged.sendMessages(themeSelected,this.subjectMessage, this.bodyMessage);
+                this.bavardLogged.sendMessages(themeSelectedArrayList,this.subjectMessage, this.bodyMessage);
             }
         }
         if (e.getActionCommand().equals("Sign out")){ // if we click on "sign out"
@@ -209,17 +184,11 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
             this.dispose();
         }
         if (e.getActionCommand().equals("adjust listening")){ //if we click on "adjust listening"
-            new BavardAdjustHisListeningFrame(this.bavardLogged, this.concierge);
+            new BavardAdjustHisListeningFrame(this.bavardLogged, this.concierge); //open a new BavardAdjustHisListeningFrame
         }
 
         if (e.getActionCommand().equals("adjust theme")){ //if we click on "adjust theme"
-            new BavardAdjustHisThemeFrame(this.bavardLogged, this.concierge);
-        }
-
-
-        if(e.getSource() instanceof JMenuItem){ // we click on tht popupmenu
-            String bavardLogin = e.getActionCommand();
-            Bavard bavardAddressee = this.concierge.getBavard(bavardLogin);
+            new BavardAdjustHisThemeFrame(this.bavardLogged, this.concierge); //open a new BavardAdjustHisThemeFrame
         }
     }
 
@@ -233,6 +202,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
     @Override
     public void keyReleased(KeyEvent e) {
+        //we when finish typing on the JTextArea (message Body) or JTextField(message subject)
         if (e.getSource() instanceof JTextArea) {
             JTextArea ta = (JTextArea) e.getSource();
             this.bodyMessage = ta.getText();
@@ -245,7 +215,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
     public void receiveMessages(PapotageEvent pe){
         /**
-         * we add the message we have juste received to the myMessageViewPanel
+         * we display the message we have just received on the myMessageViewPanel
          * @param pe:PapotageEvent, event which handles the message
          * */
 
@@ -263,7 +233,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         String usernameSender;
 
         String messageContentPosition;
-        if (pe instanceof OnlineOfflineBavardEvent){
+        if (pe instanceof OnlineOfflineBavardEvent){ //if we receive a OnlineOfflineBavardEvent : message that someone has just logged in or logged out
             messageBodyLabel.setText(pe.getMessageBody());
             messageBodyLabel.setForeground(new Color(255, 128, 0));
             Font newLabelFont=new Font(messageBodyLabel.getFont().getName(),Font.ITALIC,messageBodyLabel.getFont().getSize());
@@ -271,14 +241,14 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
             messageContentPosition = BorderLayout.WEST;
             this.refreshConnectedBavardList();
 
-        }else if (pe instanceof ConciergeEvent) { //message from the concierge (request approved or rejected)
+        }else if (pe instanceof ConciergeEvent) { //if we message from the concierge (request approved or rejected)
             messageBodyLabel.setText(pe.getMessageSubject() + ": " + pe.getMessageBody());
             messageBodyLabel.setForeground(Color.BLUE);
             Font newLabelFont=new Font(messageBodyLabel.getFont().getName(),Font.ITALIC,messageBodyLabel.getFont().getSize());
             messageBodyLabel.setFont(newLabelFont);
             messageContentPosition = BorderLayout.WEST;
 
-        } else{ // it's a simple message
+        } else{ // it's a simple message : message sent from a bavard
             if (pe.getSource() == bavardLogged) { // message we sent
                 usernameSender = "You";
                 messageContentPosition = BorderLayout.EAST;
@@ -343,11 +313,11 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
     public void refreshConnectedBavardList(){ // I did this way because it guarantees a good synchronization
         /**
-         * Refresh the connected bavard list
+         * Refresh the connected bavard list in bavardConnectedListContentPanel
          * */
-        this.bavardConnectedListSubPanel.removeAll();
-        this.bavardConnectedListSubPanel.revalidate();
-        this.bavardConnectedListSubPanel.repaint();
+        this.bavardConnectedListContentPanel.removeAll();
+        this.bavardConnectedListContentPanel.revalidate();
+        this.bavardConnectedListContentPanel.repaint();
 
         LineBorder lineBorder = new LineBorder(new Color(128, 128, 128), 2, true);
 
@@ -358,26 +328,8 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
                 bavardLabel.setBorder(lineBorder);
                 bavardLabel.setMaximumSize(new Dimension(Integer.MAX_VALUE, 20));
 
-                /*-- popupmenu --*/
-                JPopupMenu popupmenu = new JPopupMenu("Edit"); // popupmenu when we click on a connected bavard
-                JMenuItem dmMenuItem = new JMenuItem("DM");
-
-                dmMenuItem.setActionCommand(bavard.getLogin());
-                dmMenuItem.addActionListener(this);
-
-                popupmenu.add(dmMenuItem);
-                /*--------------*/
-
-                bavardLabel.addMouseListener(new MouseAdapter() {
-                    @Override
-                    public void mouseClicked(MouseEvent e) {
-                        super.mouseClicked(e);
-                        popupmenu.show(bavardConnectedListSubPanel, bavardLabel.getX(), bavardLabel.getY());
-                    }
-                });
-
-                this.bavardConnectedListSubPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
-                this.bavardConnectedListSubPanel.add(bavardLabel);
+                this.bavardConnectedListContentPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between bavards
+                this.bavardConnectedListContentPanel.add(bavardLabel);
             }
         }
     }
