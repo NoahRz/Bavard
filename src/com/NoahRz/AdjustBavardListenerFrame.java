@@ -103,13 +103,12 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        //for the bavard selected we pre-check checkboxes corresponding to bavard who are currently listening to the bavard selected
-
         if(e.getActionCommand().equals("back")){ //if back is pressed, we go back to the concierge Frame
             new ConciergeFrame(concierge);
             this.dispose();
         }
         else if (e.getActionCommand().equals("Confirm listened")) {
+            //for the bavard selected we pre-check checkboxes corresponding to bavard who are currently listening to the bavard selected
 
             for(JCheckBox checkBox : this.checkBoxes){ // we set all the checkBox enabled true so that we can check them.
                 checkBox.setEnabled(true);
@@ -123,18 +122,18 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                 if(bavard == bavardSelected){ //we set Enabled false the checkBox corresponding to the bavard selected so that he can't listen to himself
                     checkBox.setEnabled(false);
                 }
-                if (bavardListenersOfBavardSelected.contains(bavard)) {
+                else if (bavardListenersOfBavardSelected.contains(bavard)) {
                     checkBox.setSelected(true); // if the current bavard is among the bavard listeners who listens to the bavard selected, we pre-check its checkBox
                 } else {
                     checkBox.setSelected(false);
                 }
             }
-            JOptionPane.showMessageDialog(this,"Bavard listened has been selected");
+            JOptionPane.showMessageDialog(this,"Bavard listened has been selected"); //showMessageDialog that the action has been handled
 
         }
         else { /*if we have pressed the button "Confirm listeners"*/
             if(this.bavardSelected != null){
-                ArrayList<Bavard> newBavardListeners = new ArrayList<Bavard>();
+                ArrayList<Bavard> newBavardListeners = new ArrayList<Bavard>(); //we create a new ArrayList of new bavard listeners
                 for (JCheckBox checkBox : this.checkBoxes) {
                     if (checkBox.isSelected()){
                         newBavardListeners.add(concierge.getBavard(checkBox.getActionCommand())); // we add to the list the bavard related to the checkbox selected.
@@ -142,7 +141,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                 }
                 concierge.getBavardsListenToBavardMap().replace(bavardSelected, newBavardListeners);
                 // we replace the old bavard listener arrayList of the bavard selected  by this new bavard listener arrayList
-                JOptionPane.showMessageDialog(this,"Bavard listener has been selected");
+                JOptionPane.showMessageDialog(this,"Bavard listener has been selected"); //showMessageDialog that the action has been handled
             }
 
         }
