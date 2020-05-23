@@ -1,18 +1,18 @@
-package com.NoahRz; //ok
+package com.NoahRz; //ok1
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class Bavard implements PapotageListener {
     /**
-     * this class can send and receive messages, say that it is connected or disconnected
+     * this class can send and receive messages, warn others he has just logged in or he has just logged out
      * */
+
     private  String login;
     private Concierge concierge;
     private String password;
     private BavardFrame myFrame;
     private boolean isConnected;
-    private ArrayList<String> theme;
+    private ArrayList<String> theme; //arrayList of theme he likes
 
     public Bavard(String login, String password, Concierge concierge){
         this.login = login;
@@ -49,7 +49,6 @@ public class Bavard implements PapotageListener {
         return login;
     }
 
-
     public BavardFrame getMyFrame() {
         return myFrame;
     } // je crois qu'on s'en sert pas
@@ -58,6 +57,9 @@ public class Bavard implements PapotageListener {
         return isConnected;
     }
 
+    public ArrayList<String> getTheme() {
+        return this.theme;
+    }
 
     /********************************************************************
      Methods
@@ -85,9 +87,9 @@ public class Bavard implements PapotageListener {
         }
     }
 
-  public void alerteIsConnected(){
+  public void warnIsConnected(){
       /**
-       * send message to the concierge to alerte other bavard that this one is connected
+       * send message to the concierge to warn other bavard that he is connected
        */
 
         String messageBody = (" " + this.getLogin() + " is connected");
@@ -96,19 +98,15 @@ public class Bavard implements PapotageListener {
         this.concierge.alertBavardConnectedDisconnected(bavardConnectedEvent);
     }
 
-    public void alerteIsDisconnected() {
+    public void warnIsDisconnected() {
         /**
-         * send message to the concierge to alerte other bavard that this one is disconnected
+         * send message to the concierge to warn other bavard that this one is disconnected
          */
         String messageBody = (" " + this.getLogin() + " is disconnected");
         OfflineBavardEvent bavardDisconnectedEvent = new OfflineBavardEvent(this, messageBody);
         this.isConnected=false;
         this.concierge.alertBavardConnectedDisconnected(bavardDisconnectedEvent);
 
-    }
-
-    public ArrayList<String> getTheme() {
-        return this.theme;
     }
 }
 

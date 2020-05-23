@@ -25,7 +25,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         this.bavardLogged = (Bavard)papotageListenerLogged;
         this.bavardLogged.setFrame(this);
         this.concierge=concierge;
-        this.bavardLogged.alerteIsConnected();
+        this.bavardLogged.warnIsConnected();
 
         this.setTitle("Bavard page");
         this.setLocationRelativeTo(null);
@@ -205,7 +205,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
             }
         }
         if (e.getActionCommand().equals("Sign out")){ // if we click on "sign out"
-            this.bavardLogged.alerteIsDisconnected();
+            this.bavardLogged.warnIsDisconnected();
             this.dispose();
         }
         if (e.getActionCommand().equals("adjust listening")){ //if we click on "adjust listening"
