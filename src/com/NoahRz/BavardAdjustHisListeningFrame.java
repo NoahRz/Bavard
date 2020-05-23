@@ -34,7 +34,7 @@ public class BavardAdjustHisListeningFrame extends JFrame implements ActionListe
         listenToBavardPanel.setLayout(new BoxLayout(listenToBavardPanel, BoxLayout.Y_AXIS));
         listenToBavardPanel.setBackground(Color.YELLOW);
 
-        //look through bavard and create checkbox and check those which correponds to bavard already listened by this one.
+        //look through bavard, create bavard checkbox and check those which correponds to bavard already listened by this one.
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){
             if(bavard != bavardLogged) { // so that this bavard cannot listen to himself
                 JCheckBox checkBox = new JCheckBox(bavard.getLogin());

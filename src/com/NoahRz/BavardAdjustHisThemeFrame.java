@@ -1,4 +1,4 @@
-package com.NoahRz;
+package com.NoahRz;//ok1
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class BavardAdjustHisThemeFrame extends JFrame implements ActionListener 
 
     private Concierge concierge;
     private Bavard bavardLogged;
-    private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>();
+    private ArrayList<JCheckBox> checkBoxes = new ArrayList<JCheckBox>(); //ArrayList of other theme checkbox (useful for ActionPerformed method)
 
     public BavardAdjustHisThemeFrame(Bavard bavardLogged, Concierge concierge) {
         this.bavardLogged=bavardLogged;
@@ -30,11 +30,10 @@ public class BavardAdjustHisThemeFrame extends JFrame implements ActionListener 
         pane.add(TitleLabel, BorderLayout.NORTH);
 
         JPanel themePanel = new JPanel(); //panel which contains list of theme checkbox
-        themePanel.setPreferredSize(new Dimension(this.getWidth()/2, this.getHeight()));
         themePanel.setLayout(new BoxLayout(themePanel, BoxLayout.Y_AXIS));
         themePanel.setBackground(Color.YELLOW);
 
-        //look through theme and check those who the bavard likes (= theme present in theme ArrayList of the bavard logged)
+        //look through theme, create theme checkbox and check those which the bavard likes (= theme present in theme ArrayList of the bavard logged)
         for (String theme : this.concierge.getTheme()){
             JCheckBox checkBox = new JCheckBox(theme);
             checkBox.setActionCommand(theme);
@@ -64,13 +63,13 @@ public class BavardAdjustHisThemeFrame extends JFrame implements ActionListener 
     @Override
     public void actionPerformed(ActionEvent e) {
         if(e.getActionCommand().equals("Confirm theme")){ // if we press the confirm button
-            ArrayList<String> theme = new ArrayList<>();
+            ArrayList<String> themeArrayList = new ArrayList<>();
             for(JCheckBox cb : this.checkBoxes) {
                 if (cb.isSelected()) {
-                    theme.add(cb.getActionCommand());
+                    themeArrayList.add(cb.getActionCommand());
                 }
             }
-            this.bavardLogged.setTheme(theme); // we set a new arrayList of theme to the bavard logged
+            this.bavardLogged.setTheme(themeArrayList); // we set a new arrayList of theme to the bavard logged
 
             BavardFrame bavardLoggedFrame = this.bavardLogged.getMyFrame();
             if(bavardLoggedFrame != null){
