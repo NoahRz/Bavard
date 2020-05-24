@@ -165,10 +165,10 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("send")){ //if we click on the send button
-            if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message.
+            if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message
                 JOptionPane.showMessageDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.WARNING_MESSAGE);
             }else {
-                ArrayList<String> themeSelectedArrayList = new ArrayList<String>(); //Array which contains the themeSelected (string)
+                ArrayList<String> themeSelectedArrayList = new ArrayList<String>(); //Array which contains the themeSelected (string) for the message
 
                 for (JCheckBox themeChexbox : this.themeChexboxes){ // we add all theme selected
                     if (themeChexbox.isSelected()){
@@ -233,6 +233,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         String usernameSender;
 
         String messageContentPosition;
+        //For each type of message, we display it differently (different format)
         if (pe instanceof OnlineOfflineBavardEvent){ //if we receive a OnlineOfflineBavardEvent : message that someone has just logged in or logged out
             messageBodyLabel.setText(pe.getMessageBody());
             messageBodyLabel.setForeground(new Color(255, 128, 0));
@@ -249,19 +250,19 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
             messageContentPosition = BorderLayout.WEST;
 
         } else{ // it's a simple message : message sent from a bavard
-            if (pe.getSource() == bavardLogged) { // message we sent
+            if (pe.getSource() == bavardLogged) { // message we sent ( we send the message to ourself in order to display it on our frame
                 usernameSender = "You";
-                messageContentPosition = BorderLayout.EAST;
+                messageContentPosition = BorderLayout.EAST; //message will be displayed on the right
             } else { // message we received
                 Bavard userSender = (Bavard) pe.getSource();
                 usernameSender = userSender.getLogin();
-                messageContentPosition = BorderLayout.WEST;
+                messageContentPosition = BorderLayout.WEST; //message will be displayed on the left
             }
             JLabel senderLabel = new JLabel("From: " + usernameSender);
 
             JLabel themesLabel = new JLabel();
             String themesContentLabel = "Theme : "; //the text of themesLabel
-            for (String theme : pe.getMessageThemes()){ //we add to the temes content Label all the themes of the message
+            for (String theme : pe.getMessageThemes()){ //we add to the themes content Label all the themes of the message
                 themesContentLabel += theme + " ";
             }
 
@@ -280,15 +281,16 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         messageContentPanel.add(messageBodyLabel);
 
         Dimension d = messageContentPanel.getPreferredSize();
-        d.width=this.getWidth()/3;
+        d.width=this.getWidth()/3; //to only modify one attribute
         messageContentPanel.setPreferredSize(d);
 
+        //Add listener to the message
         messageContentPanel.setBorder(lineBorder);
         messageContentPanel.addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) { // if we click on the message, we open a new frame to show the whole message
                 super.mousePressed(e);
-                messageContentPanel.setBackground(new Color(128, 128, 128)); //we change the backgournd color of the panel when we press and release it
+                messageContentPanel.setBackground(new Color(128, 128, 128)); //we change the background color of the panel when we press and release it
                 new MessageFrame(pe);
             }
 
@@ -299,8 +301,8 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
              }
          }
         );
-
-        oneMessagePanel.add(messageContentPanel, messageContentPosition); //messages we receive are on the left
+        //Add the message to the panel
+        oneMessagePanel.add(messageContentPanel, messageContentPosition);
 
         oneMessagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, messageContentPanel.getPreferredSize().height+5));
         oneMessagePanel.setBackground(Color.YELLOW);
@@ -321,7 +323,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
         LineBorder lineBorder = new LineBorder(new Color(128, 128, 128), 2, true);
 
-        //we look through the bavard and add those connected
+        //we look through the bavard and add those connected (create bavard labels and add them to the panel)
         for (Bavard bavard:this.concierge.getBavardsListenToBavardMap().keySet()){
             if(bavard.isConnected()) {
                 JLabel bavardLabel = new JLabel(bavard.getLogin(), SwingConstants.CENTER);
@@ -346,6 +348,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         JLabel selectThemeTitlePanel = new JLabel(" Select message theme :");
         selectThemePanel.add(selectThemeTitlePanel);
 
+        //we look through themes the bavard likes and add them to the panel
         for(String theme : this.bavardLogged.getTheme()){
             JCheckBox themeCheckBox = new JCheckBox(theme);
             selectThemePanel.add(themeCheckBox);
