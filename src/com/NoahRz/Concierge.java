@@ -10,8 +10,7 @@ public class Concierge implements PapotageListener {
 
     private String login;
     private String password;
-    //private ArrayList<PapotageListener> papotageListeners;
-    private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap; // keys are bavards and the value is an array of all the bavard who listens to each bavard in keys
+    private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap; // keys are bavards (1) and the value is an array of all the bavard who listens to  bavard (1) in keys
     private ArrayList<RequestEvent> requestEventArrayList; // ArrayList which gathers all the request sent by bavard asking to listen other bavard
     private boolean isConnected;
     private ConciergeFrame conciergeFrame;
@@ -20,7 +19,6 @@ public class Concierge implements PapotageListener {
     public Concierge(String login, String password){
         this.login = login;
         this.password = password;
-        //this.papotageListeners = new ArrayList<PapotageListener>();
         this.bavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
         this.requestEventArrayList = new ArrayList<RequestEvent>();
         this.isConnected = false;
