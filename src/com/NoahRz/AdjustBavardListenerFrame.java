@@ -114,7 +114,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                 checkBox.setEnabled(true);
             }
 
-            String bavardListenedSelected = bavardListenedButtonGroup.getSelection().getActionCommand();
+            String bavardListenedSelected = bavardListenedButtonGroup.getSelection().getActionCommand(); // we take the login of the bavard selected.
             bavardSelected = concierge.getBavard(bavardListenedSelected);
             ArrayList<Bavard> bavardListenersOfBavardSelected = concierge.getBavardListenersOfBavard(bavardSelected);
             for (JCheckBox checkBox : this.checkBoxes) {

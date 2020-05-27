@@ -165,8 +165,8 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("send")){ //if we click on the send button
-            if(this.subjectMessage == null && this.bodyMessage == null){ //we display a Dialog to warn the user there is no content in his message
-                JOptionPane.showMessageDialog(this,"There is no content in your message, please fill the field.", "Warning : no content",JOptionPane.WARNING_MESSAGE);
+            if((this.subjectMessage == null && this.bodyMessage == null) || !this.thereIsAtLeastOneThemeSelected()){ //we display a Dialog to warn the user there is no content in his message or there is no theme for the message
+                JOptionPane.showMessageDialog(this,"There is no content in your message or there is no theme selected, please fill the field.", "Warning : no content",JOptionPane.WARNING_MESSAGE);
             }else {
                 ArrayList<String> themeSelectedArrayList = new ArrayList<String>(); //Array which contains the themeSelected (string) for the message
 
@@ -354,7 +354,19 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
             selectThemePanel.add(themeCheckBox);
             themeChexboxes.add(themeCheckBox); // add it to the arrayList for the listener
         }
+    }
 
+    public Boolean thereIsAtLeastOneThemeSelected(){
+        /**
+         * return true if there is at least one theme selected, false otherwise
+         */
+
+        for(JCheckBox themeCheckBox : this.themeChexboxes){
+            if(themeCheckBox.isSelected()){
+                return true; // return true once a theme checkBox selected is found
+            }
+        }
+        return false;
     }
 
 }
