@@ -1,7 +1,6 @@
 package com.NoahRz; //ok
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,13 +19,12 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         concierge.setFrame(this);
 
         this.setTitle("Concierge Frame");
-        this.setSize(500,150);
+        this.setSize(500,250);
         this.setLayout(new GridLayout(1,2));
         JPanel pane = new JPanel();
         pane.setBackground(Color.YELLOW);
         this.setContentPane(pane);
-        //this.setLayout(new GridLayout(1,2));
-        this.setLayout(new BorderLayout());
+        this.setLayout(new GridLayout(3,1));
 
         /*-- Menu --*/
         JMenuBar menubar= new JMenuBar();
@@ -76,20 +74,38 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         }
 
         JScrollPane bavardListScrollPane = new JScrollPane(bavardListPanel); // we make the bavardListPanel scrollable
-        bavardListScrollPane.setPreferredSize(new Dimension(this.getWidth(), 50));
 
-        pane.add(bavardListScrollPane, BorderLayout.NORTH);
+        pane.add(bavardListScrollPane);
+        /*-- Panel where we display a list of theme in the system --*/
+        JPanel themeListPanel = new JPanel();
+        themeListPanel.setLayout(new BoxLayout(themeListPanel, BoxLayout.X_AXIS));
+
+        JLabel themeListTitleLabel = new JLabel("Theme: ");
+        Font fontForThemeListTitleLabel =new Font(themeListTitleLabel.getFont().getName(),Font.BOLD,themeListTitleLabel.getFont().getSize()); //add some style to themeListTitleLabel
+        themeListTitleLabel.setFont(fontForThemeListTitleLabel);
+        themeListPanel.add(themeListTitleLabel);
+
+        //look through theme  in the system
+        for(String theme : concierge.getThemes()){
+            JLabel themeLabel = new JLabel(theme);
+            themeListPanel.add(Box.createRigidArea(new Dimension(5, 0))); // add some space between themeLabel
+            themeListPanel.add(themeLabel);
+        }
+
+        JScrollPane themeListScrollPane = new JScrollPane(themeListPanel); // we make the themeListPanel scrollable
+
+        pane.add(themeListScrollPane);
 
         /*-- Panel where we display request the concierge receives --*/
         requestPanel = new JPanel();
         requestPanel.setBackground(Color.YELLOW);
+        requestPanel.setSize(new Dimension(this.getWidth(), this.getHeight()/4));
         requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.Y_AXIS)); //panel where who gathers all the request the concierge receives
 
         this.refreshRequestList(); // we refresh the request list
 
         JScrollPane requestPanelScrollPane = new JScrollPane(requestPanel); // we make requestPanel scrollable
-        //pane.add(requestPanelScrollPane);
-        pane.add(requestPanelScrollPane, BorderLayout.CENTER);
+        pane.add(requestPanelScrollPane);
         this.setLocationRelativeTo(null);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setVisible(true);
@@ -137,7 +153,6 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                 this case can occur, if the concierge receives a new request but instead of directly managing it, the concierge goes to the AdjustBavardListenerFrame and do it manually
                 */
                 requestEventsToRemove.add(re);
-                //concierge.getRequestEventArrayList().remove(re);
             }
         }
 
@@ -157,7 +172,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
                 String preposition;
                 if (re.getRequest().equals("add")) {
                     preposition = " to his listening";
-                } else { //it's "remove"
+                } else { //it equals "remove"
                     preposition = " from his listening";
                 }
                 JLabel requestLabel = new JLabel(bavardRequester.getLogin() + " wants to " + re.getRequest() + " " + re.getBavardSubject().getLogin() + preposition);
