@@ -34,10 +34,10 @@ public class BavardAdjustHisThemeFrame extends JFrame implements ActionListener 
         themePanel.setBackground(Color.YELLOW);
 
         //look through theme, create theme checkbox and check those which the bavard likes (= theme present in theme ArrayList of the bavard logged)
-        for (String theme : this.concierge.getTheme()){
+        for (String theme : this.concierge.getThemes()){
             JCheckBox checkBox = new JCheckBox(theme);
             checkBox.setActionCommand(theme);
-            if (this.bavardLogged.getTheme().contains(theme)) {
+            if (this.bavardLogged.getThemes().contains(theme)) {
                 checkBox.setSelected(true);
             } else {
                 checkBox.setSelected(false);
@@ -69,7 +69,7 @@ public class BavardAdjustHisThemeFrame extends JFrame implements ActionListener 
                     themeArrayList.add(cb.getActionCommand());
                 }
             }
-            this.bavardLogged.setTheme(themeArrayList); // we set a new arrayList of theme to the bavard logged
+            this.bavardLogged.setThemes(themeArrayList); // we set a new arrayList of theme to the bavard logged
 
             BavardFrame bavardLoggedFrame = this.bavardLogged.getMyFrame();
             if(bavardLoggedFrame != null){

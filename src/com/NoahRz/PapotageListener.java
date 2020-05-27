@@ -12,9 +12,9 @@ public interface PapotageListener extends EventListener {
 
     public String getPassword();
 
-    public ArrayList<String> getTheme();
+    public ArrayList<String> getThemes();
 
-    public void setTheme(ArrayList<String> theme);
+    public void setThemes(ArrayList<String> themes);
 }
 
 

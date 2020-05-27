@@ -34,6 +34,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         JMenuItem bavardMenu=new JMenuItem(concierge.getLogin());
         JMenuItem createBavardMenu = new JMenuItem("Create bavard");
         JMenuItem adjustListeningMenu = new JMenuItem("Adjust listening");
+        JMenuItem addThemeMenu = new JMenuItem("Add theme");
         JMenuItem signOutMenu = new JMenuItem("Sign out");
 
         createBavardMenu.setActionCommand("Create bavard");
@@ -42,11 +43,15 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         adjustListeningMenu.setActionCommand("Adjust listening");
         adjustListeningMenu.addActionListener(this);
 
+        addThemeMenu.setActionCommand("Add theme");
+        addThemeMenu.addActionListener(this);
+
         signOutMenu.setActionCommand("Sign out");
         signOutMenu.addActionListener(this);
 
         optionMenu.add(createBavardMenu);
         optionMenu.add(adjustListeningMenu);
+        optionMenu.add(addThemeMenu);
         optionMenu.add(signOutMenu);
 
         menubar.add(bavardMenu);
@@ -100,6 +105,11 @@ public class ConciergeFrame extends JFrame implements ActionListener {
             new AdjustBavardListenerFrame(concierge);
             this.dispose();
         }
+        if(e.getActionCommand().equals("Add theme")){ //if we clicked "adjust listening" in the menu bar
+            new AddThemeFrame(concierge);
+            this.dispose();
+        }
+
         if(e.getActionCommand().equals("Sign out")){ //if we clicked "sign out" in the menu bar
             this.concierge.setConnected(false);
             this.dispose();

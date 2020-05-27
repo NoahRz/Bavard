@@ -31,8 +31,8 @@ public class Bavard implements PapotageListener {
     }
 
 
-    public void setTheme(ArrayList<String> theme){
-        this.theme = theme;
+    public void setThemes(ArrayList<String> themes){
+        this.theme = themes;
     }
 
 
@@ -57,7 +57,7 @@ public class Bavard implements PapotageListener {
         return isConnected;
     }
 
-    public ArrayList<String> getTheme() {
+    public ArrayList<String> getThemes() {
         return this.theme;
     }
 

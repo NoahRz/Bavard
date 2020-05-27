@@ -95,7 +95,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         selectThemePanel.add(selectThemeTitlePanel);
 
         //look through theme this bavard likes, create theme checkbox
-            for(String theme : this.bavardLogged.getTheme()){
+            for(String theme : this.bavardLogged.getThemes()){
             JCheckBox themeCheckBox = new JCheckBox(theme);
             selectThemePanel.add(themeCheckBox);
             themeChexboxes.add(themeCheckBox); // add it to the arrayList for the listener
@@ -349,7 +349,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         selectThemePanel.add(selectThemeTitlePanel);
 
         //we look through themes the bavard likes and add them to the panel
-        for(String theme : this.bavardLogged.getTheme()){
+        for(String theme : this.bavardLogged.getThemes()){
             JCheckBox themeCheckBox = new JCheckBox(theme);
             selectThemePanel.add(themeCheckBox);
             themeChexboxes.add(themeCheckBox); // add it to the arrayList for the listener

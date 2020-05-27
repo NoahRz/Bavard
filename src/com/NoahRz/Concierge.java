@@ -14,7 +14,7 @@ public class Concierge implements PapotageListener {
     private ArrayList<RequestEvent> requestEventArrayList; // ArrayList which gathers all the request sent by bavard asking to listen other bavard
     private boolean isConnected;
     private ConciergeFrame conciergeFrame;
-    private ArrayList<String> theme; //arrayList of theme
+    private ArrayList<String> themes; //arrayList of theme
 
     public Concierge(String login, String password){
         this.login = login;
@@ -22,7 +22,7 @@ public class Concierge implements PapotageListener {
         this.bavardsListenToBavardMap = new HashMap<Bavard, ArrayList<Bavard>>();
         this.requestEventArrayList = new ArrayList<RequestEvent>();
         this.isConnected = false;
-        this.theme = new ArrayList<String>();
+        this.themes = new ArrayList<String>();
     }
     /********************************************************************
      Setter
@@ -35,8 +35,8 @@ public class Concierge implements PapotageListener {
         this.conciergeFrame=conciergeFrame;
     }
 
-    public void setTheme(ArrayList<String> theme){
-        this.theme=theme;
+    public void setThemes(ArrayList<String> themes){
+        this.themes = themes;
     }
     /********************************************************************
      Getter
@@ -55,7 +55,7 @@ public class Concierge implements PapotageListener {
     public String getPassword() {
         return this.password;
     }
-    
+
     public HashMap<Bavard, ArrayList<Bavard>> getBavardsListenToBavardMap() {
         return bavardsListenToBavardMap;
     }
@@ -88,11 +88,11 @@ public class Concierge implements PapotageListener {
         return requestEventArrayList;
     }
 
-    public ArrayList<String> getTheme(){
+    public ArrayList<String> getThemes(){
         /**
          * return the arrayList of all the theme in the system
          * */
-        return this.theme;
+        return this.themes;
     }
 
     /********************************************************************
@@ -118,8 +118,8 @@ public class Concierge implements PapotageListener {
             for (Bavard bavardListener : this.bavardsListenToBavardMap.get(bavardSender)){
                 Boolean contains = false;
                 int i= 0;
-                while (i<bavardListener.getTheme().size() && !contains){ // we check if the bavard listener likes at least one theme among the message's theme
-                    if (bavardListener.getTheme().contains(pe.getMessageThemes().get(i))){
+                while (i<bavardListener.getThemes().size() && !contains){ // we check if the bavard listener likes at least one theme among the message's theme
+                    if (bavardListener.getThemes().contains(pe.getMessageThemes().get(i))){
                         contains=true;
                     }
                     i++;
@@ -197,6 +197,24 @@ public class Concierge implements PapotageListener {
         ConciergeEvent conciergeEvent = new ConciergeEvent(this,re, false);
         Bavard bavardRequester = (Bavard)re.getSource();
         bavardRequester.receiveMessages(conciergeEvent);
+    }
+
+    public Boolean addTheme(String theme){
+        /**
+         * try to add a new theme to the arrayList themes, if it succeeds it returns true, else returns false
+         * @param theme : String, name of the theme
+         */
+        if(theme.equals("")){
+            return false; //if theme is "" we stop here by returning false
+        }
+
+        for(String oneTheme : this.themes){
+            if(oneTheme.equals(theme)){ // if we found a theme who has already the same name, we stop here and we don't add theme
+                return false;
+            }
+        }
+        this.themes.add(theme); //there is no doublon, so we can add theme
+        return true;
     }
 
 }

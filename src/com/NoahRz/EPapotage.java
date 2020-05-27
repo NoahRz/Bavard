@@ -10,11 +10,11 @@ public class EPapotage {
     public static void main(String[] args) {
         Concierge concierge = new Concierge("Le concierge", "123"); //default concierge
 
-        concierge.setTheme(new ArrayList<String>(Arrays.asList("sport", "cinema", "actualite", "politique", "ecologie")));
+        concierge.setThemes(new ArrayList<String>(Arrays.asList("sport", "cinema", "actualite", "politique", "ecologie")));
 
         concierge.createBavard("augustin", "aaa");
 
-        concierge.getBavard("augustin").setTheme(new ArrayList<String>(Arrays.asList("sport", "cinema")));
+        concierge.getBavard("augustin").setThemes(new ArrayList<String>(Arrays.asList("sport", "cinema")));
 
         concierge.createBavard("marin", "aaa");
         concierge.createBavard("henri", "aaa");
