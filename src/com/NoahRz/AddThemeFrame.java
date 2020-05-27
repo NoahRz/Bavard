@@ -8,6 +8,9 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 public class AddThemeFrame extends JFrame implements KeyListener, ActionListener {
+    /**
+     * JFrame where the concierge can add new theme
+     * */
 
     private Concierge concierge;
     private String themeEntered;
