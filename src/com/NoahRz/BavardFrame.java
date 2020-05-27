@@ -160,7 +160,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     }
 
     /******************************************************************
-     * listener method
+     *  method
      ******************************************************************/
     @Override
     public void actionPerformed(ActionEvent e) {
