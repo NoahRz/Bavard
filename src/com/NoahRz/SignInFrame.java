@@ -47,25 +47,25 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         connexionPanel.add(errorMessage);
         connexionPanel.add(signInButton);
 
-        connexionPanel.setPreferredSize(new Dimension(pane.getWidth()/3, pane.getHeight()/2));
+        connexionPanel.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/2));
         pane.add(connexionPanel, BorderLayout.CENTER);
 
         /*-- Yellow panel around the connexionPanel --*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
-        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
+        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
 
         JPanel borderFramePanelS = new JPanel();
         borderFramePanelS.setBackground(Color.YELLOW);
-        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
+        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
 
         JPanel borderFramePanelW = new JPanel();
         borderFramePanelW.setBackground(Color.YELLOW);
-        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/3, this.getWidth()/3));
+        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
 
         JPanel borderFramePanelE = new JPanel();
         borderFramePanelE.setBackground(Color.YELLOW);
-        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getWidth()/3));
+        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
 
         pane.add(borderFramePanelN, BorderLayout.NORTH);
         pane.add(borderFramePanelS, BorderLayout.SOUTH);
