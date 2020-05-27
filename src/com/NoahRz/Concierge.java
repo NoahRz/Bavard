@@ -55,19 +55,7 @@ public class Concierge implements PapotageListener {
     public String getPassword() {
         return this.password;
     }
-
-/*    public PapotageListener getPapotageListener(String addressee) {
-        *//**
-         * return the PapotageListener having the login addressee
-         * @Param addressee : login of the Papotage we are looking for*//*
-        for(PapotageListener pl : this.papotageListeners){
-            if(pl.getLogin().equals(addressee)){
-                return pl;
-            }
-        }
-        return null;
-    }*/
-
+    
     public HashMap<Bavard, ArrayList<Bavard>> getBavardsListenToBavardMap() {
         return bavardsListenToBavardMap;
     }
