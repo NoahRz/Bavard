@@ -32,7 +32,7 @@ public class BavardAdjustHisListeningFrame extends JFrame implements ActionListe
 
         JPanel listenToBavardPanel = new JPanel(); //panel which contains list of bavard checkbox
         listenToBavardPanel.setLayout(new BoxLayout(listenToBavardPanel, BoxLayout.Y_AXIS));
-        listenToBavardPanel.setBackground(Color.YELLOW);
+        listenToBavardPanel.setBackground(EPapotage.myYellow);
 
         //look through bavard, create bavard checkbox and check those which correponds to bavard already listened by this one.
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()){

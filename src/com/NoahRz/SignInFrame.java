@@ -22,22 +22,22 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
         this.setTitle(nom);
         this.setSize(500,450);
         JPanel pane = new JPanel();
-        pane.setBackground(Color.YELLOW);
+        pane.setBackground(EPapotage.myYellow);
         this.setContentPane(pane);
         this.setLayout(new BorderLayout());
 
         /*-- Connexion panel in Center of the Frame --*/
         JPanel connexionPanel = new JPanel();
         connexionPanel.setLayout(new GridLayout(5,1));
-        connexionPanel.setBackground(Color.YELLOW);
+        connexionPanel.setBackground(EPapotage.myYellow);
 
-        JLabel titleLabel = new JLabel("EPapotage", SwingConstants.CENTER);
+        JLabel titleLabel = new JLabel("ePapotage", SwingConstants.CENTER);
         Font fontForTitleLabel =new Font(titleLabel.getFont().getName(),Font.BOLD,titleLabel.getFont().getSize());
         titleLabel.setFont(fontForTitleLabel);
         JTextField loginField = new JTextField("Login");
         JPasswordField passwordField = new JPasswordField("Password");
         JButton signInButton = new JButton("Sign in");
-        errorMessage.setBackground(Color.YELLOW);
+        errorMessage.setBackground(EPapotage.myYellow);
         errorMessage.setForeground(Color.RED); // set the text color to red
         this.errorMessage.setVisible(false);
 
@@ -52,19 +52,19 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
 
         /*-- Yellow panel around the connexionPanel --*/
         JPanel borderFramePanelN = new JPanel();
-        borderFramePanelN.setBackground(Color.YELLOW);
+        borderFramePanelN.setBackground(EPapotage.myYellow);
         borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
 
         JPanel borderFramePanelS = new JPanel();
-        borderFramePanelS.setBackground(Color.YELLOW);
+        borderFramePanelS.setBackground(EPapotage.myYellow);
         borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
 
         JPanel borderFramePanelW = new JPanel();
-        borderFramePanelW.setBackground(Color.YELLOW);
+        borderFramePanelW.setBackground(EPapotage.myYellow);
         borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
 
         JPanel borderFramePanelE = new JPanel();
-        borderFramePanelE.setBackground(Color.YELLOW);
+        borderFramePanelE.setBackground(EPapotage.myYellow);
         borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
 
         pane.add(borderFramePanelN, BorderLayout.NORTH);

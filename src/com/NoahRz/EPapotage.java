@@ -1,5 +1,6 @@
 package com.NoahRz; //ok
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -7,6 +8,9 @@ public class EPapotage {
     /**
      * Main class
      * */
+
+    public final static Color myYellow = new Color(255, 255, 102);
+
     public static void main(String[] args) {
         Concierge concierge = new Concierge("Le concierge", "123"); //default concierge
 

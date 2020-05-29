@@ -31,7 +31,7 @@ public class BavardAdjustHisThemeFrame extends JFrame implements ActionListener 
 
         JPanel themePanel = new JPanel(); //panel which contains list of theme checkbox
         themePanel.setLayout(new BoxLayout(themePanel, BoxLayout.Y_AXIS));
-        themePanel.setBackground(Color.YELLOW);
+        themePanel.setBackground(EPapotage.myYellow);
 
         //look through theme, create theme checkbox and check those which the bavard likes (= theme present in theme ArrayList of the bavard logged)
         for (String theme : this.concierge.getThemes()){

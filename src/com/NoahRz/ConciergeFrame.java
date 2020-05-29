@@ -22,7 +22,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         this.setSize(500,250);
         this.setLayout(new GridLayout(1,2));
         JPanel pane = new JPanel();
-        pane.setBackground(Color.YELLOW);
+        pane.setBackground(EPapotage.myYellow);
         this.setContentPane(pane);
         this.setLayout(new GridLayout(3,1));
 
@@ -98,7 +98,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
 
         /*-- Panel where we display request the concierge receives --*/
         requestPanel = new JPanel();
-        requestPanel.setBackground(Color.YELLOW);
+        requestPanel.setBackground(EPapotage.myYellow);
         requestPanel.setSize(new Dimension(this.getWidth(), this.getHeight()/4));
         requestPanel.setLayout(new BoxLayout(requestPanel, BoxLayout.Y_AXIS)); //panel where who gathers all the request the concierge receives
 
