@@ -20,7 +20,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         this.concierge = concierge;
 
         this.setTitle("Create bavard page");
-        this.setSize(new Dimension(600 ,600));
+        this.setSize(new Dimension(450 ,450));
         JPanel pane = new JPanel();
         this.setContentPane(pane);
         this.setLayout( new BorderLayout());
@@ -70,19 +70,19 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         /*-- Yellow panel around the connexionPanel --*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
-        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
+        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
 
         JPanel borderFramePanelS = new JPanel();
         borderFramePanelS.setBackground(Color.YELLOW);
-        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getWidth()/4));
+        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
 
         JPanel borderFramePanelW = new JPanel();
         borderFramePanelW.setBackground(Color.YELLOW);
-        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/3, this.getWidth()/3));
+        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
 
         JPanel borderFramePanelE = new JPanel();
         borderFramePanelE.setBackground(Color.YELLOW);
-        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getWidth()/3));
+        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
 
         pane.add(borderFramePanelN, BorderLayout.NORTH);
         pane.add(borderFramePanelS, BorderLayout.SOUTH);
