@@ -67,7 +67,7 @@ public class Bavard implements PapotageListener {
 
     public void sendMessages(ArrayList<String> themes, String messageSubject, String messageBody){
         /**
-         * send the message to the concierge and then the concierge will send it to bavards who listens this bavard
+         * send the message to the concierge and then the concierge will send it to bavards who listens to this bavard
          * @Param messageSubject : String
          * @Param messageBody : String
          * */
