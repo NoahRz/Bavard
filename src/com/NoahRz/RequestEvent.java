@@ -1,4 +1,4 @@
-package com.NoahRz;//ok
+package com.NoahRz;
 
 import java.util.EventObject;
 

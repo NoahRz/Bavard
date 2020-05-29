@@ -1,4 +1,4 @@
-package com.NoahRz; //ok1
+package com.NoahRz;
 
 import java.util.ArrayList;
 
@@ -51,7 +51,7 @@ public class Bavard implements PapotageListener {
 
     public BavardFrame getMyFrame() {
         return myFrame;
-    } // je crois qu'on s'en sert pas
+    }
 
     public boolean isConnected() {
         return isConnected;
@@ -72,7 +72,7 @@ public class Bavard implements PapotageListener {
          * @Param messageBody : String
          * */
         PapotageEvent pe = new PapotageEvent(this, themes, messageSubject, messageBody); // source it's this object
-        concierge.receiveMessages(pe); //message sent
+        concierge.receiveMessages(pe); //message sent to the concierge
         this.myFrame.receiveMessages(pe); // we do this to display the message we have just sent in our Frame
     }
 
@@ -83,7 +83,7 @@ public class Bavard implements PapotageListener {
          * @Param pe: PapotageEvent with message
          * */
         if(this.myFrame != null) {
-            this.myFrame.receiveMessages(pe); // when the bavard receive the message we display it on his Frame
+            this.myFrame.receiveMessages(pe); // when the bavard receives the message we display it on his Frame
         }
     }
 

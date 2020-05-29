@@ -1,4 +1,4 @@
-package com.NoahRz; //ok
+package com.NoahRz;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -17,7 +17,6 @@ public class EPapotage {
         concierge.setThemes(new ArrayList<String>(Arrays.asList("sport", "cinema", "actualite", "politique", "ecologie")));
 
         concierge.createBavard("augustin", "aaa");
-
         concierge.getBavard("augustin").setThemes(new ArrayList<String>(Arrays.asList("sport", "cinema")));
 
         concierge.createBavard("marin", "aaa");

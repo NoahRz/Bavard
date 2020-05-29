@@ -8,8 +8,8 @@ public class ConciergeEvent extends PapotageEvent {
      * @throws IllegalArgumentException if source is null
      */
 
-    private RequestEvent requestEvent;
-    private Boolean approved;
+    private RequestEvent requestEvent; //the requestEvent linked to the notification (the conciergeEvent)
+    private Boolean approved; //if it's true, that means the request has been approved, else the request has not been approved
 
     /********************************************************************
      Constructor

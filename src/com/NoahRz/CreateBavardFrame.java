@@ -1,4 +1,4 @@
-package com.NoahRz; //ok
+package com.NoahRz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -121,11 +121,11 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getSource() instanceof JPasswordField) { // we do this way because JPasswordField is also an instance of JTextField
+        if (e.getSource() instanceof JPasswordField) { //if we typed on the password field. We do this way because JPasswordField is also an instance of JTextField
             JPasswordField pf = (JPasswordField) e.getSource();
             this.passwordEntered = new String(pf.getPassword());
         }
-        else if (e.getSource() instanceof JTextField) {
+        else if (e.getSource() instanceof JTextField) { //if we typed on the login field
             JTextField tf = (JTextField) e.getSource();
             this.loginEntered = tf.getText();
         }

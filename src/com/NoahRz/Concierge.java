@@ -1,4 +1,4 @@
-package com.NoahRz; //ok
+package com.NoahRz;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +10,7 @@ public class Concierge implements PapotageListener {
 
     private String login;
     private String password;
-    private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap; // keys are bavards (1) and the value is an array of all the bavard who listens to  bavard (1) in keys
+    private HashMap<Bavard, ArrayList<Bavard>> bavardsListenToBavardMap; // keys are bavards and the value is an array of all the bavard who listens to  bavard in key (bavards in arrayList listen to bavard in key)
     private ArrayList<RequestEvent> requestEventArrayList; // ArrayList which gathers all the request sent by bavard asking to listen other bavard
     private boolean isConnected;
     private ConciergeFrame conciergeFrame;
@@ -187,7 +187,7 @@ public class Concierge implements PapotageListener {
 
     public void alertRequestApproved(RequestEvent re) {
         /**
-         * Alert the bavard concerned (requester) that his request has been approved
+         * Alert the bavard concerned (the bavard who requested) that his request has been approved
          * @Param RequestEvent : re
          * */
 
@@ -198,7 +198,7 @@ public class Concierge implements PapotageListener {
 
     public  void alertRequestDismissed(RequestEvent re){
         /**
-         * Alert the bavard concerned (requester) that his request has been dismissed
+         * Alert the bavard concerned (the bavard who requested) that his request has been dismissed
          * @Param RequestEvent : re
          */
         ConciergeEvent conciergeEvent = new ConciergeEvent(this,re, false);

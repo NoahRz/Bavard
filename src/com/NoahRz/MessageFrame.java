@@ -1,4 +1,4 @@
-package com.NoahRz;//ok
+package com.NoahRz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -13,7 +13,7 @@ public class MessageFrame extends JFrame {
         this.setSize(300,200);
         JPanel pane = new JPanel(); //panel contains two labels (one to show the sender and one to show the message subject) and a textPane(to show the whole message body)
         this.setContentPane(pane);
-        this.setLayout( new BorderLayout());
+        this.setLayout(new BorderLayout());
 
         PapotageListener sender = (PapotageListener) message.getSource();
         JLabel senderLabel = new JLabel("From : "+sender.getLogin());

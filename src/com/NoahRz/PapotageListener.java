@@ -1,10 +1,14 @@
-package com.NoahRz;//ok
+package com.NoahRz;
 
 import java.util.ArrayList;
 import java.util.EventListener;
 
 
 public interface PapotageListener extends EventListener {
+    /**
+     * interface which listens to PapotageEvent
+     *
+     */
 
     public void receiveMessages(PapotageEvent pe);
 

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     /**
-     * Jrame where the Bavard can send, receive message, see others connected bavard and ask to listen other barvard
+     * Jrame where the Bavard can send, receive message, see others connected bavard, ask to listen other barvard and like themes.
      * */
 
     private Bavard bavardLogged;
@@ -21,7 +21,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
     private ArrayList<JCheckBox> themeChexboxes = new ArrayList<JCheckBox>(); //ArrayList of theme checkbox
     private JPanel selectThemePanel;
 
-    public BavardFrame(Bavard bavardLogged, Concierge concierge) { //je pense que c'est inutile de garder papotageListener, plutot mettre bavard
+    public BavardFrame(Bavard bavardLogged, Concierge concierge) {
         this.bavardLogged = bavardLogged;
         this.bavardLogged.setFrame(this);
         this.concierge=concierge;
@@ -94,7 +94,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         JLabel selectThemeTitlePanel = new JLabel(" Select message theme :");
         selectThemePanel.add(selectThemeTitlePanel);
 
-        //look through theme this bavard likes, create theme checkbox
+        //look through theme this bavard likes, create theme checkbox (bavard can only send message with themes he likes
             for(String theme : this.bavardLogged.getThemes()){
             JCheckBox themeCheckBox = new JCheckBox(theme);
             selectThemePanel.add(themeCheckBox);

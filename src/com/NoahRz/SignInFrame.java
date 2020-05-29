@@ -1,4 +1,4 @@
-package com.NoahRz; //OK
+package com.NoahRz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -138,11 +138,11 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
 
     @Override
     public void keyReleased(KeyEvent e) {
-        if (e.getSource() instanceof JPasswordField) { // I do this way because JPasswordField is also an instance of JTextField
+        if (e.getSource() instanceof JPasswordField) { // If we typed on the password field. We do this way because JPasswordField is also an instance of JTextField
             JPasswordField pf = (JPasswordField) e.getSource();
             this.passwordEntered = new String(pf.getPassword());
         }
-        else if (e.getSource() instanceof JTextField) {
+        else if (e.getSource() instanceof JTextField) { // If we typed on the login field
             JTextField tf = (JTextField) e.getSource();
             this.loginEntered = tf.getText();
         }

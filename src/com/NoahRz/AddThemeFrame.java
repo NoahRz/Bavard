@@ -100,7 +100,7 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) { //when we type the theme we want to add
         JTextField tf = (JTextField) e.getSource();
         this.themeEntered = tf.getText();
 

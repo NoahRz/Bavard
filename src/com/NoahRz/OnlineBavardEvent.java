@@ -1,4 +1,4 @@
-package com.NoahRz;//ok
+package com.NoahRz;
 
 public class OnlineBavardEvent extends PapotageEvent implements OnlineOfflineBavardEvent {
     /**

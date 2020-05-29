@@ -119,7 +119,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                 JOptionPane.showMessageDialog(this, "Bavard listener has been selected"); //showMessageDialog that the action has been handled
             }
 
-        } else { //if a radioButton is selected
+        } else { //if a radioButton is selected (Bavard radioButton)
             //for the bavard selected we pre-check checkboxes corresponding to bavard who are currently listening to the bavard selected
 
             for (JCheckBox checkBox : this.checkBoxes) { // we set all the checkBox enabled true so that we can check them and we unchecked them.
@@ -127,7 +127,6 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                 checkBox.setEnabled(true);
             }
 
-            //String bavardListenedSelected = bavardListenedButtonGroup.getSelection().getActionCommand(); // we take the login of the bavard selected.
             String bavardListenedSelected = e.getActionCommand(); // we take the login of the bavard selected.
             bavardSelected = concierge.getBavard(bavardListenedSelected);
             ArrayList<Bavard> bavardListenersOfBavardSelected = concierge.getBavardListenersOfBavard(bavardSelected);

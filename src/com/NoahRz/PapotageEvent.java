@@ -1,4 +1,4 @@
-package com.NoahRz; //ok
+package com.NoahRz;
 
 import java.util.ArrayList;
 import java.util.EventObject;
@@ -11,7 +11,7 @@ public class PapotageEvent extends EventObject {
      * @param message: message sent
      * @throws IllegalArgumentException if source is null
      */
-    protected String messageSubject; //used by ConciergeEvent
+    protected String messageSubject;
     protected String messageBody;
     private ArrayList<String> messageThemes;
 
