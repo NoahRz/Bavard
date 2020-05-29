@@ -1,5 +1,10 @@
 package com.NoahRz;
 
+import com.NoahRz.Event.OfflineBavardEvent;
+import com.NoahRz.Event.OnlineBavardEvent;
+import com.NoahRz.Event.PapotageEvent;
+import com.NoahRz.GUI.BavardFrame;
+
 import java.util.ArrayList;
 
 public class Bavard implements PapotageListener {
