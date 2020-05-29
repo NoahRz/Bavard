@@ -67,19 +67,19 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
         /*-- Yellow panel around the connexionPanel --*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
-        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
+        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/5));
 
         JPanel borderFramePanelS = new JPanel();
         borderFramePanelS.setBackground(Color.YELLOW);
-        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
+        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/5));
 
         JPanel borderFramePanelW = new JPanel();
         borderFramePanelW.setBackground(Color.YELLOW);
-        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()/3));
+        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()*3/5));
 
         JPanel borderFramePanelE = new JPanel();
         borderFramePanelE.setBackground(Color.YELLOW);
-        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()/3));
+        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()*3/5));
 
         pane.add(borderFramePanelN, BorderLayout.NORTH);
         pane.add(borderFramePanelS, BorderLayout.SOUTH);
@@ -111,7 +111,7 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Add")) { // if the button create is pressed
-            if (concierge.addTheme(this.themeEntered)) {
+            if (this.themeEntered!=null && concierge.addTheme(this.themeEntered)) {
                 this.addThemeMessageTextArea.setText("thame has been succesfully\nadded !");
                 this.addThemeMessageTextArea.setForeground(Color.BLACK);
             } else {

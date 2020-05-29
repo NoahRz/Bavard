@@ -97,7 +97,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getActionCommand().equals("Create")) { // if the button create is pressed
-            if (concierge.createBavard(this.loginEntered, this.passwordEntered)) {
+            if (this.loginEntered!=null && this.passwordEntered!= null &&concierge.createBavard(this.loginEntered, this.passwordEntered)) {
                 this.creationMessageTextArea.setText("Bavard has been succesfully\ncreated !");
                 this.creationMessageTextArea.setForeground(Color.BLACK);
             } else {
