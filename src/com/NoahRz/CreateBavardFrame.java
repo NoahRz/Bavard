@@ -70,19 +70,19 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         /*-- Yellow panel around the connexionPanel --*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
-        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
+        borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/6));
 
         JPanel borderFramePanelS = new JPanel();
         borderFramePanelS.setBackground(Color.YELLOW);
-        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/4));
+        borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/6));
 
         JPanel borderFramePanelW = new JPanel();
         borderFramePanelW.setBackground(Color.YELLOW);
-        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
+        borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()*2/3));
 
         JPanel borderFramePanelE = new JPanel();
         borderFramePanelE.setBackground(Color.YELLOW);
-        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/3, this.getHeight()/3));
+        borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()*2/3));
 
         pane.add(borderFramePanelN, BorderLayout.NORTH);
         pane.add(borderFramePanelS, BorderLayout.SOUTH);
