@@ -11,7 +11,6 @@ public class PapotageEvent extends EventObject {
      * @param message: message sent
      * @throws IllegalArgumentException if source is null
      */
-    //private Message message;
     protected String messageSubject; //used by ConciergeEvent
     protected String messageBody;
     private ArrayList<String> messageThemes;
@@ -25,7 +24,6 @@ public class PapotageEvent extends EventObject {
 
     public PapotageEvent(Object source, ArrayList<String> messageThemes,String messageSubject, String messageBody) {
         super(source);
-        //this.message=message;
         this.messageThemes=messageThemes;
         this.messageSubject = messageSubject;
         this.messageBody = messageBody;
