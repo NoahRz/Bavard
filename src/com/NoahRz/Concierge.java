@@ -134,6 +134,13 @@ public class Concierge implements PapotageListener {
         }
     }
 
+    public void addPapotageListener(PapotageListener newPapotageListener){
+        /**
+         * add a new papotageListener
+         * */
+        this.bavardsListenToBavardMap.put((Bavard)newPapotageListener, new ArrayList<Bavard>());
+    }
+
     public boolean createBavard(String login, String password){
         /**
          * create a new Bavard and add him to the HashMap bavardsListenToBavardMap
@@ -148,7 +155,7 @@ public class Concierge implements PapotageListener {
                     return false;
                 }
             }
-            this.bavardsListenToBavardMap.put(new Bavard(login, password, this), new ArrayList<Bavard>());
+            this.addPapotageListener(new Bavard(login, password, this));
             return true;
         }
         return false;

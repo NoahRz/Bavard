@@ -64,7 +64,7 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
 
         pane.add(addThemePanel, BorderLayout.CENTER);
 
-        /*-- Yellow panel around the connexionPanel --*/
+        /*-- Yellow panel around the addThemePanel --*/
         JPanel borderFramePanelN = new JPanel();
         borderFramePanelN.setBackground(Color.YELLOW);
         borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/5));
@@ -93,12 +93,10 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
 
     @Override
     public void keyTyped(KeyEvent e) {
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-
     }
 
     @Override
