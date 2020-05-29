@@ -1,4 +1,4 @@
-package com.NoahRz.GUI; //ok1
+package com.NoahRz.GUI;
 
 import com.NoahRz.*;
 import com.NoahRz.Event.ConciergeEvent;

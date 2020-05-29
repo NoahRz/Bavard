@@ -3,8 +3,6 @@ package com.NoahRz.GUI;
 import com.NoahRz.Bavard;
 import com.NoahRz.Concierge;
 import com.NoahRz.EPapotage;
-import com.NoahRz.GUI.BavardFrame;
-import com.NoahRz.GUI.ConciergeFrame;
 
 import javax.swing.*;
 import java.awt.*;
