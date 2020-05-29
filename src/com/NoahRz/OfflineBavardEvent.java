@@ -2,7 +2,7 @@ package com.NoahRz;//ok
 
 public class OfflineBavardEvent extends PapotageEvent implements OnlineOfflineBavardEvent {
     /**
-     * Event trigged when a bavard sign out
+     * Event trigged when a bavard signs out
      * */
 
     /********************************************************************
