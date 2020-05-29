@@ -16,7 +16,7 @@ public class MessageFrame extends JFrame {
         this.setLayout( new BorderLayout());
 
         PapotageListener sender = (PapotageListener) message.getSource();
-        JLabel senderLabel = new JLabel("From :"+sender.getLogin());
+        JLabel senderLabel = new JLabel("From : "+sender.getLogin());
         JLabel messageSubjectLabel = new JLabel("Subject : " + message.getMessageSubject());
         JTextPane messageBodyTextPane = new JTextPane();
 

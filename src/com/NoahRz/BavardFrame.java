@@ -155,7 +155,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         pane.add(bavardConnectedListPanel, BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); // close the frame without closing the program
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); // //so that we can't close the frame by clicking on "X", if we want to close we have to click on "sign out"
         this.setVisible(true);
     }
 

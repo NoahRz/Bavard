@@ -90,7 +90,7 @@ public class CreateBavardFrame extends JFrame implements ActionListener, KeyList
         pane.add(borderFramePanelE, BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //so that we can't close the frame by clicking on "X", if we want to close we have to click on "back"
         this.setVisible(true);
     }
 

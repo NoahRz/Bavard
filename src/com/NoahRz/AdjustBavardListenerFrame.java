@@ -98,7 +98,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         pane.add(bavardListenersPanel, BorderLayout.EAST);
 
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //so that we can't close the frame by clicking on "X", if we want to close we have to click on "back"
         this.setVisible(true);
     }
 
@@ -141,7 +141,6 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
                     checkBox.setSelected(false);
                 }
             }
-            //JOptionPane.showMessageDialog(this, "Bavard listened has been selected"); //showMessageDialog that the action has been handled
         }
     }
 }

@@ -107,7 +107,7 @@ public class ConciergeFrame extends JFrame implements ActionListener {
         JScrollPane requestPanelScrollPane = new JScrollPane(requestPanel); // we make requestPanel scrollable
         pane.add(requestPanelScrollPane);
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE); //so that we can't close the frame by clicking on "X", if we want to close we have to click on "sign out"
         this.setVisible(true);
     }
 

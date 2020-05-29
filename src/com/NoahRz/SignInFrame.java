@@ -84,6 +84,7 @@ public class SignInFrame extends JFrame implements ActionListener, KeyListener{
 
     @Override
    public void actionPerformed(ActionEvent e) {
+        errorMessage.setEditable(false);
         String errorLoginPasswordMessage = "Login or password is \nincorrect, please try again.";
         String errorAlreadyConnectedMessage = "You are already connected";
         if(e.getSource() instanceof JButton){
