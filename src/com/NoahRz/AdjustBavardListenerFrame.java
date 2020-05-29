@@ -1,4 +1,4 @@
-package com.NoahRz; //ok1
+package com.NoahRz;
 
 import javax.swing.*;
 import java.awt.*;
@@ -39,7 +39,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
 
         /*-- Left panel : bavardListenedPanel, panel where we select the bavard we want to adjust his listeners --*/
 
-        JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton(in another panel) and a confirm button
+        JPanel bavardListenedPanel = new JPanel(); //panel which gathers a title label, list of bavard radioButton (in another panel) and a confirm button
         bavardListenedPanel.setPreferredSize(new Dimension(this.getWidth() / 2, this.getHeight()));
         bavardListenedPanel.setLayout(new BorderLayout());
 
@@ -47,7 +47,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         bavardListenedPanel.add(bavardListenedTitleLabel, BorderLayout.NORTH);
 
         JPanel panelForRadioButton = new JPanel(); //panel which contains radioButton
-        panelForRadioButton.setBackground(EPapotage.myYellow);
+        panelForRadioButton.setBackground(EPapotage.myYellowColor);
         panelForRadioButton.setLayout(new BoxLayout(panelForRadioButton, BoxLayout.Y_AXIS));
         bavardListenedButtonGroup = new ButtonGroup();
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()) { // create all the bavard radiobutton
@@ -76,7 +76,7 @@ public class AdjustBavardListenerFrame extends JFrame implements ActionListener 
         bavardListenersPanel.add(bavardListenersTitleLabel, BorderLayout.NORTH);
 
         JPanel panelForCheckBox = new JPanel(); //panel which contains checkbox
-        panelForCheckBox.setBackground(EPapotage.myYellow);
+        panelForCheckBox.setBackground(EPapotage.myYellowColor);
         panelForCheckBox.setLayout(new BoxLayout(panelForCheckBox, BoxLayout.Y_AXIS));
 
         for (Bavard bavard : concierge.getBavardsListenToBavardMap().keySet()) {  // create all the bavard checkBox

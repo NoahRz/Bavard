@@ -40,7 +40,7 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
         /*-- add theme panel on the center of the Frame --*/
         JPanel addThemePanel  = new JPanel();
         addThemePanel.setLayout(new GridLayout(4,1));
-        addThemePanel.setBackground(EPapotage.myYellow);
+        addThemePanel.setBackground(EPapotage.myYellowColor);
 
         JLabel addThemeTitleLabel = new JLabel("Add a new theme", JLabel.CENTER);
         Font fontForCreationBavardTitlePanel =new Font(addThemeTitleLabel.getFont().getName(),Font.BOLD,addThemeTitleLabel.getFont().getSize()); //make the creationBavardTitleLabel bold
@@ -50,7 +50,7 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
         JButton addThemeButton = new JButton("Add");
 
         this.addThemeMessageTextArea = new JTextArea(); // display if the theme has been succesfully added or not
-        this.addThemeMessageTextArea.setBackground(EPapotage.myYellow);
+        this.addThemeMessageTextArea.setBackground(EPapotage.myYellowColor);
 
         /*-- listeners --*/
         themeNameTextField.addKeyListener(this);
@@ -66,19 +66,19 @@ public class AddThemeFrame extends JFrame implements KeyListener, ActionListener
 
         /*-- Yellow panel around the addThemePanel --*/
         JPanel borderFramePanelN = new JPanel();
-        borderFramePanelN.setBackground(EPapotage.myYellow);
+        borderFramePanelN.setBackground(EPapotage.myYellowColor);
         borderFramePanelN.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/5));
 
         JPanel borderFramePanelS = new JPanel();
-        borderFramePanelS.setBackground(EPapotage.myYellow);
+        borderFramePanelS.setBackground(EPapotage.myYellowColor);
         borderFramePanelS.setPreferredSize(new Dimension(this.getWidth(), this.getHeight()/5));
 
         JPanel borderFramePanelW = new JPanel();
-        borderFramePanelW.setBackground(EPapotage.myYellow);
+        borderFramePanelW.setBackground(EPapotage.myYellowColor);
         borderFramePanelW.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()*3/5));
 
         JPanel borderFramePanelE = new JPanel();
-        borderFramePanelE.setBackground(EPapotage.myYellow);
+        borderFramePanelE.setBackground(EPapotage.myYellowColor);
         borderFramePanelE.setPreferredSize(new Dimension(this.getWidth()/4, this.getHeight()*3/5));
 
         pane.add(borderFramePanelN, BorderLayout.NORTH);

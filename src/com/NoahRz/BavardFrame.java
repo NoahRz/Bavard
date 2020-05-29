@@ -72,7 +72,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
 
         /*--- Area where we can see messages we received and messages we sent ---*/
         myMessageViewPanel = new JPanel();
-        myMessageViewPanel.setBackground(EPapotage.myYellow);
+        myMessageViewPanel.setBackground(EPapotage.myYellowColor);
         myMessageViewPanel.setLayout(new BoxLayout(myMessageViewPanel, BoxLayout.Y_AXIS));
 
         JScrollPane scrollPane = new JScrollPane(myMessageViewPanel);
@@ -305,7 +305,7 @@ public class BavardFrame extends JFrame implements ActionListener, KeyListener {
         oneMessagePanel.add(messageContentPanel, messageContentPosition);
 
         oneMessagePanel.setMaximumSize(new Dimension(Integer.MAX_VALUE, messageContentPanel.getPreferredSize().height+5));
-        oneMessagePanel.setBackground(EPapotage.myYellow);
+        oneMessagePanel.setBackground(EPapotage.myYellowColor);
 
         this.myMessageViewPanel.add(Box.createRigidArea(new Dimension(0, 5))); //add space between messages
         this.myMessageViewPanel.add(oneMessagePanel);
